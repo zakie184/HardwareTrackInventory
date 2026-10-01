@@ -17,495 +17,521 @@ Partial Class DashboardControl
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.pnlContainer = New System.Windows.Forms.Panel()
-        Me.lblWelcome = New System.Windows.Forms.Label()
-        Me.lblDate = New System.Windows.Forms.Label()
-        Me.tlpStats = New System.Windows.Forms.TableLayoutPanel()
-        Me.pnlTotal = New System.Windows.Forms.Panel()
-        Me.lblTotalIcon = New System.Windows.Forms.Label()
-        Me.lblTotalCount = New System.Windows.Forms.Label()
-        Me.lblTotalLabel = New System.Windows.Forms.Label()
-        Me.pnlAvailable = New System.Windows.Forms.Panel()
-        Me.lblAvailableIcon = New System.Windows.Forms.Label()
-        Me.lblAvailableCount = New System.Windows.Forms.Label()
-        Me.lblAvailableLabel = New System.Windows.Forms.Label()
-        Me.pnlAssigned = New System.Windows.Forms.Panel()
-        Me.lblAssignedIcon = New System.Windows.Forms.Label()
-        Me.lblAssignedCount = New System.Windows.Forms.Label()
-        Me.lblAssignedLabel = New System.Windows.Forms.Label()
-        Me.pnlLowStock = New System.Windows.Forms.Panel()
-        Me.lblLowStockIcon = New System.Windows.Forms.Label()
-        Me.lblLowStockCount = New System.Windows.Forms.Label()
-        Me.lblLowStockLabel = New System.Windows.Forms.Label()
-        Me.tlpCharts = New System.Windows.Forms.TableLayoutPanel()
-        Me.pnlPieChart = New System.Windows.Forms.Panel()
-        Me.lblPieTitle = New System.Windows.Forms.Label()
-        Me.picPieChart = New System.Windows.Forms.PictureBox()
-        Me.pnlBarChart = New System.Windows.Forms.Panel()
-        Me.lblBarTitle = New System.Windows.Forms.Label()
-        Me.picBarChart = New System.Windows.Forms.PictureBox()
-        Me.tlpBottom = New System.Windows.Forms.TableLayoutPanel()
-        Me.pnlActivity = New System.Windows.Forms.Panel()
-        Me.lblActivityTitle = New System.Windows.Forms.Label()
-        Me.lvActivity = New System.Windows.Forms.ListView()
-        Me.colTime = New System.Windows.Forms.ColumnHeader()
-        Me.colUser = New System.Windows.Forms.ColumnHeader()
-        Me.colAction = New System.Windows.Forms.ColumnHeader()
-        Me.pnlLowStockGrid = New System.Windows.Forms.Panel()
-        Me.lblLowStockGridTitle = New System.Windows.Forms.Label()
-        Me.dgvLowStock = New System.Windows.Forms.DataGridView()
-        Me.btnAddHardware = New System.Windows.Forms.Button()
-        Me.btnRefresh = New System.Windows.Forms.Button()
-        Me.pnlContainer.SuspendLayout()
-        Me.tlpStats.SuspendLayout()
-        Me.pnlTotal.SuspendLayout()
-        Me.pnlAvailable.SuspendLayout()
-        Me.pnlAssigned.SuspendLayout()
-        Me.pnlLowStock.SuspendLayout()
-        Me.tlpCharts.SuspendLayout()
-        Me.pnlPieChart.SuspendLayout()
-        CType(Me.picPieChart, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.pnlBarChart.SuspendLayout()
-        CType(Me.picBarChart, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tlpBottom.SuspendLayout()
-        Me.pnlActivity.SuspendLayout()
-        Me.pnlLowStockGrid.SuspendLayout()
-        CType(Me.dgvLowStock, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout()
-        '
-        'pnlContainer
-        '
-        Me.pnlContainer.AutoScroll = True
-        Me.pnlContainer.BackColor = System.Drawing.Color.FromArgb(240, 242, 245)
-        Me.pnlContainer.Controls.Add(Me.lblWelcome)
-        Me.pnlContainer.Controls.Add(Me.lblDate)
-        Me.pnlContainer.Controls.Add(Me.tlpStats)
-        Me.pnlContainer.Controls.Add(Me.tlpCharts)
-        Me.pnlContainer.Controls.Add(Me.tlpBottom)
-        Me.pnlContainer.Controls.Add(Me.btnAddHardware)
-        Me.pnlContainer.Controls.Add(Me.btnRefresh)
-        Me.pnlContainer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlContainer.Location = New System.Drawing.Point(0, 0)
-        Me.pnlContainer.Name = "pnlContainer"
-        Me.pnlContainer.Padding = New System.Windows.Forms.Padding(15)
-        Me.pnlContainer.Size = New System.Drawing.Size(1100, 700)
-        Me.pnlContainer.TabIndex = 0
-        '
-        'lblWelcome
-        '
-        Me.lblWelcome.AutoSize = True
-        Me.lblWelcome.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblWelcome.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblWelcome.Location = New System.Drawing.Point(15, 15)
-        Me.lblWelcome.Name = "lblWelcome"
-        Me.lblWelcome.Size = New System.Drawing.Size(200, 32)
-        Me.lblWelcome.TabIndex = 0
-        Me.lblWelcome.Text = "👋 Welcome back!"
-        '
-        'lblDate
-        '
-        Me.lblDate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblDate.AutoSize = True
-        Me.lblDate.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.lblDate.ForeColor = System.Drawing.Color.FromArgb(127, 140, 141)
-        Me.lblDate.Location = New System.Drawing.Point(860, 20)
-        Me.lblDate.Name = "lblDate"
-        Me.lblDate.Size = New System.Drawing.Size(100, 19)
-        Me.lblDate.TabIndex = 1
-        Me.lblDate.Text = "Today's Date"
-        '
-        'tlpStats
-        '
-        Me.tlpStats.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tlpStats.ColumnCount = 4
-        Me.tlpStats.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.tlpStats.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.tlpStats.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.tlpStats.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.tlpStats.Controls.Add(Me.pnlTotal, 0, 0)
-        Me.tlpStats.Controls.Add(Me.pnlAvailable, 1, 0)
-        Me.tlpStats.Controls.Add(Me.pnlAssigned, 2, 0)
-        Me.tlpStats.Controls.Add(Me.pnlLowStock, 3, 0)
-        Me.tlpStats.Location = New System.Drawing.Point(15, 60)
-        Me.tlpStats.Name = "tlpStats"
-        Me.tlpStats.RowCount = 1
-        Me.tlpStats.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpStats.Size = New System.Drawing.Size(1060, 100)
-        Me.tlpStats.TabIndex = 2
-        '
-        'pnlTotal
-        '
-        Me.pnlTotal.BackColor = System.Drawing.Color.White
-        Me.pnlTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlTotal.Controls.Add(Me.lblTotalIcon)
-        Me.pnlTotal.Controls.Add(Me.lblTotalCount)
-        Me.pnlTotal.Controls.Add(Me.lblTotalLabel)
-        Me.pnlTotal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlTotal.Location = New System.Drawing.Point(3, 3)
-        Me.pnlTotal.Name = "pnlTotal"
-        Me.pnlTotal.Size = New System.Drawing.Size(259, 94)
-        Me.pnlTotal.TabIndex = 0
-        '
-        'lblTotalIcon
-        '
-        Me.lblTotalIcon.Font = New System.Drawing.Font("Segoe UI", 24.0!)
-        Me.lblTotalIcon.Location = New System.Drawing.Point(10, 10)
-        Me.lblTotalIcon.Name = "lblTotalIcon"
-        Me.lblTotalIcon.Size = New System.Drawing.Size(50, 40)
-        Me.lblTotalIcon.Text = "💻"
-        '
-        'lblTotalCount
-        '
-        Me.lblTotalCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblTotalCount.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold)
-        Me.lblTotalCount.ForeColor = System.Drawing.Color.FromArgb(52, 152, 219)
-        Me.lblTotalCount.Location = New System.Drawing.Point(140, 10)
-        Me.lblTotalCount.Name = "lblTotalCount"
-        Me.lblTotalCount.Size = New System.Drawing.Size(100, 40)
-        Me.lblTotalCount.Text = "0"
-        Me.lblTotalCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblTotalLabel
-        '
-        Me.lblTotalLabel.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.lblTotalLabel.ForeColor = System.Drawing.Color.FromArgb(127, 140, 141)
-        Me.lblTotalLabel.Location = New System.Drawing.Point(10, 55)
-        Me.lblTotalLabel.Name = "lblTotalLabel"
-        Me.lblTotalLabel.Size = New System.Drawing.Size(230, 20)
-        Me.lblTotalLabel.Text = "Total Hardware"
-        '
-        'pnlAvailable
-        '
-        Me.pnlAvailable.BackColor = System.Drawing.Color.White
-        Me.pnlAvailable.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlAvailable.Controls.Add(Me.lblAvailableIcon)
-        Me.pnlAvailable.Controls.Add(Me.lblAvailableCount)
-        Me.pnlAvailable.Controls.Add(Me.lblAvailableLabel)
-        Me.pnlAvailable.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlAvailable.Location = New System.Drawing.Point(268, 3)
-        Me.pnlAvailable.Name = "pnlAvailable"
-        Me.pnlAvailable.Size = New System.Drawing.Size(259, 94)
-        Me.pnlAvailable.TabIndex = 1
-        '
-        'lblAvailableIcon
-        '
-        Me.lblAvailableIcon.Font = New System.Drawing.Font("Segoe UI", 24.0!)
-        Me.lblAvailableIcon.Location = New System.Drawing.Point(10, 10)
-        Me.lblAvailableIcon.Name = "lblAvailableIcon"
-        Me.lblAvailableIcon.Size = New System.Drawing.Size(50, 40)
-        Me.lblAvailableIcon.Text = "✅"
-        '
-        'lblAvailableCount
-        '
-        Me.lblAvailableCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblAvailableCount.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold)
-        Me.lblAvailableCount.ForeColor = System.Drawing.Color.FromArgb(46, 204, 113)
-        Me.lblAvailableCount.Location = New System.Drawing.Point(140, 10)
-        Me.lblAvailableCount.Name = "lblAvailableCount"
-        Me.lblAvailableCount.Size = New System.Drawing.Size(100, 40)
-        Me.lblAvailableCount.Text = "0"
-        Me.lblAvailableCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblAvailableLabel
-        '
-        Me.lblAvailableLabel.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.lblAvailableLabel.ForeColor = System.Drawing.Color.FromArgb(127, 140, 141)
-        Me.lblAvailableLabel.Location = New System.Drawing.Point(10, 55)
-        Me.lblAvailableLabel.Name = "lblAvailableLabel"
-        Me.lblAvailableLabel.Size = New System.Drawing.Size(230, 20)
-        Me.lblAvailableLabel.Text = "Available Items"
-        '
-        'pnlAssigned
-        '
-        Me.pnlAssigned.BackColor = System.Drawing.Color.White
-        Me.pnlAssigned.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlAssigned.Controls.Add(Me.lblAssignedIcon)
-        Me.pnlAssigned.Controls.Add(Me.lblAssignedCount)
-        Me.pnlAssigned.Controls.Add(Me.lblAssignedLabel)
-        Me.pnlAssigned.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlAssigned.Location = New System.Drawing.Point(533, 3)
-        Me.pnlAssigned.Name = "pnlAssigned"
-        Me.pnlAssigned.Size = New System.Drawing.Size(259, 94)
-        Me.pnlAssigned.TabIndex = 2
-        '
-        'lblAssignedIcon
-        '
-        Me.lblAssignedIcon.Font = New System.Drawing.Font("Segoe UI", 24.0!)
-        Me.lblAssignedIcon.Location = New System.Drawing.Point(10, 10)
-        Me.lblAssignedIcon.Name = "lblAssignedIcon"
-        Me.lblAssignedIcon.Size = New System.Drawing.Size(50, 40)
-        Me.lblAssignedIcon.Text = "📋"
-        '
-        'lblAssignedCount
-        '
-        Me.lblAssignedCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblAssignedCount.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold)
-        Me.lblAssignedCount.ForeColor = System.Drawing.Color.FromArgb(241, 196, 15)
-        Me.lblAssignedCount.Location = New System.Drawing.Point(140, 10)
-        Me.lblAssignedCount.Name = "lblAssignedCount"
-        Me.lblAssignedCount.Size = New System.Drawing.Size(100, 40)
-        Me.lblAssignedCount.Text = "0"
-        Me.lblAssignedCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblAssignedLabel
-        '
-        Me.lblAssignedLabel.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.lblAssignedLabel.ForeColor = System.Drawing.Color.FromArgb(127, 140, 141)
-        Me.lblAssignedLabel.Location = New System.Drawing.Point(10, 55)
-        Me.lblAssignedLabel.Name = "lblAssignedLabel"
-        Me.lblAssignedLabel.Size = New System.Drawing.Size(230, 20)
-        Me.lblAssignedLabel.Text = "Assigned Items"
-        '
-        'pnlLowStock
-        '
-        Me.pnlLowStock.BackColor = System.Drawing.Color.White
-        Me.pnlLowStock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlLowStock.Controls.Add(Me.lblLowStockIcon)
-        Me.pnlLowStock.Controls.Add(Me.lblLowStockCount)
-        Me.pnlLowStock.Controls.Add(Me.lblLowStockLabel)
-        Me.pnlLowStock.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlLowStock.Location = New System.Drawing.Point(798, 3)
-        Me.pnlLowStock.Name = "pnlLowStock"
-        Me.pnlLowStock.Size = New System.Drawing.Size(259, 94)
-        Me.pnlLowStock.TabIndex = 3
-        '
-        'lblLowStockIcon
-        '
-        Me.lblLowStockIcon.Font = New System.Drawing.Font("Segoe UI", 24.0!)
-        Me.lblLowStockIcon.Location = New System.Drawing.Point(10, 10)
-        Me.lblLowStockIcon.Name = "lblLowStockIcon"
-        Me.lblLowStockIcon.Size = New System.Drawing.Size(50, 40)
-        Me.lblLowStockIcon.Text = "⚠️"
-        '
-        'lblLowStockCount
-        '
-        Me.lblLowStockCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblLowStockCount.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold)
-        Me.lblLowStockCount.ForeColor = System.Drawing.Color.FromArgb(231, 76, 60)
-        Me.lblLowStockCount.Location = New System.Drawing.Point(140, 10)
-        Me.lblLowStockCount.Name = "lblLowStockCount"
-        Me.lblLowStockCount.Size = New System.Drawing.Size(100, 40)
-        Me.lblLowStockCount.Text = "0"
-        Me.lblLowStockCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblLowStockLabel
-        '
-        Me.lblLowStockLabel.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.lblLowStockLabel.ForeColor = System.Drawing.Color.FromArgb(127, 140, 141)
-        Me.lblLowStockLabel.Location = New System.Drawing.Point(10, 55)
-        Me.lblLowStockLabel.Name = "lblLowStockLabel"
-        Me.lblLowStockLabel.Size = New System.Drawing.Size(230, 20)
-        Me.lblLowStockLabel.Text = "Low Stock Items"
-        '
-        'tlpCharts
-        '
-        Me.tlpCharts.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tlpCharts.BackColor = System.Drawing.Color.White
-        Me.tlpCharts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tlpCharts.ColumnCount = 2
-        Me.tlpCharts.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tlpCharts.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tlpCharts.Controls.Add(Me.pnlPieChart, 0, 0)
-        Me.tlpCharts.Controls.Add(Me.pnlBarChart, 1, 0)
-        Me.tlpCharts.Location = New System.Drawing.Point(15, 175)
-        Me.tlpCharts.Name = "tlpCharts"
-        Me.tlpCharts.RowCount = 1
-        Me.tlpCharts.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpCharts.Size = New System.Drawing.Size(1060, 180)
-        Me.tlpCharts.TabIndex = 3
-        '
-        'pnlPieChart
-        '
-        Me.pnlPieChart.Controls.Add(Me.lblPieTitle)
-        Me.pnlPieChart.Controls.Add(Me.picPieChart)
-        Me.pnlPieChart.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlPieChart.Location = New System.Drawing.Point(3, 3)
-        Me.pnlPieChart.Name = "pnlPieChart"
-        Me.pnlPieChart.Size = New System.Drawing.Size(523, 172)
-        Me.pnlPieChart.TabIndex = 0
-        '
-        'lblPieTitle
-        '
-        Me.lblPieTitle.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.lblPieTitle.Location = New System.Drawing.Point(10, 5)
-        Me.lblPieTitle.Name = "lblPieTitle"
-        Me.lblPieTitle.Size = New System.Drawing.Size(490, 20)
-        Me.lblPieTitle.Text = "📊 Inventory Distribution"
-        '
-        'picPieChart
-        '
-        Me.picPieChart.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.picPieChart.BackColor = System.Drawing.Color.White
-        Me.picPieChart.Location = New System.Drawing.Point(10, 25)
-        Me.picPieChart.Name = "picPieChart"
-        Me.picPieChart.Size = New System.Drawing.Size(503, 137)
-        Me.picPieChart.TabIndex = 1
-        Me.picPieChart.TabStop = False
-        '
-        'pnlBarChart
-        '
-        Me.pnlBarChart.Controls.Add(Me.lblBarTitle)
-        Me.pnlBarChart.Controls.Add(Me.picBarChart)
-        Me.pnlBarChart.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlBarChart.Location = New System.Drawing.Point(532, 3)
-        Me.pnlBarChart.Name = "pnlBarChart"
-        Me.pnlBarChart.Size = New System.Drawing.Size(523, 172)
-        Me.pnlBarChart.TabIndex = 1
-        '
-        'lblBarTitle
-        '
-        Me.lblBarTitle.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.lblBarTitle.Location = New System.Drawing.Point(10, 5)
-        Me.lblBarTitle.Name = "lblBarTitle"
-        Me.lblBarTitle.Size = New System.Drawing.Size(490, 20)
-        Me.lblBarTitle.Text = "📈 Category Distribution"
-        '
-        'picBarChart
-        '
-        Me.picBarChart.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.picBarChart.BackColor = System.Drawing.Color.White
-        Me.picBarChart.Location = New System.Drawing.Point(10, 25)
-        Me.picBarChart.Name = "picBarChart"
-        Me.picBarChart.Size = New System.Drawing.Size(503, 137)
-        Me.picBarChart.TabIndex = 1
-        Me.picBarChart.TabStop = False
-        '
-        'tlpBottom
-        '
-        Me.tlpBottom.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tlpBottom.BackColor = System.Drawing.Color.White
-        Me.tlpBottom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tlpBottom.ColumnCount = 2
-        Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tlpBottom.Controls.Add(Me.pnlActivity, 0, 0)
-        Me.tlpBottom.Controls.Add(Me.pnlLowStockGrid, 1, 0)
-        Me.tlpBottom.Location = New System.Drawing.Point(15, 370)
-        Me.tlpBottom.Name = "tlpBottom"
-        Me.tlpBottom.RowCount = 1
-        Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpBottom.Size = New System.Drawing.Size(1060, 250)
-        Me.tlpBottom.TabIndex = 4
-        '
-        'pnlActivity
-        '
-        Me.pnlActivity.Controls.Add(Me.lblActivityTitle)
-        Me.pnlActivity.Controls.Add(Me.lvActivity)
-        Me.pnlActivity.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlActivity.Location = New System.Drawing.Point(3, 3)
-        Me.pnlActivity.Name = "pnlActivity"
-        Me.pnlActivity.Size = New System.Drawing.Size(523, 242)
-        Me.pnlActivity.TabIndex = 0
-        '
-        'lblActivityTitle
-        '
-        Me.lblActivityTitle.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.lblActivityTitle.Location = New System.Drawing.Point(10, 5)
-        Me.lblActivityTitle.Name = "lblActivityTitle"
-        Me.lblActivityTitle.Size = New System.Drawing.Size(490, 20)
-        Me.lblActivityTitle.Text = "🕐 Recent Activity"
-        '
-        'lvActivity
-        '
-        Me.lvActivity.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lvActivity.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colTime, Me.colUser, Me.colAction})
-        Me.lvActivity.FullRowSelect = True
-        Me.lvActivity.GridLines = True
-        Me.lvActivity.Location = New System.Drawing.Point(10, 25)
-        Me.lvActivity.Name = "lvActivity"
-        Me.lvActivity.Size = New System.Drawing.Size(503, 207)
-        Me.lvActivity.TabIndex = 1
-        Me.lvActivity.View = System.Windows.Forms.View.Details
-        Me.colTime.Text = "Time"
-        Me.colTime.Width = 80
-        Me.colUser.Text = "User"
-        Me.colUser.Width = 120
-        Me.colAction.Text = "Action"
-        Me.colAction.Width = 250
-        '
-        'pnlLowStockGrid
-        '
-        Me.pnlLowStockGrid.Controls.Add(Me.lblLowStockGridTitle)
-        Me.pnlLowStockGrid.Controls.Add(Me.dgvLowStock)
-        Me.pnlLowStockGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlLowStockGrid.Location = New System.Drawing.Point(532, 3)
-        Me.pnlLowStockGrid.Name = "pnlLowStockGrid"
-        Me.pnlLowStockGrid.Size = New System.Drawing.Size(523, 242)
-        Me.pnlLowStockGrid.TabIndex = 1
-        '
-        'lblLowStockGridTitle
-        '
-        Me.lblLowStockGridTitle.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.lblLowStockGridTitle.ForeColor = System.Drawing.Color.FromArgb(231, 76, 60)
-        Me.lblLowStockGridTitle.Location = New System.Drawing.Point(10, 5)
-        Me.lblLowStockGridTitle.Name = "lblLowStockGridTitle"
-        Me.lblLowStockGridTitle.Size = New System.Drawing.Size(490, 20)
-        Me.lblLowStockGridTitle.Text = "⚠️ Low Stock Items"
-        '
-        'dgvLowStock
-        '
-        Me.dgvLowStock.AllowUserToAddRows = False
-        Me.dgvLowStock.AllowUserToDeleteRows = False
-        Me.dgvLowStock.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvLowStock.BackgroundColor = System.Drawing.Color.White
-        Me.dgvLowStock.Location = New System.Drawing.Point(10, 25)
-        Me.dgvLowStock.Name = "dgvLowStock"
-        Me.dgvLowStock.ReadOnly = True
-        Me.dgvLowStock.RowHeadersVisible = False
-        Me.dgvLowStock.Size = New System.Drawing.Size(503, 207)
-        Me.dgvLowStock.TabIndex = 1
-        '
-        'btnAddHardware
-        '
-        Me.btnAddHardware.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAddHardware.BackColor = System.Drawing.Color.FromArgb(52, 152, 219)
-        Me.btnAddHardware.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnAddHardware.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnAddHardware.ForeColor = System.Drawing.Color.White
-        Me.btnAddHardware.Location = New System.Drawing.Point(15, 640)
-        Me.btnAddHardware.Name = "btnAddHardware"
-        Me.btnAddHardware.Size = New System.Drawing.Size(120, 35)
-        Me.btnAddHardware.TabIndex = 5
-        Me.btnAddHardware.Text = "➕ Add Item"
-        Me.btnAddHardware.UseVisualStyleBackColor = False
-        '
-        'btnRefresh
-        '
-        Me.btnRefresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnRefresh.Location = New System.Drawing.Point(145, 640)
-        Me.btnRefresh.Name = "btnRefresh"
-        Me.btnRefresh.Size = New System.Drawing.Size(100, 35)
-        Me.btnRefresh.TabIndex = 6
-        Me.btnRefresh.Text = "🔄 Refresh"
-        Me.btnRefresh.UseVisualStyleBackColor = True
-        '
-        'DashboardControl
-        '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
-        Me.Controls.Add(Me.pnlContainer)
-        Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Name = "DashboardControl"
-        Me.Size = New System.Drawing.Size(1100, 700)
-        Me.pnlContainer.ResumeLayout(False)
-        Me.pnlContainer.PerformLayout()
-        Me.tlpStats.ResumeLayout(False)
-        Me.pnlTotal.ResumeLayout(False)
-        Me.pnlAvailable.ResumeLayout(False)
-        Me.pnlAssigned.ResumeLayout(False)
-        Me.pnlLowStock.ResumeLayout(False)
-        Me.tlpCharts.ResumeLayout(False)
-        Me.pnlPieChart.ResumeLayout(False)
-        CType(Me.picPieChart, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.pnlBarChart.ResumeLayout(False)
-        CType(Me.picBarChart, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tlpBottom.ResumeLayout(False)
-        Me.pnlActivity.ResumeLayout(False)
-        Me.pnlLowStockGrid.ResumeLayout(False)
-        CType(Me.dgvLowStock, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ResumeLayout(False)
+        pnlContainer = New Panel()
+        lblWelcome = New Label()
+        lblDate = New Label()
+        tlpStats = New TableLayoutPanel()
+        pnlTotal = New Panel()
+        lblTotalIcon = New Label()
+        lblTotalCount = New Label()
+        lblTotalLabel = New Label()
+        pnlAvailable = New Panel()
+        lblAvailableIcon = New Label()
+        lblAvailableCount = New Label()
+        lblAvailableLabel = New Label()
+        pnlAssigned = New Panel()
+        lblAssignedIcon = New Label()
+        lblAssignedCount = New Label()
+        lblAssignedLabel = New Label()
+        pnlLowStock = New Panel()
+        lblLowStockIcon = New Label()
+        lblLowStockCount = New Label()
+        lblLowStockLabel = New Label()
+        tlpCharts = New TableLayoutPanel()
+        pnlPieChart = New Panel()
+        lblPieTitle = New Label()
+        picPieChart = New PictureBox()
+        pnlBarChart = New Panel()
+        lblBarTitle = New Label()
+        picBarChart = New PictureBox()
+        tlpBottom = New TableLayoutPanel()
+        pnlActivity = New Panel()
+        lblActivityTitle = New Label()
+        lvActivity = New ListView()
+        colTime = New ColumnHeader()
+        colUser = New ColumnHeader()
+        colAction = New ColumnHeader()
+        pnlLowStockGrid = New Panel()
+        lblLowStockGridTitle = New Label()
+        dgvLowStock = New DataGridView()
+        btnAddHardware = New Button()
+        btnRefresh = New Button()
+        pnlContainer.SuspendLayout()
+        tlpStats.SuspendLayout()
+        pnlTotal.SuspendLayout()
+        pnlAvailable.SuspendLayout()
+        pnlAssigned.SuspendLayout()
+        pnlLowStock.SuspendLayout()
+        tlpCharts.SuspendLayout()
+        pnlPieChart.SuspendLayout()
+        CType(picPieChart, ComponentModel.ISupportInitialize).BeginInit()
+        pnlBarChart.SuspendLayout()
+        CType(picBarChart, ComponentModel.ISupportInitialize).BeginInit()
+        tlpBottom.SuspendLayout()
+        pnlActivity.SuspendLayout()
+        pnlLowStockGrid.SuspendLayout()
+        CType(dgvLowStock, ComponentModel.ISupportInitialize).BeginInit()
+        SuspendLayout()
+        ' 
+        ' pnlContainer
+        ' 
+        pnlContainer.AutoScroll = True
+        pnlContainer.BackColor = Color.FromArgb(CByte(240), CByte(242), CByte(245))
+        pnlContainer.Controls.Add(lblWelcome)
+        pnlContainer.Controls.Add(lblDate)
+        pnlContainer.Controls.Add(tlpStats)
+        pnlContainer.Controls.Add(tlpCharts)
+        pnlContainer.Controls.Add(tlpBottom)
+        pnlContainer.Controls.Add(btnAddHardware)
+        pnlContainer.Controls.Add(btnRefresh)
+        pnlContainer.Dock = DockStyle.Fill
+        pnlContainer.Location = New Point(0, 0)
+        pnlContainer.Name = "pnlContainer"
+        pnlContainer.Padding = New Padding(15)
+        pnlContainer.Size = New Size(1100, 700)
+        pnlContainer.TabIndex = 0
+        ' 
+        ' lblWelcome
+        ' 
+        lblWelcome.AutoSize = True
+        lblWelcome.Font = New Font("Segoe UI", 18F, FontStyle.Bold)
+        lblWelcome.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+        lblWelcome.Location = New Point(15, 15)
+        lblWelcome.Name = "lblWelcome"
+        lblWelcome.Size = New Size(228, 32)
+        lblWelcome.TabIndex = 0
+        lblWelcome.Text = "👋 Welcome back!"
+        ' 
+        ' lblDate
+        ' 
+        lblDate.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        lblDate.AutoSize = True
+        lblDate.Font = New Font("Segoe UI", 10F)
+        lblDate.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
+        lblDate.Location = New Point(860, 20)
+        lblDate.Name = "lblDate"
+        lblDate.Size = New Size(87, 19)
+        lblDate.TabIndex = 1
+        lblDate.Text = "Today's Date"
+        ' 
+        ' tlpStats
+        ' 
+        tlpStats.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        tlpStats.ColumnCount = 4
+        tlpStats.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
+        tlpStats.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
+        tlpStats.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
+        tlpStats.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
+        tlpStats.Controls.Add(pnlTotal, 0, 0)
+        tlpStats.Controls.Add(pnlAvailable, 1, 0)
+        tlpStats.Controls.Add(pnlAssigned, 2, 0)
+        tlpStats.Controls.Add(pnlLowStock, 3, 0)
+        tlpStats.Location = New Point(15, 60)
+        tlpStats.Name = "tlpStats"
+        tlpStats.RowCount = 1
+        tlpStats.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpStats.Size = New Size(1060, 100)
+        tlpStats.TabIndex = 2
+        ' 
+        ' pnlTotal
+        ' 
+        pnlTotal.BackColor = Color.White
+        pnlTotal.BorderStyle = BorderStyle.FixedSingle
+        pnlTotal.Controls.Add(lblTotalIcon)
+        pnlTotal.Controls.Add(lblTotalCount)
+        pnlTotal.Controls.Add(lblTotalLabel)
+        pnlTotal.Dock = DockStyle.Fill
+        pnlTotal.Location = New Point(3, 3)
+        pnlTotal.Name = "pnlTotal"
+        pnlTotal.Size = New Size(259, 94)
+        pnlTotal.TabIndex = 0
+        ' 
+        ' lblTotalIcon
+        ' 
+        lblTotalIcon.Font = New Font("Segoe UI", 24F)
+        lblTotalIcon.Location = New Point(10, 10)
+        lblTotalIcon.Name = "lblTotalIcon"
+        lblTotalIcon.Size = New Size(50, 40)
+        lblTotalIcon.TabIndex = 0
+        lblTotalIcon.Text = "💻"
+        ' 
+        ' lblTotalCount
+        ' 
+        lblTotalCount.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        lblTotalCount.Font = New Font("Segoe UI", 24F, FontStyle.Bold)
+        lblTotalCount.ForeColor = Color.FromArgb(CByte(52), CByte(152), CByte(219))
+        lblTotalCount.Location = New Point(140, 10)
+        lblTotalCount.Name = "lblTotalCount"
+        lblTotalCount.Size = New Size(100, 40)
+        lblTotalCount.TabIndex = 1
+        lblTotalCount.Text = "0"
+        lblTotalCount.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' lblTotalLabel
+        ' 
+        lblTotalLabel.Font = New Font("Segoe UI", 10F)
+        lblTotalLabel.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
+        lblTotalLabel.Location = New Point(10, 55)
+        lblTotalLabel.Name = "lblTotalLabel"
+        lblTotalLabel.Size = New Size(230, 20)
+        lblTotalLabel.TabIndex = 2
+        lblTotalLabel.Text = "Total Hardware"
+        ' 
+        ' pnlAvailable
+        ' 
+        pnlAvailable.BackColor = Color.White
+        pnlAvailable.BorderStyle = BorderStyle.FixedSingle
+        pnlAvailable.Controls.Add(lblAvailableIcon)
+        pnlAvailable.Controls.Add(lblAvailableCount)
+        pnlAvailable.Controls.Add(lblAvailableLabel)
+        pnlAvailable.Dock = DockStyle.Fill
+        pnlAvailable.Location = New Point(268, 3)
+        pnlAvailable.Name = "pnlAvailable"
+        pnlAvailable.Size = New Size(259, 94)
+        pnlAvailable.TabIndex = 1
+        ' 
+        ' lblAvailableIcon
+        ' 
+        lblAvailableIcon.Font = New Font("Segoe UI", 24F)
+        lblAvailableIcon.Location = New Point(10, 10)
+        lblAvailableIcon.Name = "lblAvailableIcon"
+        lblAvailableIcon.Size = New Size(50, 40)
+        lblAvailableIcon.TabIndex = 0
+        lblAvailableIcon.Text = "✅"
+        ' 
+        ' lblAvailableCount
+        ' 
+        lblAvailableCount.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        lblAvailableCount.Font = New Font("Segoe UI", 24F, FontStyle.Bold)
+        lblAvailableCount.ForeColor = Color.FromArgb(CByte(46), CByte(204), CByte(113))
+        lblAvailableCount.Location = New Point(140, 10)
+        lblAvailableCount.Name = "lblAvailableCount"
+        lblAvailableCount.Size = New Size(100, 40)
+        lblAvailableCount.TabIndex = 1
+        lblAvailableCount.Text = "0"
+        lblAvailableCount.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' lblAvailableLabel
+        ' 
+        lblAvailableLabel.Font = New Font("Segoe UI", 10F)
+        lblAvailableLabel.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
+        lblAvailableLabel.Location = New Point(10, 55)
+        lblAvailableLabel.Name = "lblAvailableLabel"
+        lblAvailableLabel.Size = New Size(230, 20)
+        lblAvailableLabel.TabIndex = 2
+        lblAvailableLabel.Text = "Available Items"
+        ' 
+        ' pnlAssigned
+        ' 
+        pnlAssigned.BackColor = Color.White
+        pnlAssigned.BorderStyle = BorderStyle.FixedSingle
+        pnlAssigned.Controls.Add(lblAssignedIcon)
+        pnlAssigned.Controls.Add(lblAssignedCount)
+        pnlAssigned.Controls.Add(lblAssignedLabel)
+        pnlAssigned.Dock = DockStyle.Fill
+        pnlAssigned.Location = New Point(533, 3)
+        pnlAssigned.Name = "pnlAssigned"
+        pnlAssigned.Size = New Size(259, 94)
+        pnlAssigned.TabIndex = 2
+        ' 
+        ' lblAssignedIcon
+        ' 
+        lblAssignedIcon.Font = New Font("Segoe UI", 24F)
+        lblAssignedIcon.Location = New Point(10, 10)
+        lblAssignedIcon.Name = "lblAssignedIcon"
+        lblAssignedIcon.Size = New Size(50, 40)
+        lblAssignedIcon.TabIndex = 0
+        lblAssignedIcon.Text = "📋"
+        ' 
+        ' lblAssignedCount
+        ' 
+        lblAssignedCount.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        lblAssignedCount.Font = New Font("Segoe UI", 24F, FontStyle.Bold)
+        lblAssignedCount.ForeColor = Color.FromArgb(CByte(241), CByte(196), CByte(15))
+        lblAssignedCount.Location = New Point(140, 10)
+        lblAssignedCount.Name = "lblAssignedCount"
+        lblAssignedCount.Size = New Size(100, 40)
+        lblAssignedCount.TabIndex = 1
+        lblAssignedCount.Text = "0"
+        lblAssignedCount.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' lblAssignedLabel
+        ' 
+        lblAssignedLabel.Font = New Font("Segoe UI", 10F)
+        lblAssignedLabel.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
+        lblAssignedLabel.Location = New Point(10, 55)
+        lblAssignedLabel.Name = "lblAssignedLabel"
+        lblAssignedLabel.Size = New Size(230, 20)
+        lblAssignedLabel.TabIndex = 2
+        lblAssignedLabel.Text = "Assigned Items"
+        ' 
+        ' pnlLowStock
+        ' 
+        pnlLowStock.BackColor = Color.White
+        pnlLowStock.BorderStyle = BorderStyle.FixedSingle
+        pnlLowStock.Controls.Add(lblLowStockIcon)
+        pnlLowStock.Controls.Add(lblLowStockCount)
+        pnlLowStock.Controls.Add(lblLowStockLabel)
+        pnlLowStock.Dock = DockStyle.Fill
+        pnlLowStock.Location = New Point(798, 3)
+        pnlLowStock.Name = "pnlLowStock"
+        pnlLowStock.Size = New Size(259, 94)
+        pnlLowStock.TabIndex = 3
+        ' 
+        ' lblLowStockIcon
+        ' 
+        lblLowStockIcon.Font = New Font("Segoe UI", 24F)
+        lblLowStockIcon.Location = New Point(10, 10)
+        lblLowStockIcon.Name = "lblLowStockIcon"
+        lblLowStockIcon.Size = New Size(50, 40)
+        lblLowStockIcon.TabIndex = 0
+        lblLowStockIcon.Text = "⚠️"
+        ' 
+        ' lblLowStockCount
+        ' 
+        lblLowStockCount.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        lblLowStockCount.Font = New Font("Segoe UI", 24F, FontStyle.Bold)
+        lblLowStockCount.ForeColor = Color.FromArgb(CByte(231), CByte(76), CByte(60))
+        lblLowStockCount.Location = New Point(140, 10)
+        lblLowStockCount.Name = "lblLowStockCount"
+        lblLowStockCount.Size = New Size(100, 40)
+        lblLowStockCount.TabIndex = 1
+        lblLowStockCount.Text = "0"
+        lblLowStockCount.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' lblLowStockLabel
+        ' 
+        lblLowStockLabel.Font = New Font("Segoe UI", 10F)
+        lblLowStockLabel.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
+        lblLowStockLabel.Location = New Point(10, 55)
+        lblLowStockLabel.Name = "lblLowStockLabel"
+        lblLowStockLabel.Size = New Size(230, 20)
+        lblLowStockLabel.TabIndex = 2
+        lblLowStockLabel.Text = "Low Stock Items"
+        ' 
+        ' tlpCharts
+        ' 
+        tlpCharts.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        tlpCharts.BackColor = Color.White
+        tlpCharts.BorderStyle = BorderStyle.FixedSingle
+        tlpCharts.ColumnCount = 2
+        tlpCharts.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpCharts.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpCharts.Controls.Add(pnlPieChart, 0, 0)
+        tlpCharts.Controls.Add(pnlBarChart, 1, 0)
+        tlpCharts.Location = New Point(15, 175)
+        tlpCharts.Name = "tlpCharts"
+        tlpCharts.RowCount = 1
+        tlpCharts.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpCharts.Size = New Size(1060, 201)
+        tlpCharts.TabIndex = 3
+        ' 
+        ' pnlPieChart
+        ' 
+        pnlPieChart.Controls.Add(lblPieTitle)
+        pnlPieChart.Controls.Add(picPieChart)
+        pnlPieChart.Dock = DockStyle.Fill
+        pnlPieChart.Location = New Point(3, 3)
+        pnlPieChart.Name = "pnlPieChart"
+        pnlPieChart.Size = New Size(523, 193)
+        pnlPieChart.TabIndex = 0
+        ' 
+        ' lblPieTitle
+        ' 
+        lblPieTitle.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        lblPieTitle.Location = New Point(10, 5)
+        lblPieTitle.Name = "lblPieTitle"
+        lblPieTitle.Size = New Size(490, 20)
+        lblPieTitle.TabIndex = 0
+        lblPieTitle.Text = "📊 Inventory Distribution"
+        ' 
+        ' picPieChart
+        ' 
+        picPieChart.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        picPieChart.BackColor = Color.White
+        picPieChart.Location = New Point(10, 25)
+        picPieChart.Name = "picPieChart"
+        picPieChart.Size = New Size(503, 158)
+        picPieChart.TabIndex = 1
+        picPieChart.TabStop = False
+        ' 
+        ' pnlBarChart
+        ' 
+        pnlBarChart.Controls.Add(lblBarTitle)
+        pnlBarChart.Controls.Add(picBarChart)
+        pnlBarChart.Dock = DockStyle.Fill
+        pnlBarChart.Location = New Point(532, 3)
+        pnlBarChart.Name = "pnlBarChart"
+        pnlBarChart.Size = New Size(523, 193)
+        pnlBarChart.TabIndex = 1
+        ' 
+        ' lblBarTitle
+        ' 
+        lblBarTitle.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        lblBarTitle.Location = New Point(10, 5)
+        lblBarTitle.Name = "lblBarTitle"
+        lblBarTitle.Size = New Size(490, 20)
+        lblBarTitle.TabIndex = 0
+        lblBarTitle.Text = "📈 Category Distribution"
+        ' 
+        ' picBarChart
+        ' 
+        picBarChart.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        picBarChart.BackColor = Color.White
+        picBarChart.Location = New Point(10, 25)
+        picBarChart.Name = "picBarChart"
+        picBarChart.Size = New Size(503, 158)
+        picBarChart.TabIndex = 1
+        picBarChart.TabStop = False
+        ' 
+        ' tlpBottom
+        ' 
+        tlpBottom.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        tlpBottom.BackColor = Color.White
+        tlpBottom.BorderStyle = BorderStyle.FixedSingle
+        tlpBottom.ColumnCount = 2
+        tlpBottom.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpBottom.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpBottom.Controls.Add(pnlActivity, 0, 0)
+        tlpBottom.Controls.Add(pnlLowStockGrid, 1, 0)
+        tlpBottom.Location = New Point(15, 384)
+        tlpBottom.Name = "tlpBottom"
+        tlpBottom.RowCount = 1
+        tlpBottom.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpBottom.Size = New Size(1060, 250)
+        tlpBottom.TabIndex = 4
+        ' 
+        ' pnlActivity
+        ' 
+        pnlActivity.Controls.Add(lblActivityTitle)
+        pnlActivity.Controls.Add(lvActivity)
+        pnlActivity.Dock = DockStyle.Fill
+        pnlActivity.Location = New Point(3, 3)
+        pnlActivity.Name = "pnlActivity"
+        pnlActivity.Size = New Size(523, 242)
+        pnlActivity.TabIndex = 0
+        ' 
+        ' lblActivityTitle
+        ' 
+        lblActivityTitle.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        lblActivityTitle.Location = New Point(10, 5)
+        lblActivityTitle.Name = "lblActivityTitle"
+        lblActivityTitle.Size = New Size(490, 20)
+        lblActivityTitle.TabIndex = 0
+        lblActivityTitle.Text = "🕐 Recent Activity"
+        ' 
+        ' lvActivity
+        ' 
+        lvActivity.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        lvActivity.Columns.AddRange(New ColumnHeader() {colTime, colUser, colAction})
+        lvActivity.FullRowSelect = True
+        lvActivity.GridLines = True
+        lvActivity.Location = New Point(10, 25)
+        lvActivity.Name = "lvActivity"
+        lvActivity.Size = New Size(503, 207)
+        lvActivity.TabIndex = 1
+        lvActivity.UseCompatibleStateImageBehavior = False
+        lvActivity.View = View.Details
+        ' 
+        ' colTime
+        ' 
+        colTime.Text = "Time"
+        colTime.Width = 80
+        ' 
+        ' colUser
+        ' 
+        colUser.Text = "User"
+        colUser.Width = 120
+        ' 
+        ' colAction
+        ' 
+        colAction.Text = "Action"
+        colAction.Width = 250
+        ' 
+        ' pnlLowStockGrid
+        ' 
+        pnlLowStockGrid.Controls.Add(lblLowStockGridTitle)
+        pnlLowStockGrid.Controls.Add(dgvLowStock)
+        pnlLowStockGrid.Dock = DockStyle.Fill
+        pnlLowStockGrid.Location = New Point(532, 3)
+        pnlLowStockGrid.Name = "pnlLowStockGrid"
+        pnlLowStockGrid.Size = New Size(523, 242)
+        pnlLowStockGrid.TabIndex = 1
+        ' 
+        ' lblLowStockGridTitle
+        ' 
+        lblLowStockGridTitle.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        lblLowStockGridTitle.ForeColor = Color.FromArgb(CByte(231), CByte(76), CByte(60))
+        lblLowStockGridTitle.Location = New Point(10, 5)
+        lblLowStockGridTitle.Name = "lblLowStockGridTitle"
+        lblLowStockGridTitle.Size = New Size(490, 20)
+        lblLowStockGridTitle.TabIndex = 0
+        lblLowStockGridTitle.Text = "⚠️ Low Stock Items"
+        ' 
+        ' dgvLowStock
+        ' 
+        dgvLowStock.AllowUserToAddRows = False
+        dgvLowStock.AllowUserToDeleteRows = False
+        dgvLowStock.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        dgvLowStock.BackgroundColor = Color.White
+        dgvLowStock.Location = New Point(10, 25)
+        dgvLowStock.Name = "dgvLowStock"
+        dgvLowStock.ReadOnly = True
+        dgvLowStock.RowHeadersVisible = False
+        dgvLowStock.Size = New Size(503, 207)
+        dgvLowStock.TabIndex = 1
+        ' 
+        ' btnAddHardware
+        ' 
+        btnAddHardware.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        btnAddHardware.BackColor = Color.FromArgb(CByte(52), CByte(152), CByte(219))
+        btnAddHardware.FlatStyle = FlatStyle.Flat
+        btnAddHardware.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        btnAddHardware.ForeColor = Color.White
+        btnAddHardware.Location = New Point(15, 640)
+        btnAddHardware.Name = "btnAddHardware"
+        btnAddHardware.Size = New Size(120, 35)
+        btnAddHardware.TabIndex = 5
+        btnAddHardware.Text = "➕ Add Item"
+        btnAddHardware.UseVisualStyleBackColor = False
+        ' 
+        ' btnRefresh
+        ' 
+        btnRefresh.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        btnRefresh.FlatStyle = FlatStyle.Flat
+        btnRefresh.Location = New Point(145, 640)
+        btnRefresh.Name = "btnRefresh"
+        btnRefresh.Size = New Size(100, 35)
+        btnRefresh.TabIndex = 6
+        btnRefresh.Text = "🔄 Refresh"
+        btnRefresh.UseVisualStyleBackColor = True
+        ' 
+        ' DashboardControl
+        ' 
+        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleMode = AutoScaleMode.Font
+        BackColor = Color.White
+        Controls.Add(pnlContainer)
+        Font = New Font("Segoe UI", 9F)
+        Name = "DashboardControl"
+        Size = New Size(1100, 700)
+        pnlContainer.ResumeLayout(False)
+        pnlContainer.PerformLayout()
+        tlpStats.ResumeLayout(False)
+        pnlTotal.ResumeLayout(False)
+        pnlAvailable.ResumeLayout(False)
+        pnlAssigned.ResumeLayout(False)
+        pnlLowStock.ResumeLayout(False)
+        tlpCharts.ResumeLayout(False)
+        pnlPieChart.ResumeLayout(False)
+        CType(picPieChart, ComponentModel.ISupportInitialize).EndInit()
+        pnlBarChart.ResumeLayout(False)
+        CType(picBarChart, ComponentModel.ISupportInitialize).EndInit()
+        tlpBottom.ResumeLayout(False)
+        pnlActivity.ResumeLayout(False)
+        pnlLowStockGrid.ResumeLayout(False)
+        CType(dgvLowStock, ComponentModel.ISupportInitialize).EndInit()
+        ResumeLayout(False)
 
     End Sub
 

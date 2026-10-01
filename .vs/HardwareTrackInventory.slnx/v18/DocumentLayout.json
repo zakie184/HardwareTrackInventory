@@ -1,0 +1,214 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\visual_project\\school\\HardwareTrackInventory\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|d:\\visual_project\\school\\hardwaretrackinventory\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|d:\\visual_project\\school\\hardwaretrackinventory\\usercontrols\\dashboardcontrol.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|solutionrelative:usercontrols\\dashboardcontrol.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|d:\\visual_project\\school\\hardwaretrackinventory\\usercontrols\\dashboardcontrol.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|solutionrelative:usercontrols\\dashboardcontrol.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|d:\\visual_project\\school\\hardwaretrackinventory\\usercontrols\\hardwarecontrol.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|solutionrelative:usercontrols\\hardwarecontrol.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|d:\\visual_project\\school\\hardwaretrackinventory\\usercontrols\\hardwarecontrol.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|solutionrelative:usercontrols\\hardwarecontrol.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|d:\\visual_project\\school\\hardwaretrackinventory\\databasehelper.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|solutionrelative:databasehelper.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|d:\\visual_project\\school\\hardwaretrackinventory\\hardwareform.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|solutionrelative:hardwareform.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|d:\\visual_project\\school\\hardwaretrackinventory\\activitylogger.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|solutionrelative:activitylogger.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|d:\\visual_project\\school\\hardwaretrackinventory\\hardwareform.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|solutionrelative:hardwareform.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|d:\\visual_project\\school\\hardwaretrackinventory\\mainform.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|solutionrelative:mainform.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|d:\\visual_project\\school\\hardwaretrackinventory\\loginform.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|solutionrelative:loginform.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|d:\\visual_project\\school\\hardwaretrackinventory\\loginform.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{C6F1310D-C1EE-E236-EF5A-BE9F0A697350}|HardwareTrackInventory.vbproj|solutionrelative:loginform.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": ".gitignore",
+              "DocumentMoniker": "D:\\visual_project\\school\\HardwareTrackInventory\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "D:\\visual_project\\school\\HardwareTrackInventory\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAAAC4AAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-10-01T04:25:30.03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DashboardControl.vb",
+              "DocumentMoniker": "D:\\visual_project\\school\\HardwareTrackInventory\\UserControls\\DashboardControl.vb",
+              "RelativeDocumentMoniker": "UserControls\\DashboardControl.vb",
+              "ToolTip": "D:\\visual_project\\school\\HardwareTrackInventory\\UserControls\\DashboardControl.vb",
+              "RelativeToolTip": "UserControls\\DashboardControl.vb",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-10-01T04:07:17.89Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "HardwareControl.vb",
+              "DocumentMoniker": "D:\\visual_project\\school\\HardwareTrackInventory\\UserControls\\HardwareControl.vb",
+              "RelativeDocumentMoniker": "UserControls\\HardwareControl.vb",
+              "ToolTip": "D:\\visual_project\\school\\HardwareTrackInventory\\UserControls\\HardwareControl.vb",
+              "RelativeToolTip": "UserControls\\HardwareControl.vb",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-10-01T04:05:08.933Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "HardwareControl.vb [Design]",
+              "DocumentMoniker": "D:\\visual_project\\school\\HardwareTrackInventory\\UserControls\\HardwareControl.vb",
+              "RelativeDocumentMoniker": "UserControls\\HardwareControl.vb",
+              "ToolTip": "D:\\visual_project\\school\\HardwareTrackInventory\\UserControls\\HardwareControl.vb [Design]",
+              "RelativeToolTip": "UserControls\\HardwareControl.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-10-01T04:05:00.931Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "HardwareForm.Designer.vb",
+              "DocumentMoniker": "D:\\visual_project\\school\\HardwareTrackInventory\\HardwareForm.Designer.vb",
+              "RelativeDocumentMoniker": "HardwareForm.Designer.vb",
+              "ToolTip": "D:\\visual_project\\school\\HardwareTrackInventory\\HardwareForm.Designer.vb",
+              "RelativeToolTip": "HardwareForm.Designer.vb",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-10-01T03:54:49.091Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ActivityLogger.vb",
+              "DocumentMoniker": "D:\\visual_project\\school\\HardwareTrackInventory\\ActivityLogger.vb",
+              "RelativeDocumentMoniker": "ActivityLogger.vb",
+              "ToolTip": "D:\\visual_project\\school\\HardwareTrackInventory\\ActivityLogger.vb",
+              "RelativeToolTip": "ActivityLogger.vb",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-10-01T03:46:09.268Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DashboardControl.vb [Design]",
+              "DocumentMoniker": "D:\\visual_project\\school\\HardwareTrackInventory\\UserControls\\DashboardControl.vb",
+              "RelativeDocumentMoniker": "UserControls\\DashboardControl.vb",
+              "ToolTip": "D:\\visual_project\\school\\HardwareTrackInventory\\UserControls\\DashboardControl.vb [Design]",
+              "RelativeToolTip": "UserControls\\DashboardControl.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-10-01T03:32:51.827Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "HardwareForm.vb",
+              "DocumentMoniker": "D:\\visual_project\\school\\HardwareTrackInventory\\HardwareForm.vb",
+              "RelativeDocumentMoniker": "HardwareForm.vb",
+              "ToolTip": "D:\\visual_project\\school\\HardwareTrackInventory\\HardwareForm.vb",
+              "RelativeToolTip": "HardwareForm.vb",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAANoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-10-01T03:49:14.396Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DatabaseHelper.vb",
+              "DocumentMoniker": "D:\\visual_project\\school\\HardwareTrackInventory\\DatabaseHelper.vb",
+              "RelativeDocumentMoniker": "DatabaseHelper.vb",
+              "ToolTip": "D:\\visual_project\\school\\HardwareTrackInventory\\DatabaseHelper.vb",
+              "RelativeToolTip": "DatabaseHelper.vb",
+              "ViewState": "AgIAAKkBAAAAAAAAAAAqwLsBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-10-01T03:40:56.308Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "LoginForm.vb",
+              "DocumentMoniker": "D:\\visual_project\\school\\HardwareTrackInventory\\LoginForm.vb",
+              "RelativeDocumentMoniker": "LoginForm.vb",
+              "ToolTip": "D:\\visual_project\\school\\HardwareTrackInventory\\LoginForm.vb",
+              "RelativeToolTip": "LoginForm.vb",
+              "ViewState": "AgIAACYAAAAAAAAAAAAwwAIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-09-08T09:21:38.767Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "LoginForm.vb [Design]",
+              "DocumentMoniker": "D:\\visual_project\\school\\HardwareTrackInventory\\LoginForm.vb",
+              "RelativeDocumentMoniker": "LoginForm.vb",
+              "ToolTip": "D:\\visual_project\\school\\HardwareTrackInventory\\LoginForm.vb [Design]",
+              "RelativeToolTip": "LoginForm.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-09-08T09:21:28.017Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MainForm.vb [Design]",
+              "DocumentMoniker": "D:\\visual_project\\school\\HardwareTrackInventory\\MainForm.vb",
+              "RelativeDocumentMoniker": "MainForm.vb",
+              "ToolTip": "D:\\visual_project\\school\\HardwareTrackInventory\\MainForm.vb [Design]",
+              "RelativeToolTip": "MainForm.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-09-07T22:03:51.958Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-﻿Imports MySql.Data.MySqlClient
+﻿
 Imports System.Drawing
 
 Public Class HardwareControl
@@ -10,7 +10,6 @@ Public Class HardwareControl
 
     Public Sub New()
         InitializeComponent()
-        ' Ensure delete button is enabled initially
         btnDelete.Enabled = False
     End Sub
 
@@ -48,6 +47,8 @@ Public Class HardwareControl
                         Case "Available" : row.Cells(5).Style.ForeColor = Color.Green
                         Case "Assigned" : row.Cells(5).Style.ForeColor = Color.FromArgb(52, 152, 219)
                         Case "In Use" : row.Cells(5).Style.ForeColor = Color.FromArgb(241, 196, 15)
+                        Case "Maintenance" : row.Cells(5).Style.ForeColor = Color.OrangeRed
+                        Case "Retired" : row.Cells(5).Style.ForeColor = Color.Gray
                         Case Else : row.Cells(5).Style.ForeColor = Color.Gray
                     End Select
                 Next
@@ -93,23 +94,18 @@ Public Class HardwareControl
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        If Not currentUser.CanEdit() Then
+        If currentUser Is Nothing OrElse Not currentUser.CanEdit() Then
             MessageBox.Show("Permission denied.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        Dim name As String = InputBox("Enter hardware name:", "Add Hardware")
-        If String.IsNullOrWhiteSpace(name) Then Return
-        Dim category As String = InputBox("Enter category:", "Add Hardware")
-        Dim qty As String = InputBox("Enter quantity:", "Add Hardware")
-        Dim location As String = InputBox("Enter location:", "Add Hardware")
-
-        If DatabaseHelper.AddHardware(name, category, Convert.ToInt32(qty), location, "Available") Then
-            LoadHardware()
-            MessageBox.Show("Hardware added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Else
-            MessageBox.Show("Failed to add hardware.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
+        Using frm As New HardwareForm(currentUser, HardwareForm.FormMode.AddNew)
+            If frm.ShowDialog(Me) = DialogResult.OK Then
+                LoadHardware()
+                MessageBox.Show("Hardware added successfully!", "Success",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        End Using
     End Sub
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
@@ -118,44 +114,35 @@ Public Class HardwareControl
             Return
         End If
 
-        Dim newStatus As String = InputBox("Enter new status (Available/Assigned/In Use):", "Update Status")
-        If String.IsNullOrWhiteSpace(newStatus) Then Return
-
-        If DatabaseHelper.UpdateHardwareStatus(selectedID, newStatus) Then
-            LoadHardware()
-            MessageBox.Show("Status updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Else
-            MessageBox.Show("Failed to update status.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        If currentUser Is Nothing OrElse Not currentUser.CanEdit() Then
+            MessageBox.Show("Permission denied.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
         End If
+
+        Using frm As New HardwareForm(currentUser, HardwareForm.FormMode.EditExisting, selectedID)
+            If frm.ShowDialog(Me) = DialogResult.OK Then
+                LoadHardware()
+                MessageBox.Show("Hardware updated successfully!", "Success",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        End Using
     End Sub
 
-    ' ============================================================
-    ' ✅ DELETE BUTTON - FULLY WORKING
-    ' ============================================================
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
-        ' Check if an item is selected
         If selectedID = -1 Then
             MessageBox.Show("Please select an item first.", "No Selection",
                           MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        ' Check if user has permission
-        If currentUser Is Nothing Then
-            MessageBox.Show("You are not logged in.", "Error",
-                          MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return
-        End If
-
-        If Not currentUser.CanDelete() Then
+        If currentUser Is Nothing OrElse Not currentUser.CanDelete() Then
             MessageBox.Show("You don't have permission to delete items.", "Access Denied",
                           MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        ' Show confirmation dialog
         Dim result As DialogResult = MessageBox.Show(
-            $"Are you sure you want to delete '{selectedName}'?" & vbCrLf &
+            "Are you sure you want to delete '" & selectedName & "'?" & vbCrLf &
             "This action cannot be undone.",
             "Confirm Delete",
             MessageBoxButtons.YesNo,
@@ -163,9 +150,9 @@ Public Class HardwareControl
         )
 
         If result = DialogResult.Yes Then
-            ' Attempt to delete
             Try
                 If DatabaseHelper.DeleteHardware(selectedID) Then
+                    ActivityLogger.Log(currentUser, "Deleted hardware '" & selectedName & "'", "Hardware", selectedID, False)
                     LoadHardware()
                     ClearDetails()
                     MessageBox.Show("Item deleted successfully!", "Deleted",

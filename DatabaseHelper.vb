@@ -35,7 +35,6 @@ Public Class DatabaseHelper
                 adapter.Fill(dt)
             End Using
         Catch ex As Exception
-            ' Return empty table
         End Try
         Return dt
     End Function
@@ -133,7 +132,23 @@ Public Class DatabaseHelper
                 adapter.Fill(dt)
             End Using
         Catch ex As Exception
-            ' Return empty table
+        End Try
+        Return dt
+    End Function
+
+    Public Shared Function GetHardwareByID(id As Integer) As DataTable
+        Dim dt As New DataTable()
+        Try
+            Using conn As MySqlConnection = KeyData.GetConnection()
+                conn.Open()
+                Dim query As String = "SELECT * FROM Hardware WHERE HardwareID = @id"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@id", id)
+                    Dim adapter As New MySqlDataAdapter(cmd)
+                    adapter.Fill(dt)
+                End Using
+            End Using
+        Catch ex As Exception
         End Try
         Return dt
     End Function
@@ -149,6 +164,28 @@ Public Class DatabaseHelper
                     cmd.Parameters.AddWithValue("@q", quantity)
                     cmd.Parameters.AddWithValue("@l", location)
                     cmd.Parameters.AddWithValue("@s", status)
+                    Return cmd.ExecuteNonQuery() > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+
+    Public Shared Function UpdateHardwareFull(id As Integer, name As String, category As String,
+                                              quantity As Integer, location As String, status As String) As Boolean
+        Try
+            Using conn As MySqlConnection = KeyData.GetConnection()
+                conn.Open()
+                Dim query As String =
+                    "UPDATE Hardware SET Name=@n, Category=@c, Quantity=@q, Location=@l, Status=@s WHERE HardwareID=@id"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@n", name)
+                    cmd.Parameters.AddWithValue("@c", category)
+                    cmd.Parameters.AddWithValue("@q", quantity)
+                    cmd.Parameters.AddWithValue("@l", location)
+                    cmd.Parameters.AddWithValue("@s", status)
+                    cmd.Parameters.AddWithValue("@id", id)
                     Return cmd.ExecuteNonQuery() > 0
                 End Using
             End Using
@@ -240,7 +277,6 @@ Public Class DatabaseHelper
                 adapter.Fill(dt)
             End Using
         Catch ex As Exception
-            ' Return empty table
         End Try
         Return dt
     End Function
@@ -259,7 +295,6 @@ Public Class DatabaseHelper
                 adapter.Fill(dt)
             End Using
         Catch ex As Exception
-            ' Return empty table
         End Try
         Return dt
     End Function
@@ -340,7 +375,6 @@ Public Class DatabaseHelper
                 adapter.Fill(dt)
             End Using
         Catch ex As Exception
-            ' Return empty table
         End Try
         Return dt
     End Function
