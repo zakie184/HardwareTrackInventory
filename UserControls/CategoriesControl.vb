@@ -1,5 +1,4 @@
-﻿Imports MySql.Data.MySqlClient
-Imports System.Drawing
+﻿Imports System.Drawing
 
 Public Class CategoriesControl
     Inherits UserControl
@@ -7,10 +6,12 @@ Public Class CategoriesControl
     Private currentUser As User = Nothing
     Private selectedID As Integer = -1
     Private selectedName As String = ""
+    Private selectedDesc As String = ""
 
     Public Sub New()
         InitializeComponent()
         btnDelete.Enabled = False
+        btnRename.Enabled = False
     End Sub
 
     Public Sub SetCurrentUser(user As User)
@@ -25,7 +26,7 @@ Public Class CategoriesControl
 
     Private Sub ApplyPermissions()
         btnAdd.Enabled = currentUser IsNot Nothing AndAlso currentUser.CanEdit()
-        btnEdit.Enabled = False
+        btnRename.Enabled = False
         btnDelete.Enabled = False
     End Sub
 
@@ -49,10 +50,11 @@ Public Class CategoriesControl
     Private Sub ClearDetails()
         lblName.Text = "Select a category"
         lblDesc.Text = ""
-        btnEdit.Enabled = False
+        btnRename.Enabled = False
         btnDelete.Enabled = False
         selectedID = -1
         selectedName = ""
+        selectedDesc = ""
     End Sub
 
     Private Sub dgvCategories_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCategories.CellClick
@@ -61,9 +63,17 @@ Public Class CategoriesControl
                 Dim row As DataGridViewRow = dgvCategories.Rows(e.RowIndex)
                 selectedID = Convert.ToInt32(row.Cells(0).Value)
                 selectedName = row.Cells(1).Value.ToString()
-                lblName.Text = row.Cells(1).Value.ToString()
-                lblDesc.Text = "Description: " & row.Cells(2).Value.ToString()
-                btnEdit.Enabled = currentUser IsNot Nothing AndAlso currentUser.CanEdit()
+
+                selectedDesc = ""
+                If row.Cells(2).Value IsNot DBNull.Value Then
+                    selectedDesc = row.Cells(2).Value.ToString()
+                End If
+
+                lblName.Text = selectedName
+                lblDesc.Text = "Description: " & selectedDesc
+
+                Dim canEdit As Boolean = currentUser IsNot Nothing AndAlso currentUser.CanEdit()
+                btnRename.Enabled = canEdit
                 btnDelete.Enabled = currentUser IsNot Nothing AndAlso currentUser.CanDelete()
             Catch ex As Exception
                 MessageBox.Show("Error selecting category: " & ex.Message, "Error",
@@ -73,44 +83,42 @@ Public Class CategoriesControl
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        If Not currentUser.CanEdit() Then
+        If currentUser Is Nothing OrElse Not currentUser.CanEdit() Then
             MessageBox.Show("Permission denied.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        Dim name As String = InputBox("Enter category name:", "Add Category")
-        If String.IsNullOrWhiteSpace(name) Then Return
-        Dim desc As String = InputBox("Enter description:", "Add Category")
-
-        If DatabaseHelper.AddCategory(name, desc) Then
-            LoadCategories()
-            MessageBox.Show("Category added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Else
-            MessageBox.Show("Failed to add category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
+        Using frm As New CategoryForm(currentUser, CategoryForm.FormMode.AddNew)
+            If frm.ShowDialog(Me) = DialogResult.OK Then
+                LoadCategories()
+                MessageBox.Show("Category added successfully!", "Success",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        End Using
     End Sub
 
-    Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
+    Private Sub btnRename_Click(sender As Object, e As EventArgs) Handles btnRename.Click
         If selectedID = -1 Then
-            MessageBox.Show("Select a category first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Please select a category first.", "No Selection",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        Dim name As String = InputBox("Enter new name:", "Edit Category", selectedName)
-        If String.IsNullOrWhiteSpace(name) Then Return
-        Dim desc As String = InputBox("Enter new description:", "Edit Category", lblDesc.Text.Replace("Description: ", ""))
-
-        If DatabaseHelper.UpdateCategory(selectedID, name, desc) Then
-            LoadCategories()
-            MessageBox.Show("Category updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Else
-            MessageBox.Show("Failed to update category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        If currentUser Is Nothing OrElse Not currentUser.CanEdit() Then
+            MessageBox.Show("Permission denied.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
         End If
+
+        Using frm As New CategoryForm(currentUser, CategoryForm.FormMode.RenameExisting,
+                                      selectedID, selectedName, selectedDesc)
+            If frm.ShowDialog(Me) = DialogResult.OK Then
+                LoadCategories()
+                MessageBox.Show("Category renamed successfully!", "Success",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        End Using
     End Sub
 
-    ' ============================================================
-    ' ✅ DELETE BUTTON - FULLY WORKING
-    ' ============================================================
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         If selectedID = -1 Then
             MessageBox.Show("Please select a category first.", "No Selection",
@@ -125,16 +133,15 @@ Public Class CategoriesControl
         End If
 
         Dim result As DialogResult = MessageBox.Show(
-            $"Are you sure you want to delete category '{selectedName}'?" & vbCrLf &
+            "Are you sure you want to delete category '" & selectedName & "'?" & vbCrLf &
             "This action cannot be undone.",
-            "Confirm Delete",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Warning
-        )
+            "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 
         If result = DialogResult.Yes Then
             Try
                 If DatabaseHelper.DeleteCategory(selectedID) Then
+                    ActivityLogger.Log(currentUser, "Deleted category '" & selectedName & "'",
+                                       "Category", selectedID, False)
                     LoadCategories()
                     ClearDetails()
                     MessageBox.Show("Category deleted successfully!", "Deleted",

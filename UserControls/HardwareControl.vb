@@ -1,5 +1,4 @@
-﻿
-Imports System.Drawing
+﻿Imports System.Drawing
 
 Public Class HardwareControl
     Inherits UserControl
@@ -7,10 +6,12 @@ Public Class HardwareControl
     Private currentUser As User = Nothing
     Private selectedID As Integer = -1
     Private selectedName As String = ""
+    Private selectedStock As Integer = 0
 
     Public Sub New()
         InitializeComponent()
         btnDelete.Enabled = False
+        btnIssue.Enabled = False
     End Sub
 
     Public Sub SetCurrentUser(user As User)
@@ -21,12 +22,41 @@ Public Class HardwareControl
 
     Public Sub RefreshData()
         LoadHardware()
+        RefreshApprovalBadge()
     End Sub
 
     Private Sub ApplyPermissions()
-        btnAdd.Enabled = currentUser IsNot Nothing AndAlso currentUser.CanEdit()
-        btnEdit.Enabled = False
+        If currentUser Is Nothing Then Return
+
+        btnAdd.Enabled = currentUser.CanEdit()
+        btnIssue.Enabled = False
         btnDelete.Enabled = False
+
+        ' History button hidden for Viewer
+        btnHistory.Visible = currentUser.CanViewIssuanceHistory()
+
+        ' Approvals button visible for Admin only
+        btnApprovals.Visible = currentUser.Role = "Administrator"
+
+        RefreshApprovalBadge()
+    End Sub
+
+    Private Sub RefreshApprovalBadge()
+        If currentUser Is Nothing OrElse currentUser.Role <> "Administrator" Then Return
+
+        Try
+            Dim count As Integer = DatabaseHelper.GetPendingApprovalCount()
+            If count > 0 Then
+                btnApprovals.Text = "🔐 Approvals (" & count & ")"
+                btnApprovals.BackColor = Color.FromArgb(231, 76, 60)
+                btnApprovals.ForeColor = Color.White
+            Else
+                btnApprovals.Text = "🔐 Approvals"
+                btnApprovals.BackColor = Color.FromArgb(241, 196, 15)
+                btnApprovals.ForeColor = Color.FromArgb(44, 62, 80)
+            End If
+        Catch
+        End Try
     End Sub
 
     Private Sub LoadHardware()
@@ -67,10 +97,11 @@ Public Class HardwareControl
         lblQty.Text = ""
         lblLocation.Text = ""
         lblStatus.Text = ""
-        btnEdit.Enabled = False
+        btnIssue.Enabled = False
         btnDelete.Enabled = False
         selectedID = -1
         selectedName = ""
+        selectedStock = 0
     End Sub
 
     Private Sub dgvHardware_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvHardware.CellClick
@@ -79,12 +110,16 @@ Public Class HardwareControl
                 Dim row As DataGridViewRow = dgvHardware.Rows(e.RowIndex)
                 selectedID = Convert.ToInt32(row.Cells(0).Value)
                 selectedName = row.Cells(1).Value.ToString()
+                selectedStock = Convert.ToInt32(row.Cells(3).Value)
+
                 lblName.Text = row.Cells(1).Value.ToString()
                 lblCategory.Text = "Category: " & row.Cells(2).Value.ToString()
                 lblQty.Text = "Quantity: " & row.Cells(3).Value.ToString()
                 lblLocation.Text = "Location: " & row.Cells(4).Value.ToString()
                 lblStatus.Text = row.Cells(5).Value.ToString()
-                btnEdit.Enabled = currentUser IsNot Nothing AndAlso currentUser.CanEdit()
+
+                Dim canRequest As Boolean = currentUser IsNot Nothing AndAlso currentUser.CanRequestIssuance()
+                btnIssue.Enabled = canRequest AndAlso selectedStock > 0
                 btnDelete.Enabled = currentUser IsNot Nothing AndAlso currentUser.CanDelete()
             Catch ex As Exception
                 MessageBox.Show("Error selecting item: " & ex.Message, "Error",
@@ -99,7 +134,7 @@ Public Class HardwareControl
             Return
         End If
 
-        Using frm As New HardwareForm(currentUser, HardwareForm.FormMode.AddNew)
+        Using frm As New HardwareForm(currentUser)
             If frm.ShowDialog(Me) = DialogResult.OK Then
                 LoadHardware()
                 MessageBox.Show("Hardware added successfully!", "Success",
@@ -108,24 +143,69 @@ Public Class HardwareControl
         End Using
     End Sub
 
-    Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
+    Private Sub btnIssue_Click(sender As Object, e As EventArgs) Handles btnIssue.Click
         If selectedID = -1 Then
-            MessageBox.Show("Select an item first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Please select an item to issue first.",
+                            "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        If currentUser Is Nothing OrElse Not currentUser.CanEdit() Then
-            MessageBox.Show("Permission denied.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        If currentUser Is Nothing OrElse Not currentUser.CanRequestIssuance() Then
+            MessageBox.Show("Permission denied. Viewers cannot request items.",
+                            "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        Using frm As New HardwareForm(currentUser, HardwareForm.FormMode.EditExisting, selectedID)
+        If selectedStock <= 0 Then
+            MessageBox.Show("This item has no stock available to issue.",
+                            "Out of Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Using frm As New IssuanceForm(currentUser, selectedID, selectedName, selectedStock)
             If frm.ShowDialog(Me) = DialogResult.OK Then
                 LoadHardware()
-                MessageBox.Show("Hardware updated successfully!", "Success",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information)
+                RefreshApprovalBadge()
+                If currentUser.Role = "Administrator" Then
+                    MessageBox.Show("Item issued successfully!", "Success",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    MessageBox.Show("Request submitted! Waiting for Administrator approval.",
+                                    "Pending Approval", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
             End If
         End Using
+    End Sub
+
+    Private Sub btnApprovals_Click(sender As Object, e As EventArgs) Handles btnApprovals.Click
+        If currentUser Is Nothing OrElse Not currentUser.CanApproveIssuance() Then
+            MessageBox.Show("Only Administrators can access approvals.",
+                            "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Using frm As New ApprovalsForm(currentUser)
+            frm.ShowDialog(Me)
+        End Using
+
+        LoadHardware()
+        RefreshApprovalBadge()
+    End Sub
+
+    Private Sub btnHistory_Click(sender As Object, e As EventArgs) Handles btnHistory.Click
+        If currentUser Is Nothing Then Return
+
+        If Not currentUser.CanViewIssuanceHistory() Then
+            MessageBox.Show("You don't have permission to view issuance history.",
+                            "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Using frm As New IssuanceHistoryForm(currentUser)
+            frm.ShowDialog(Me)
+        End Using
+        LoadHardware()
+        RefreshApprovalBadge()
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
@@ -144,15 +224,13 @@ Public Class HardwareControl
         Dim result As DialogResult = MessageBox.Show(
             "Are you sure you want to delete '" & selectedName & "'?" & vbCrLf &
             "This action cannot be undone.",
-            "Confirm Delete",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Warning
-        )
+            "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 
         If result = DialogResult.Yes Then
             Try
                 If DatabaseHelper.DeleteHardware(selectedID) Then
-                    ActivityLogger.Log(currentUser, "Deleted hardware '" & selectedName & "'", "Hardware", selectedID, False)
+                    ActivityLogger.Log(currentUser, "Deleted hardware '" & selectedName & "'",
+                                       "Hardware", selectedID, False)
                     LoadHardware()
                     ClearDetails()
                     MessageBox.Show("Item deleted successfully!", "Deleted",
@@ -170,6 +248,7 @@ Public Class HardwareControl
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         LoadHardware()
+        RefreshApprovalBadge()
     End Sub
 
 End Class

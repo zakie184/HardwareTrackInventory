@@ -22,7 +22,6 @@ Partial Class UserManagementControl
         Me.pnlToolbar = New System.Windows.Forms.Panel()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.btnAdd = New System.Windows.Forms.Button()
-        Me.btnEdit = New System.Windows.Forms.Button()
         Me.btnToggle = New System.Windows.Forms.Button()
         Me.btnResetPW = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
@@ -73,7 +72,6 @@ Partial Class UserManagementControl
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
         Me.pnlToolbar.Controls.Add(Me.txtSearch)
         Me.pnlToolbar.Controls.Add(Me.btnAdd)
-        Me.pnlToolbar.Controls.Add(Me.btnEdit)
         Me.pnlToolbar.Controls.Add(Me.btnToggle)
         Me.pnlToolbar.Controls.Add(Me.btnResetPW)
         Me.pnlToolbar.Controls.Add(Me.btnDelete)
@@ -91,8 +89,6 @@ Partial Class UserManagementControl
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(200, 25)
         Me.txtSearch.TabIndex = 0
-        Me.txtSearch.Text = "🔍 Search users..."
-        Me.txtSearch.ForeColor = System.Drawing.Color.Gray
         '
         'btnAdd
         '
@@ -107,19 +103,6 @@ Partial Class UserManagementControl
         Me.btnAdd.Text = "➕"
         Me.btnAdd.UseVisualStyleBackColor = False
         '
-        'btnEdit
-        '
-        Me.btnEdit.BackColor = System.Drawing.Color.FromArgb(241, 196, 15)
-        Me.btnEdit.Enabled = False
-        Me.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnEdit.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnEdit.Location = New System.Drawing.Point(275, 10)
-        Me.btnEdit.Name = "btnEdit"
-        Me.btnEdit.Size = New System.Drawing.Size(40, 30)
-        Me.btnEdit.TabIndex = 2
-        Me.btnEdit.Text = "✏️"
-        Me.btnEdit.UseVisualStyleBackColor = False
-        '
         'btnToggle
         '
         Me.btnToggle.BackColor = System.Drawing.Color.FromArgb(155, 89, 182)
@@ -127,11 +110,11 @@ Partial Class UserManagementControl
         Me.btnToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnToggle.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnToggle.ForeColor = System.Drawing.Color.White
-        Me.btnToggle.Location = New System.Drawing.Point(320, 10)
+        Me.btnToggle.Location = New System.Drawing.Point(275, 10)
         Me.btnToggle.Name = "btnToggle"
-        Me.btnToggle.Size = New System.Drawing.Size(40, 30)
-        Me.btnToggle.TabIndex = 3
-        Me.btnToggle.Text = "⚠️"
+        Me.btnToggle.Size = New System.Drawing.Size(80, 30)
+        Me.btnToggle.TabIndex = 2
+        Me.btnToggle.Text = "⚠️ Toggle"
         Me.btnToggle.UseVisualStyleBackColor = False
         '
         'btnResetPW
@@ -141,10 +124,10 @@ Partial Class UserManagementControl
         Me.btnResetPW.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnResetPW.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnResetPW.ForeColor = System.Drawing.Color.White
-        Me.btnResetPW.Location = New System.Drawing.Point(365, 10)
+        Me.btnResetPW.Location = New System.Drawing.Point(360, 10)
         Me.btnResetPW.Name = "btnResetPW"
-        Me.btnResetPW.Size = New System.Drawing.Size(80, 30)
-        Me.btnResetPW.TabIndex = 4
+        Me.btnResetPW.Size = New System.Drawing.Size(90, 30)
+        Me.btnResetPW.TabIndex = 3
         Me.btnResetPW.Text = "🔑 Reset"
         Me.btnResetPW.UseVisualStyleBackColor = False
         '
@@ -155,10 +138,10 @@ Partial Class UserManagementControl
         Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnDelete.ForeColor = System.Drawing.Color.White
-        Me.btnDelete.Location = New System.Drawing.Point(450, 10)
+        Me.btnDelete.Location = New System.Drawing.Point(455, 10)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(50, 30)
-        Me.btnDelete.TabIndex = 5
+        Me.btnDelete.TabIndex = 4
         Me.btnDelete.Text = "🗑️"
         Me.btnDelete.UseVisualStyleBackColor = False
         '
@@ -166,11 +149,11 @@ Partial Class UserManagementControl
         '
         Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.btnRefresh.Location = New System.Drawing.Point(505, 10)
+        Me.btnRefresh.Location = New System.Drawing.Point(510, 10)
         Me.btnRefresh.Name = "btnRefresh"
-        Me.btnRefresh.Size = New System.Drawing.Size(60, 30)
-        Me.btnRefresh.TabIndex = 6
-        Me.btnRefresh.Text = "🔄"
+        Me.btnRefresh.Size = New System.Drawing.Size(90, 30)
+        Me.btnRefresh.TabIndex = 5
+        Me.btnRefresh.Text = "🔄 Refresh"
         Me.btnRefresh.UseVisualStyleBackColor = True
         '
         'lblCount
@@ -182,7 +165,7 @@ Partial Class UserManagementControl
         Me.lblCount.Location = New System.Drawing.Point(960, 15)
         Me.lblCount.Name = "lblCount"
         Me.lblCount.Size = New System.Drawing.Size(87, 19)
-        Me.lblCount.TabIndex = 7
+        Me.lblCount.TabIndex = 6
         Me.lblCount.Text = "0 records found"
         '
         'tlpMain
@@ -206,6 +189,7 @@ Partial Class UserManagementControl
         Me.dgvUsers.AllowUserToAddRows = False
         Me.dgvUsers.AllowUserToDeleteRows = False
         Me.dgvUsers.BackgroundColor = System.Drawing.Color.White
+        Me.dgvUsers.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvUsers.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvUsers.Location = New System.Drawing.Point(3, 3)
         Me.dgvUsers.MultiSelect = False
@@ -232,40 +216,40 @@ Partial Class UserManagementControl
         '
         'lblStatus
         '
-        Me.lblStatus.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblStatus.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.lblStatus.Location = New System.Drawing.Point(15, 130)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(390, 25)
+        Me.lblStatus.TabIndex = 3
         Me.lblStatus.Text = "Status: --"
         '
         'lblRole
         '
-        Me.lblRole.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblRole.Font = New System.Drawing.Font("Segoe UI", 11.0!)
         Me.lblRole.ForeColor = System.Drawing.Color.FromArgb(127, 140, 141)
         Me.lblRole.Location = New System.Drawing.Point(15, 90)
         Me.lblRole.Name = "lblRole"
         Me.lblRole.Size = New System.Drawing.Size(390, 25)
+        Me.lblRole.TabIndex = 2
         Me.lblRole.Text = "Role: --"
         '
         'lblName
         '
-        Me.lblName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblName.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
         Me.lblName.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
         Me.lblName.Location = New System.Drawing.Point(15, 50)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(390, 30)
+        Me.lblName.TabIndex = 1
         Me.lblName.Text = "Select a user"
         '
         'lblDetailsTitle
         '
-        Me.lblDetailsTitle.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblDetailsTitle.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.lblDetailsTitle.Location = New System.Drawing.Point(15, 15)
         Me.lblDetailsTitle.Name = "lblDetailsTitle"
         Me.lblDetailsTitle.Size = New System.Drawing.Size(390, 20)
+        Me.lblDetailsTitle.TabIndex = 0
         Me.lblDetailsTitle.Text = "📄 User Details"
         '
         'UserManagementControl
@@ -293,7 +277,6 @@ Partial Class UserManagementControl
     Friend WithEvents pnlToolbar As System.Windows.Forms.Panel
     Friend WithEvents txtSearch As System.Windows.Forms.TextBox
     Friend WithEvents btnAdd As System.Windows.Forms.Button
-    Friend WithEvents btnEdit As System.Windows.Forms.Button
     Friend WithEvents btnToggle As System.Windows.Forms.Button
     Friend WithEvents btnResetPW As System.Windows.Forms.Button
     Friend WithEvents btnDelete As System.Windows.Forms.Button

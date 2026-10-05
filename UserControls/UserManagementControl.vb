@@ -1,5 +1,4 @@
-﻿Imports MySql.Data.MySqlClient
-Imports System.Drawing
+﻿Imports System.Drawing
 
 Public Class UserManagementControl
     Inherits UserControl
@@ -25,7 +24,6 @@ Public Class UserManagementControl
         dgvUsers.Columns.Add("colRole", "ROLE")
         dgvUsers.Columns.Add("colStatus", "STATUS")
         dgvUsers.Columns.Add("colLastLogin", "LAST LOGIN")
-        dgvUsers.Columns.Add("colActions", "ACTIONS")
 
         dgvUsers.Columns(0).Width = 80
         dgvUsers.Columns(1).Width = 120
@@ -33,7 +31,6 @@ Public Class UserManagementControl
         dgvUsers.Columns(3).Width = 120
         dgvUsers.Columns(4).Width = 100
         dgvUsers.Columns(5).Width = 150
-        dgvUsers.Columns(6).Width = 80
 
         dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
         dgvUsers.AllowUserToAddRows = False
@@ -55,7 +52,6 @@ Public Class UserManagementControl
 
     Private Sub ApplyPermissions()
         btnAdd.Enabled = currentUser IsNot Nothing AndAlso currentUser.CanDelete()
-        btnEdit.Enabled = False
         btnToggle.Enabled = False
         btnResetPW.Enabled = False
         btnDelete.Enabled = False
@@ -90,8 +86,7 @@ Public Class UserManagementControl
                     user.FullName,
                     user.Role,
                     If(user.IsActive, "Active", "Inactive"),
-                    If(user.LastLogin = DateTime.MinValue, "Never", user.LastLogin.ToString("MMM dd, yyyy HH:mm")),
-                    "📄"
+                    If(user.LastLogin = DateTime.MinValue, "Never", user.LastLogin.ToString("MMM dd, yyyy HH:mm"))
                 )
 
                 If user.IsActive Then
@@ -135,7 +130,6 @@ Public Class UserManagementControl
             lblStatus.ForeColor = Color.Red
         End If
 
-        btnEdit.Enabled = currentUser IsNot Nothing AndAlso currentUser.CanEdit()
         btnToggle.Enabled = currentUser IsNot Nothing AndAlso currentUser.CanDelete()
         btnResetPW.Enabled = currentUser IsNot Nothing AndAlso currentUser.CanDelete()
         btnDelete.Enabled = currentUser IsNot Nothing AndAlso currentUser.CanDelete()
@@ -145,7 +139,6 @@ Public Class UserManagementControl
         lblName.Text = "Select a user"
         lblRole.Text = ""
         lblStatus.Text = ""
-        btnEdit.Enabled = False
         btnToggle.Enabled = False
         btnResetPW.Enabled = False
         btnDelete.Enabled = False
@@ -160,19 +153,16 @@ Public Class UserManagementControl
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        If usersList Is Nothing OrElse usersList.Count = 0 Then
-            Return
-        End If
+        If usersList Is Nothing OrElse usersList.Count = 0 Then Return
 
         Dim searchText As String = txtSearch.Text.Trim().ToLower()
 
-        If String.IsNullOrWhiteSpace(searchText) OrElse searchText = "🔍 search users..." Then
+        If String.IsNullOrWhiteSpace(searchText) Then
             LoadUsers()
             Return
         End If
 
         Dim filtered As New List(Of User)()
-
         For Each u As User In usersList
             If u.Username.ToLower().Contains(searchText) OrElse
                u.FullName.ToLower().Contains(searchText) OrElse
@@ -190,8 +180,7 @@ Public Class UserManagementControl
                 user.FullName,
                 user.Role,
                 If(user.IsActive, "Active", "Inactive"),
-                If(user.LastLogin = DateTime.MinValue, "Never", user.LastLogin.ToString("MMM dd, yyyy HH:mm")),
-                "📄"
+                If(user.LastLogin = DateTime.MinValue, "Never", user.LastLogin.ToString("MMM dd, yyyy HH:mm"))
             )
 
             If user.IsActive Then
@@ -220,6 +209,9 @@ Public Class UserManagementControl
             If addForm.ShowDialog() = DialogResult.OK Then
                 If DatabaseHelper.AddUser(addForm.NewUsername, addForm.NewPassword,
                                           addForm.NewFullName, addForm.NewRole, addForm.NewStatus) Then
+                    ActivityLogger.Log(currentUser,
+                                       "Added new user '" & addForm.NewUsername & "' (" & addForm.NewRole & ")",
+                                       "User", 0, False)
                     LoadUsers()
                     MessageBox.Show("User added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
@@ -229,14 +221,6 @@ Public Class UserManagementControl
         End Using
     End Sub
 
-    Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
-        If selectedUserID = -1 Then
-            MessageBox.Show("Select a user first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
-        MessageBox.Show("Edit user functionality.", "Edit", MessageBoxButtons.OK, MessageBoxIcon.Information)
-    End Sub
-
     Private Sub btnToggle_Click(sender As Object, e As EventArgs) Handles btnToggle.Click
         If selectedUserID = -1 Then
             MessageBox.Show("Select a user first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -244,6 +228,8 @@ Public Class UserManagementControl
         End If
 
         If DatabaseHelper.ToggleUserStatus(selectedUserID) Then
+            ActivityLogger.Log(currentUser, "Toggled status for user '" & selectedUserName & "'",
+                               "User", selectedUserID, False)
             LoadUsers()
             MessageBox.Show("Status toggled!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
@@ -256,22 +242,19 @@ Public Class UserManagementControl
         End If
 
         If DatabaseHelper.ResetPassword(selectedUserID) Then
+            ActivityLogger.Log(currentUser, "Reset password for user '" & selectedUserName & "'",
+                               "User", selectedUserID, False)
             MessageBox.Show("Password reset to 'password123'", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
     End Sub
 
-    ' ============================================================
-    ' ✅ DELETE BUTTON - FULLY WORKING
-    ' ============================================================
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
-        ' Check if a user is selected
         If selectedUserID = -1 Then
             MessageBox.Show("Please select a user first.", "No Selection",
                           MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        ' Check if user has permission
         If currentUser Is Nothing Then
             MessageBox.Show("You are not logged in.", "Error",
                           MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -284,14 +267,12 @@ Public Class UserManagementControl
             Return
         End If
 
-        ' Prevent deleting yourself
         If currentUser.ID = selectedUserID Then
             MessageBox.Show("You cannot delete your own account.", "Warning",
                           MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        ' Prevent deleting admin
         Dim userToDelete As User = Nothing
         For Each u As User In usersList
             If u.ID = selectedUserID Then
@@ -306,18 +287,16 @@ Public Class UserManagementControl
             Return
         End If
 
-        ' Show confirmation dialog
         Dim result As DialogResult = MessageBox.Show(
-            $"Are you sure you want to delete user '{selectedUserName}'?" & vbCrLf &
+            "Are you sure you want to delete user '" & selectedUserName & "'?" & vbCrLf &
             "This action cannot be undone.",
-            "Confirm Delete",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Warning
-        )
+            "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 
         If result = DialogResult.Yes Then
             Try
                 If DatabaseHelper.DeleteUser(selectedUserID) Then
+                    ActivityLogger.Log(currentUser, "Deleted user '" & selectedUserName & "'",
+                                       "User", selectedUserID, False)
                     LoadUsers()
                     ClearDetails()
                     MessageBox.Show("User deleted successfully!", "Deleted",
@@ -336,7 +315,6 @@ Public Class UserManagementControl
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         LoadUsers()
         txtSearch.Clear()
-        txtSearch.Text = "🔍 Search users..."
     End Sub
 
 End Class

@@ -22,7 +22,7 @@ Partial Class CategoriesControl
         Me.pnlToolbar = New System.Windows.Forms.Panel()
         Me.btnRefresh = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
-        Me.btnEdit = New System.Windows.Forms.Button()
+        Me.btnRename = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.lblCount = New System.Windows.Forms.Label()
         Me.tlpMain = New System.Windows.Forms.TableLayoutPanel()
@@ -59,7 +59,7 @@ Partial Class CategoriesControl
         Me.lblTitle.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
         Me.lblTitle.Location = New System.Drawing.Point(15, 15)
         Me.lblTitle.Name = "lblTitle"
-        Me.lblTitle.Size = New System.Drawing.Size(120, 32)
+        Me.lblTitle.Size = New System.Drawing.Size(130, 32)
         Me.lblTitle.TabIndex = 0
         Me.lblTitle.Text = "Categories"
         '
@@ -69,7 +69,7 @@ Partial Class CategoriesControl
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
         Me.pnlToolbar.Controls.Add(Me.btnRefresh)
         Me.pnlToolbar.Controls.Add(Me.btnDelete)
-        Me.pnlToolbar.Controls.Add(Me.btnEdit)
+        Me.pnlToolbar.Controls.Add(Me.btnRename)
         Me.pnlToolbar.Controls.Add(Me.btnAdd)
         Me.pnlToolbar.Controls.Add(Me.lblCount)
         Me.pnlToolbar.Location = New System.Drawing.Point(15, 60)
@@ -79,47 +79,47 @@ Partial Class CategoriesControl
         '
         'btnRefresh
         '
-        Me.btnRefresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnRefresh.Location = New System.Drawing.Point(210, 10)
+        Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.btnRefresh.Location = New System.Drawing.Point(240, 10)
         Me.btnRefresh.Name = "btnRefresh"
-        Me.btnRefresh.Size = New System.Drawing.Size(90, 30)
+        Me.btnRefresh.Size = New System.Drawing.Size(100, 30)
         Me.btnRefresh.TabIndex = 4
         Me.btnRefresh.Text = "🔄 Refresh"
         Me.btnRefresh.UseVisualStyleBackColor = True
         '
         'btnDelete
         '
-        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnDelete.BackColor = System.Drawing.Color.FromArgb(231, 76, 60)
         Me.btnDelete.Enabled = False
         Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnDelete.ForeColor = System.Drawing.Color.White
-        Me.btnDelete.Location = New System.Drawing.Point(140, 10)
+        Me.btnDelete.Location = New System.Drawing.Point(170, 10)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(60, 30)
         Me.btnDelete.TabIndex = 3
         Me.btnDelete.Text = "🗑️"
         Me.btnDelete.UseVisualStyleBackColor = False
         '
-        'btnEdit
+        'btnRename
         '
-        Me.btnEdit.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnEdit.BackColor = System.Drawing.Color.FromArgb(241, 196, 15)
-        Me.btnEdit.Enabled = False
-        Me.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnEdit.Location = New System.Drawing.Point(80, 10)
-        Me.btnEdit.Name = "btnEdit"
-        Me.btnEdit.Size = New System.Drawing.Size(50, 30)
-        Me.btnEdit.TabIndex = 2
-        Me.btnEdit.Text = "✏️"
-        Me.btnEdit.UseVisualStyleBackColor = False
+        Me.btnRename.BackColor = System.Drawing.Color.FromArgb(241, 196, 15)
+        Me.btnRename.Enabled = False
+        Me.btnRename.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnRename.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnRename.Location = New System.Drawing.Point(80, 10)
+        Me.btnRename.Name = "btnRename"
+        Me.btnRename.Size = New System.Drawing.Size(80, 30)
+        Me.btnRename.TabIndex = 2
+        Me.btnRename.Text = "✏️ Rename"
+        Me.btnRename.UseVisualStyleBackColor = False
         '
         'btnAdd
         '
-        Me.btnAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnAdd.BackColor = System.Drawing.Color.FromArgb(52, 152, 219)
         Me.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnAdd.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnAdd.ForeColor = System.Drawing.Color.White
         Me.btnAdd.Location = New System.Drawing.Point(10, 10)
         Me.btnAdd.Name = "btnAdd"
@@ -161,8 +161,10 @@ Partial Class CategoriesControl
         Me.dgvCategories.AllowUserToAddRows = False
         Me.dgvCategories.AllowUserToDeleteRows = False
         Me.dgvCategories.BackgroundColor = System.Drawing.Color.White
+        Me.dgvCategories.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvCategories.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvCategories.Location = New System.Drawing.Point(3, 3)
+        Me.dgvCategories.MultiSelect = False
         Me.dgvCategories.Name = "dgvCategories"
         Me.dgvCategories.ReadOnly = True
         Me.dgvCategories.RowHeadersVisible = False
@@ -185,31 +187,31 @@ Partial Class CategoriesControl
         '
         'lblDesc
         '
-        Me.lblDesc.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblDesc.Font = New System.Drawing.Font("Segoe UI", 11.0!)
         Me.lblDesc.ForeColor = System.Drawing.Color.FromArgb(127, 140, 141)
         Me.lblDesc.Location = New System.Drawing.Point(15, 90)
         Me.lblDesc.Name = "lblDesc"
-        Me.lblDesc.Size = New System.Drawing.Size(390, 80)
+        Me.lblDesc.Size = New System.Drawing.Size(390, 120)
+        Me.lblDesc.TabIndex = 2
         Me.lblDesc.Text = ""
         '
         'lblName
         '
-        Me.lblName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblName.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
         Me.lblName.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
         Me.lblName.Location = New System.Drawing.Point(15, 50)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(390, 30)
+        Me.lblName.TabIndex = 1
         Me.lblName.Text = "Select a category"
         '
         'lblDetailsTitle
         '
-        Me.lblDetailsTitle.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblDetailsTitle.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.lblDetailsTitle.Location = New System.Drawing.Point(15, 15)
         Me.lblDetailsTitle.Name = "lblDetailsTitle"
         Me.lblDetailsTitle.Size = New System.Drawing.Size(390, 20)
+        Me.lblDetailsTitle.TabIndex = 0
         Me.lblDetailsTitle.Text = "📄 Category Details"
         '
         'CategoriesControl
@@ -237,7 +239,7 @@ Partial Class CategoriesControl
     Friend WithEvents pnlToolbar As System.Windows.Forms.Panel
     Friend WithEvents btnRefresh As System.Windows.Forms.Button
     Friend WithEvents btnDelete As System.Windows.Forms.Button
-    Friend WithEvents btnEdit As System.Windows.Forms.Button
+    Friend WithEvents btnRename As System.Windows.Forms.Button
     Friend WithEvents btnAdd As System.Windows.Forms.Button
     Friend WithEvents lblCount As System.Windows.Forms.Label
     Friend WithEvents tlpMain As System.Windows.Forms.TableLayoutPanel
