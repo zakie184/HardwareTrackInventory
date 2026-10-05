@@ -4,13 +4,31 @@
     <Compile Update="AddUserForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ApprovalsForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CategoryForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="HardwareForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="IssuanceForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="IssuanceHistoryForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="LocationForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="LoginForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="MainForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ReturnForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="UserControls\CategoriesControl.vb">

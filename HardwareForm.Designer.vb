@@ -1,7 +1,4 @@
-﻿
-
-
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class HardwareForm
     Inherits System.Windows.Forms.Form
 
@@ -21,8 +18,8 @@ Partial Class HardwareForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.pnlHeader = New System.Windows.Forms.Panel()
-        Me.lblHeaderSub = New System.Windows.Forms.Label()
         Me.lblHeaderTitle = New System.Windows.Forms.Label()
+        Me.lblHeaderSub = New System.Windows.Forms.Label()
         Me.lblName = New System.Windows.Forms.Label()
         Me.txtName = New System.Windows.Forms.TextBox()
         Me.lblCategory = New System.Windows.Forms.Label()
@@ -36,8 +33,8 @@ Partial Class HardwareForm
         Me.lblNotes = New System.Windows.Forms.Label()
         Me.txtNotes = New System.Windows.Forms.TextBox()
         Me.pnlBottom = New System.Windows.Forms.Panel()
-        Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
+        Me.btnCancel = New System.Windows.Forms.Button()
         Me.pnlHeader.SuspendLayout()
         CType(Me.numQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlBottom.SuspendLayout()
@@ -46,12 +43,12 @@ Partial Class HardwareForm
         'pnlHeader
         '
         Me.pnlHeader.BackColor = System.Drawing.Color.FromArgb(26, 43, 58)
-        Me.pnlHeader.Controls.Add(Me.lblHeaderSub)
         Me.pnlHeader.Controls.Add(Me.lblHeaderTitle)
+        Me.pnlHeader.Controls.Add(Me.lblHeaderSub)
         Me.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlHeader.Location = New System.Drawing.Point(0, 0)
         Me.pnlHeader.Name = "pnlHeader"
-        Me.pnlHeader.Size = New System.Drawing.Size(480, 70)
+        Me.pnlHeader.Size = New System.Drawing.Size(500, 70)
         Me.pnlHeader.TabIndex = 0
         '
         'lblHeaderTitle
@@ -204,12 +201,12 @@ Partial Class HardwareForm
         'pnlBottom
         '
         Me.pnlBottom.BackColor = System.Drawing.Color.FromArgb(248, 249, 250)
-        Me.pnlBottom.Controls.Add(Me.btnCancel)
         Me.pnlBottom.Controls.Add(Me.btnSave)
+        Me.pnlBottom.Controls.Add(Me.btnCancel)
         Me.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.pnlBottom.Location = New System.Drawing.Point(0, 390)
         Me.pnlBottom.Name = "pnlBottom"
-        Me.pnlBottom.Size = New System.Drawing.Size(480, 70)
+        Me.pnlBottom.Size = New System.Drawing.Size(500, 70)
         Me.pnlBottom.TabIndex = 13
         '
         'btnSave
@@ -219,11 +216,11 @@ Partial Class HardwareForm
         Me.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSave.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btnSave.ForeColor = System.Drawing.Color.White
-        Me.btnSave.Location = New System.Drawing.Point(230, 15)
+        Me.btnSave.Location = New System.Drawing.Point(220, 15)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(110, 40)
+        Me.btnSave.Size = New System.Drawing.Size(130, 40)
         Me.btnSave.TabIndex = 0
-        Me.btnSave.Text = "Save"
+        Me.btnSave.Text = "Add Item"
         Me.btnSave.UseVisualStyleBackColor = False
         '
         'btnCancel
@@ -234,9 +231,9 @@ Partial Class HardwareForm
         Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCancel.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.btnCancel.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.btnCancel.Location = New System.Drawing.Point(350, 15)
+        Me.btnCancel.Location = New System.Drawing.Point(360, 15)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(100, 40)
+        Me.btnCancel.Size = New System.Drawing.Size(90, 40)
         Me.btnCancel.TabIndex = 1
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = False
@@ -248,7 +245,7 @@ Partial Class HardwareForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(480, 460)
+        Me.ClientSize = New System.Drawing.Size(500, 460)
         Me.Controls.Add(Me.txtNotes)
         Me.Controls.Add(Me.lblNotes)
         Me.Controls.Add(Me.cmbStatus)
@@ -269,7 +266,7 @@ Partial Class HardwareForm
         Me.MinimizeBox = False
         Me.Name = "HardwareForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Hardware"
+        Me.Text = "Add Hardware"
         Me.pnlHeader.ResumeLayout(False)
         Me.pnlHeader.PerformLayout()
         CType(Me.numQuantity, System.ComponentModel.ISupportInitialize).EndInit()

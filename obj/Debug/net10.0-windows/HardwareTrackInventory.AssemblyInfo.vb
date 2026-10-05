@@ -16,7 +16,7 @@ Imports System.Reflection
 <Assembly: System.Reflection.AssemblyCompanyAttribute("HardwareTrackInventory"),  _
  Assembly: System.Reflection.AssemblyConfigurationAttribute("Debug"),  _
  Assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0"),  _
- Assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+426579d8dc093e6b39a5583c44a1f01d5e6e14c7"),  _
+ Assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+05ce1f32e2401575f9d308d98aef05ed6545e8ce"),  _
  Assembly: System.Reflection.AssemblyProductAttribute("HardwareTrackInventory"),  _
  Assembly: System.Reflection.AssemblyTitleAttribute("HardwareTrackInventory"),  _
  Assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0"),  _

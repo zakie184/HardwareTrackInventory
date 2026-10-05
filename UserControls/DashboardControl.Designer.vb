@@ -20,6 +20,10 @@ Partial Class DashboardControl
         pnlContainer = New Panel()
         lblWelcome = New Label()
         lblDate = New Label()
+        pnlApprovalNotification = New Panel()
+        lblApprovalIcon = New Label()
+        lblApprovalText = New Label()
+        btnViewApprovals = New Button()
         tlpStats = New TableLayoutPanel()
         pnlTotal = New Panel()
         lblTotalIcon = New Label()
@@ -54,9 +58,11 @@ Partial Class DashboardControl
         pnlLowStockGrid = New Panel()
         lblLowStockGridTitle = New Label()
         dgvLowStock = New DataGridView()
+        pnlActions = New Panel()
         btnAddHardware = New Button()
         btnRefresh = New Button()
         pnlContainer.SuspendLayout()
+        pnlApprovalNotification.SuspendLayout()
         tlpStats.SuspendLayout()
         pnlTotal.SuspendLayout()
         pnlAvailable.SuspendLayout()
@@ -71,6 +77,7 @@ Partial Class DashboardControl
         pnlActivity.SuspendLayout()
         pnlLowStockGrid.SuspendLayout()
         CType(dgvLowStock, ComponentModel.ISupportInitialize).BeginInit()
+        pnlActions.SuspendLayout()
         SuspendLayout()
         ' 
         ' pnlContainer
@@ -79,22 +86,22 @@ Partial Class DashboardControl
         pnlContainer.BackColor = Color.FromArgb(CByte(240), CByte(242), CByte(245))
         pnlContainer.Controls.Add(lblWelcome)
         pnlContainer.Controls.Add(lblDate)
+        pnlContainer.Controls.Add(pnlApprovalNotification)
         pnlContainer.Controls.Add(tlpStats)
         pnlContainer.Controls.Add(tlpCharts)
         pnlContainer.Controls.Add(tlpBottom)
-        pnlContainer.Controls.Add(btnAddHardware)
-        pnlContainer.Controls.Add(btnRefresh)
+        pnlContainer.Controls.Add(pnlActions)
         pnlContainer.Dock = DockStyle.Fill
         pnlContainer.Location = New Point(0, 0)
         pnlContainer.Name = "pnlContainer"
         pnlContainer.Padding = New Padding(15)
-        pnlContainer.Size = New Size(1100, 700)
+        pnlContainer.Size = New Size(1100, 760)
         pnlContainer.TabIndex = 0
         ' 
         ' lblWelcome
         ' 
         lblWelcome.AutoSize = True
-        lblWelcome.Font = New Font("Segoe UI", 18F, FontStyle.Bold)
+        lblWelcome.Font = New Font("Segoe UI", 18.0F, FontStyle.Bold)
         lblWelcome.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
         lblWelcome.Location = New Point(15, 15)
         lblWelcome.Name = "lblWelcome"
@@ -106,7 +113,7 @@ Partial Class DashboardControl
         ' 
         lblDate.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         lblDate.AutoSize = True
-        lblDate.Font = New Font("Segoe UI", 10F)
+        lblDate.Font = New Font("Segoe UI", 10.0F)
         lblDate.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
         lblDate.Location = New Point(860, 20)
         lblDate.Name = "lblDate"
@@ -114,14 +121,65 @@ Partial Class DashboardControl
         lblDate.TabIndex = 1
         lblDate.Text = "Today's Date"
         ' 
+        ' pnlApprovalNotification
+        ' 
+        pnlApprovalNotification.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        pnlApprovalNotification.BackColor = Color.FromArgb(CByte(255), CByte(243), CByte(205))
+        pnlApprovalNotification.BorderStyle = BorderStyle.FixedSingle
+        pnlApprovalNotification.Controls.Add(lblApprovalIcon)
+        pnlApprovalNotification.Controls.Add(lblApprovalText)
+        pnlApprovalNotification.Controls.Add(btnViewApprovals)
+        pnlApprovalNotification.Location = New Point(15, 60)
+        pnlApprovalNotification.Name = "pnlApprovalNotification"
+        pnlApprovalNotification.Size = New Size(1060, 50)
+        pnlApprovalNotification.TabIndex = 100
+        pnlApprovalNotification.Visible = False
+        ' 
+        ' lblApprovalIcon
+        ' 
+        lblApprovalIcon.Font = New Font("Segoe UI", 16.0F)
+        lblApprovalIcon.ForeColor = Color.FromArgb(CByte(241), CByte(196), CByte(15))
+        lblApprovalIcon.Location = New Point(15, 8)
+        lblApprovalIcon.Name = "lblApprovalIcon"
+        lblApprovalIcon.Size = New Size(32, 32)
+        lblApprovalIcon.TabIndex = 0
+        lblApprovalIcon.Text = "🔐"
+        lblApprovalIcon.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' lblApprovalText
+        ' 
+        lblApprovalText.AutoSize = True
+        lblApprovalText.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold)
+        lblApprovalText.ForeColor = Color.FromArgb(CByte(150), CByte(90), CByte(0))
+        lblApprovalText.Location = New Point(55, 14)
+        lblApprovalText.Name = "lblApprovalText"
+        lblApprovalText.Size = New Size(266, 20)
+        lblApprovalText.TabIndex = 1
+        lblApprovalText.Text = "You have pending approval requests."
+        ' 
+        ' btnViewApprovals
+        ' 
+        btnViewApprovals.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        btnViewApprovals.BackColor = Color.FromArgb(CByte(241), CByte(196), CByte(15))
+        btnViewApprovals.FlatAppearance.BorderSize = 0
+        btnViewApprovals.FlatStyle = FlatStyle.Flat
+        btnViewApprovals.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        btnViewApprovals.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+        btnViewApprovals.Location = New Point(900, 9)
+        btnViewApprovals.Name = "btnViewApprovals"
+        btnViewApprovals.Size = New Size(145, 32)
+        btnViewApprovals.TabIndex = 2
+        btnViewApprovals.Text = "View Requests"
+        btnViewApprovals.UseVisualStyleBackColor = False
+        ' 
         ' tlpStats
         ' 
         tlpStats.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         tlpStats.ColumnCount = 4
-        tlpStats.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
-        tlpStats.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
-        tlpStats.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
-        tlpStats.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
+        tlpStats.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25.0F))
+        tlpStats.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25.0F))
+        tlpStats.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25.0F))
+        tlpStats.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25.0F))
         tlpStats.Controls.Add(pnlTotal, 0, 0)
         tlpStats.Controls.Add(pnlAvailable, 1, 0)
         tlpStats.Controls.Add(pnlAssigned, 2, 0)
@@ -129,7 +187,7 @@ Partial Class DashboardControl
         tlpStats.Location = New Point(15, 60)
         tlpStats.Name = "tlpStats"
         tlpStats.RowCount = 1
-        tlpStats.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpStats.RowStyles.Add(New RowStyle(SizeType.Percent, 100.0F))
         tlpStats.Size = New Size(1060, 100)
         tlpStats.TabIndex = 2
         ' 
@@ -148,7 +206,7 @@ Partial Class DashboardControl
         ' 
         ' lblTotalIcon
         ' 
-        lblTotalIcon.Font = New Font("Segoe UI", 24F)
+        lblTotalIcon.Font = New Font("Segoe UI", 24.0F)
         lblTotalIcon.Location = New Point(10, 10)
         lblTotalIcon.Name = "lblTotalIcon"
         lblTotalIcon.Size = New Size(50, 40)
@@ -158,7 +216,7 @@ Partial Class DashboardControl
         ' lblTotalCount
         ' 
         lblTotalCount.Anchor = AnchorStyles.Top Or AnchorStyles.Right
-        lblTotalCount.Font = New Font("Segoe UI", 24F, FontStyle.Bold)
+        lblTotalCount.Font = New Font("Segoe UI", 24.0F, FontStyle.Bold)
         lblTotalCount.ForeColor = Color.FromArgb(CByte(52), CByte(152), CByte(219))
         lblTotalCount.Location = New Point(140, 10)
         lblTotalCount.Name = "lblTotalCount"
@@ -169,7 +227,7 @@ Partial Class DashboardControl
         ' 
         ' lblTotalLabel
         ' 
-        lblTotalLabel.Font = New Font("Segoe UI", 10F)
+        lblTotalLabel.Font = New Font("Segoe UI", 10.0F)
         lblTotalLabel.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
         lblTotalLabel.Location = New Point(10, 55)
         lblTotalLabel.Name = "lblTotalLabel"
@@ -192,7 +250,7 @@ Partial Class DashboardControl
         ' 
         ' lblAvailableIcon
         ' 
-        lblAvailableIcon.Font = New Font("Segoe UI", 24F)
+        lblAvailableIcon.Font = New Font("Segoe UI", 24.0F)
         lblAvailableIcon.Location = New Point(10, 10)
         lblAvailableIcon.Name = "lblAvailableIcon"
         lblAvailableIcon.Size = New Size(50, 40)
@@ -202,7 +260,7 @@ Partial Class DashboardControl
         ' lblAvailableCount
         ' 
         lblAvailableCount.Anchor = AnchorStyles.Top Or AnchorStyles.Right
-        lblAvailableCount.Font = New Font("Segoe UI", 24F, FontStyle.Bold)
+        lblAvailableCount.Font = New Font("Segoe UI", 24.0F, FontStyle.Bold)
         lblAvailableCount.ForeColor = Color.FromArgb(CByte(46), CByte(204), CByte(113))
         lblAvailableCount.Location = New Point(140, 10)
         lblAvailableCount.Name = "lblAvailableCount"
@@ -213,7 +271,7 @@ Partial Class DashboardControl
         ' 
         ' lblAvailableLabel
         ' 
-        lblAvailableLabel.Font = New Font("Segoe UI", 10F)
+        lblAvailableLabel.Font = New Font("Segoe UI", 10.0F)
         lblAvailableLabel.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
         lblAvailableLabel.Location = New Point(10, 55)
         lblAvailableLabel.Name = "lblAvailableLabel"
@@ -236,7 +294,7 @@ Partial Class DashboardControl
         ' 
         ' lblAssignedIcon
         ' 
-        lblAssignedIcon.Font = New Font("Segoe UI", 24F)
+        lblAssignedIcon.Font = New Font("Segoe UI", 24.0F)
         lblAssignedIcon.Location = New Point(10, 10)
         lblAssignedIcon.Name = "lblAssignedIcon"
         lblAssignedIcon.Size = New Size(50, 40)
@@ -246,7 +304,7 @@ Partial Class DashboardControl
         ' lblAssignedCount
         ' 
         lblAssignedCount.Anchor = AnchorStyles.Top Or AnchorStyles.Right
-        lblAssignedCount.Font = New Font("Segoe UI", 24F, FontStyle.Bold)
+        lblAssignedCount.Font = New Font("Segoe UI", 24.0F, FontStyle.Bold)
         lblAssignedCount.ForeColor = Color.FromArgb(CByte(241), CByte(196), CByte(15))
         lblAssignedCount.Location = New Point(140, 10)
         lblAssignedCount.Name = "lblAssignedCount"
@@ -257,7 +315,7 @@ Partial Class DashboardControl
         ' 
         ' lblAssignedLabel
         ' 
-        lblAssignedLabel.Font = New Font("Segoe UI", 10F)
+        lblAssignedLabel.Font = New Font("Segoe UI", 10.0F)
         lblAssignedLabel.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
         lblAssignedLabel.Location = New Point(10, 55)
         lblAssignedLabel.Name = "lblAssignedLabel"
@@ -280,7 +338,7 @@ Partial Class DashboardControl
         ' 
         ' lblLowStockIcon
         ' 
-        lblLowStockIcon.Font = New Font("Segoe UI", 24F)
+        lblLowStockIcon.Font = New Font("Segoe UI", 24.0F)
         lblLowStockIcon.Location = New Point(10, 10)
         lblLowStockIcon.Name = "lblLowStockIcon"
         lblLowStockIcon.Size = New Size(50, 40)
@@ -290,7 +348,7 @@ Partial Class DashboardControl
         ' lblLowStockCount
         ' 
         lblLowStockCount.Anchor = AnchorStyles.Top Or AnchorStyles.Right
-        lblLowStockCount.Font = New Font("Segoe UI", 24F, FontStyle.Bold)
+        lblLowStockCount.Font = New Font("Segoe UI", 24.0F, FontStyle.Bold)
         lblLowStockCount.ForeColor = Color.FromArgb(CByte(231), CByte(76), CByte(60))
         lblLowStockCount.Location = New Point(140, 10)
         lblLowStockCount.Name = "lblLowStockCount"
@@ -301,7 +359,7 @@ Partial Class DashboardControl
         ' 
         ' lblLowStockLabel
         ' 
-        lblLowStockLabel.Font = New Font("Segoe UI", 10F)
+        lblLowStockLabel.Font = New Font("Segoe UI", 10.0F)
         lblLowStockLabel.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
         lblLowStockLabel.Location = New Point(10, 55)
         lblLowStockLabel.Name = "lblLowStockLabel"
@@ -315,15 +373,15 @@ Partial Class DashboardControl
         tlpCharts.BackColor = Color.White
         tlpCharts.BorderStyle = BorderStyle.FixedSingle
         tlpCharts.ColumnCount = 2
-        tlpCharts.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
-        tlpCharts.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpCharts.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        tlpCharts.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
         tlpCharts.Controls.Add(pnlPieChart, 0, 0)
         tlpCharts.Controls.Add(pnlBarChart, 1, 0)
-        tlpCharts.Location = New Point(15, 175)
+        tlpCharts.Location = New Point(15, 170)
         tlpCharts.Name = "tlpCharts"
         tlpCharts.RowCount = 1
-        tlpCharts.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
-        tlpCharts.Size = New Size(1060, 201)
+        tlpCharts.RowStyles.Add(New RowStyle(SizeType.Percent, 100.0F))
+        tlpCharts.Size = New Size(1060, 190)
         tlpCharts.TabIndex = 3
         ' 
         ' pnlPieChart
@@ -333,12 +391,12 @@ Partial Class DashboardControl
         pnlPieChart.Dock = DockStyle.Fill
         pnlPieChart.Location = New Point(3, 3)
         pnlPieChart.Name = "pnlPieChart"
-        pnlPieChart.Size = New Size(523, 193)
+        pnlPieChart.Size = New Size(523, 182)
         pnlPieChart.TabIndex = 0
         ' 
         ' lblPieTitle
         ' 
-        lblPieTitle.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        lblPieTitle.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
         lblPieTitle.Location = New Point(10, 5)
         lblPieTitle.Name = "lblPieTitle"
         lblPieTitle.Size = New Size(490, 20)
@@ -349,9 +407,10 @@ Partial Class DashboardControl
         ' 
         picPieChart.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         picPieChart.BackColor = Color.White
-        picPieChart.Location = New Point(10, 25)
+        picPieChart.Location = New Point(10, 28)
         picPieChart.Name = "picPieChart"
-        picPieChart.Size = New Size(503, 158)
+        picPieChart.Size = New Size(503, 148)
+        picPieChart.SizeMode = PictureBoxSizeMode.Zoom
         picPieChart.TabIndex = 1
         picPieChart.TabStop = False
         ' 
@@ -362,12 +421,12 @@ Partial Class DashboardControl
         pnlBarChart.Dock = DockStyle.Fill
         pnlBarChart.Location = New Point(532, 3)
         pnlBarChart.Name = "pnlBarChart"
-        pnlBarChart.Size = New Size(523, 193)
+        pnlBarChart.Size = New Size(523, 182)
         pnlBarChart.TabIndex = 1
         ' 
         ' lblBarTitle
         ' 
-        lblBarTitle.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        lblBarTitle.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
         lblBarTitle.Location = New Point(10, 5)
         lblBarTitle.Name = "lblBarTitle"
         lblBarTitle.Size = New Size(490, 20)
@@ -378,9 +437,10 @@ Partial Class DashboardControl
         ' 
         picBarChart.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         picBarChart.BackColor = Color.White
-        picBarChart.Location = New Point(10, 25)
+        picBarChart.Location = New Point(10, 28)
         picBarChart.Name = "picBarChart"
-        picBarChart.Size = New Size(503, 158)
+        picBarChart.Size = New Size(503, 148)
+        picBarChart.SizeMode = PictureBoxSizeMode.Zoom
         picBarChart.TabIndex = 1
         picBarChart.TabStop = False
         ' 
@@ -390,15 +450,15 @@ Partial Class DashboardControl
         tlpBottom.BackColor = Color.White
         tlpBottom.BorderStyle = BorderStyle.FixedSingle
         tlpBottom.ColumnCount = 2
-        tlpBottom.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
-        tlpBottom.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpBottom.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        tlpBottom.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
         tlpBottom.Controls.Add(pnlActivity, 0, 0)
         tlpBottom.Controls.Add(pnlLowStockGrid, 1, 0)
-        tlpBottom.Location = New Point(15, 384)
+        tlpBottom.Location = New Point(15, 370)
         tlpBottom.Name = "tlpBottom"
         tlpBottom.RowCount = 1
-        tlpBottom.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
-        tlpBottom.Size = New Size(1060, 250)
+        tlpBottom.RowStyles.Add(New RowStyle(SizeType.Percent, 100.0F))
+        tlpBottom.Size = New Size(1060, 257)
         tlpBottom.TabIndex = 4
         ' 
         ' pnlActivity
@@ -408,12 +468,12 @@ Partial Class DashboardControl
         pnlActivity.Dock = DockStyle.Fill
         pnlActivity.Location = New Point(3, 3)
         pnlActivity.Name = "pnlActivity"
-        pnlActivity.Size = New Size(523, 242)
+        pnlActivity.Size = New Size(523, 249)
         pnlActivity.TabIndex = 0
         ' 
         ' lblActivityTitle
         ' 
-        lblActivityTitle.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        lblActivityTitle.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
         lblActivityTitle.Location = New Point(10, 5)
         lblActivityTitle.Name = "lblActivityTitle"
         lblActivityTitle.Size = New Size(490, 20)
@@ -426,9 +486,9 @@ Partial Class DashboardControl
         lvActivity.Columns.AddRange(New ColumnHeader() {colTime, colUser, colAction})
         lvActivity.FullRowSelect = True
         lvActivity.GridLines = True
-        lvActivity.Location = New Point(10, 25)
+        lvActivity.Location = New Point(10, 28)
         lvActivity.Name = "lvActivity"
-        lvActivity.Size = New Size(503, 207)
+        lvActivity.Size = New Size(503, 211)
         lvActivity.TabIndex = 1
         lvActivity.UseCompatibleStateImageBehavior = False
         lvActivity.View = View.Details
@@ -441,12 +501,12 @@ Partial Class DashboardControl
         ' colUser
         ' 
         colUser.Text = "User"
-        colUser.Width = 120
+        colUser.Width = 130
         ' 
         ' colAction
         ' 
         colAction.Text = "Action"
-        colAction.Width = 250
+        colAction.Width = 280
         ' 
         ' pnlLowStockGrid
         ' 
@@ -455,12 +515,12 @@ Partial Class DashboardControl
         pnlLowStockGrid.Dock = DockStyle.Fill
         pnlLowStockGrid.Location = New Point(532, 3)
         pnlLowStockGrid.Name = "pnlLowStockGrid"
-        pnlLowStockGrid.Size = New Size(523, 242)
+        pnlLowStockGrid.Size = New Size(523, 249)
         pnlLowStockGrid.TabIndex = 1
         ' 
         ' lblLowStockGridTitle
         ' 
-        lblLowStockGridTitle.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        lblLowStockGridTitle.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
         lblLowStockGridTitle.ForeColor = Color.FromArgb(CByte(231), CByte(76), CByte(60))
         lblLowStockGridTitle.Location = New Point(10, 5)
         lblLowStockGridTitle.Name = "lblLowStockGridTitle"
@@ -474,49 +534,61 @@ Partial Class DashboardControl
         dgvLowStock.AllowUserToDeleteRows = False
         dgvLowStock.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         dgvLowStock.BackgroundColor = Color.White
-        dgvLowStock.Location = New Point(10, 25)
+        dgvLowStock.BorderStyle = BorderStyle.None
+        dgvLowStock.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvLowStock.Location = New Point(10, 28)
         dgvLowStock.Name = "dgvLowStock"
         dgvLowStock.ReadOnly = True
         dgvLowStock.RowHeadersVisible = False
-        dgvLowStock.Size = New Size(503, 207)
+        dgvLowStock.Size = New Size(503, 211)
         dgvLowStock.TabIndex = 1
+        ' 
+        ' pnlActions
+        ' 
+        pnlActions.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        pnlActions.Controls.Add(btnAddHardware)
+        pnlActions.Controls.Add(btnRefresh)
+        pnlActions.Location = New Point(15, 647)
+        pnlActions.Name = "pnlActions"
+        pnlActions.Size = New Size(1060, 50)
+        pnlActions.TabIndex = 5
         ' 
         ' btnAddHardware
         ' 
-        btnAddHardware.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         btnAddHardware.BackColor = Color.FromArgb(CByte(52), CByte(152), CByte(219))
         btnAddHardware.FlatStyle = FlatStyle.Flat
-        btnAddHardware.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        btnAddHardware.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
         btnAddHardware.ForeColor = Color.White
-        btnAddHardware.Location = New Point(15, 640)
+        btnAddHardware.Location = New Point(0, 8)
         btnAddHardware.Name = "btnAddHardware"
         btnAddHardware.Size = New Size(120, 35)
-        btnAddHardware.TabIndex = 5
+        btnAddHardware.TabIndex = 0
         btnAddHardware.Text = "➕ Add Item"
         btnAddHardware.UseVisualStyleBackColor = False
         ' 
         ' btnRefresh
         ' 
-        btnRefresh.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         btnRefresh.FlatStyle = FlatStyle.Flat
-        btnRefresh.Location = New Point(145, 640)
+        btnRefresh.Location = New Point(130, 8)
         btnRefresh.Name = "btnRefresh"
         btnRefresh.Size = New Size(100, 35)
-        btnRefresh.TabIndex = 6
+        btnRefresh.TabIndex = 1
         btnRefresh.Text = "🔄 Refresh"
         btnRefresh.UseVisualStyleBackColor = True
         ' 
         ' DashboardControl
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.White
         Controls.Add(pnlContainer)
-        Font = New Font("Segoe UI", 9F)
+        Font = New Font("Segoe UI", 9.0F)
         Name = "DashboardControl"
-        Size = New Size(1100, 700)
+        Size = New Size(1100, 760)
         pnlContainer.ResumeLayout(False)
         pnlContainer.PerformLayout()
+        pnlApprovalNotification.ResumeLayout(False)
+        pnlApprovalNotification.PerformLayout()
         tlpStats.ResumeLayout(False)
         pnlTotal.ResumeLayout(False)
         pnlAvailable.ResumeLayout(False)
@@ -531,6 +603,7 @@ Partial Class DashboardControl
         pnlActivity.ResumeLayout(False)
         pnlLowStockGrid.ResumeLayout(False)
         CType(dgvLowStock, ComponentModel.ISupportInitialize).EndInit()
+        pnlActions.ResumeLayout(False)
         ResumeLayout(False)
 
     End Sub
@@ -538,6 +611,10 @@ Partial Class DashboardControl
     Friend WithEvents pnlContainer As System.Windows.Forms.Panel
     Friend WithEvents lblWelcome As System.Windows.Forms.Label
     Friend WithEvents lblDate As System.Windows.Forms.Label
+    Friend WithEvents pnlApprovalNotification As System.Windows.Forms.Panel
+    Friend WithEvents lblApprovalIcon As System.Windows.Forms.Label
+    Friend WithEvents lblApprovalText As System.Windows.Forms.Label
+    Friend WithEvents btnViewApprovals As System.Windows.Forms.Button
     Friend WithEvents tlpStats As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents pnlTotal As System.Windows.Forms.Panel
     Friend WithEvents lblTotalIcon As System.Windows.Forms.Label
@@ -572,6 +649,7 @@ Partial Class DashboardControl
     Friend WithEvents pnlLowStockGrid As System.Windows.Forms.Panel
     Friend WithEvents lblLowStockGridTitle As System.Windows.Forms.Label
     Friend WithEvents dgvLowStock As System.Windows.Forms.DataGridView
+    Friend WithEvents pnlActions As System.Windows.Forms.Panel
     Friend WithEvents btnAddHardware As System.Windows.Forms.Button
     Friend WithEvents btnRefresh As System.Windows.Forms.Button
 End Class

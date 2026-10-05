@@ -1,11 +1,15 @@
 D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\HardwareTrackInventory.exe
+D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\HardwareTrackInventory.dll.config
+D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\HardwareTrackInventory.deps.json
+D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\HardwareTrackInventory.runtimeconfig.json
 D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\HardwareTrackInventory.dll
-D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\MySql.Data.dll
+D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\HardwareTrackInventory.pdb
 D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\BouncyCastle.Cryptography.dll
 D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\Google.Protobuf.dll
 D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\K4os.Compression.LZ4.dll
 D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\K4os.Compression.LZ4.Streams.dll
 D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\K4os.Hash.xxHash.dll
+D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\MySql.Data.dll
 D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\ZstdSharp.dll
 D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\runtimes\win-x64\native\comerr64.dll
 D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\runtimes\win-x64\native\gssapi64.dll
@@ -14,6 +18,7 @@ D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\runtim
 D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\runtimes\win-x64\native\krbcc64.dll
 D:\visual_project\school\HardwareTrackInventory\obj\Debug\net10.0-windows\HardwareTrackInventory.vbproj.AssemblyReference.cache
 D:\visual_project\school\HardwareTrackInventory\obj\Debug\net10.0-windows\HardwareTrackInventory.AddUserForm.resources
+D:\visual_project\school\HardwareTrackInventory\obj\Debug\net10.0-windows\HardwareTrackInventory.HardwareForm.resources
 D:\visual_project\school\HardwareTrackInventory\obj\Debug\net10.0-windows\HardwareTrackInventory.LoginForm.resources
 D:\visual_project\school\HardwareTrackInventory\obj\Debug\net10.0-windows\HardwareTrackInventory.MainForm.resources
 D:\visual_project\school\HardwareTrackInventory\obj\Debug\net10.0-windows\HardwareTrackInventory.CategoriesControl.resources
@@ -31,9 +36,5 @@ D:\visual_project\school\HardwareTrackInventory\obj\Debug\net10.0-windows\Hardwa
 D:\visual_project\school\HardwareTrackInventory\obj\Debug\net10.0-windows\HardwareTrackInventory.dll
 D:\visual_project\school\HardwareTrackInventory\obj\Debug\net10.0-windows\refint\HardwareTrackInventory.dll
 D:\visual_project\school\HardwareTrackInventory\obj\Debug\net10.0-windows\HardwareTrackInventory.pdb
-D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\HardwareTrackInventory.dll.config
-D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\HardwareTrackInventory.deps.json
-D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\HardwareTrackInventory.runtimeconfig.json
-D:\visual_project\school\HardwareTrackInventory\bin\Debug\net10.0-windows\HardwareTrackInventory.pdb
 D:\visual_project\school\HardwareTrackInventory\obj\Debug\net10.0-windows\HardwareTrackInventory.genruntimeconfig.cache
 D:\visual_project\school\HardwareTrackInventory\obj\Debug\net10.0-windows\ref\HardwareTrackInventory.dll
