@@ -1,4 +1,4 @@
-﻿Public Class ApprovalsForm
+﻿Public Class ReturnsApprovalForm
 
     Private _user As User = Nothing
 
@@ -7,12 +7,12 @@
         _user = user
     End Sub
 
-    Private Sub ApprovalsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub ReturnsApprovalForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadPending()
         tmrRefresh.Start()
     End Sub
 
-    Private Sub ApprovalsForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+    Private Sub ReturnsApprovalForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         tmrRefresh.Stop()
     End Sub
 
@@ -22,18 +22,19 @@
 
     Private Sub LoadPending()
         Try
-            dgvPending.DataSource = DatabaseHelper.GetPendingIssuances()
+            dgvPending.DataSource = DatabaseHelper.GetPendingReturns()
 
             If dgvPending.Columns.Count > 0 Then
                 If dgvPending.Columns.Contains("IssuanceID") Then dgvPending.Columns("IssuanceID").Visible = False
-                If dgvPending.Columns.Contains("HardwareID") Then dgvPending.Columns("HardwareID").Visible = False
                 If dgvPending.Columns.Contains("Department") Then dgvPending.Columns("Department").Visible = False
+                If dgvPending.Columns.Contains("DateIssued") Then dgvPending.Columns("DateIssued").Visible = False
 
                 SetCol("ItemName", "Item", 180)
                 SetCol("QuantityIssued", "Qty", 50)
-                SetCol("IssuedTo", "Issued To", 140)
-                SetCol("IssuedBy", "Requested By", 110)
-                SetCol("DateIssued", "Requested", 130)
+                SetCol("IssuedTo", "Issued To", 130)
+                SetCol("IssuedBy", "Issued By", 110)
+                SetCol("ReturnRequestedBy", "Return Requested By", 140)
+                SetCol("ReturnRequestDate", "Request Date", 130)
             End If
 
             If dgvPending.Rows.Count = 0 Then ClearDetails()
@@ -53,7 +54,7 @@
         lblRequestedBy.Text = "--"
         lblIssuedTo.Text = "--"
         lblQty.Text = "--"
-        lblPurpose.Text = "--"
+        lblDepartment.Text = "--"
         btnApprove.Enabled = False
         btnReject.Enabled = False
     End Sub
@@ -67,10 +68,10 @@
         Dim row As DataGridViewRow = dgvPending.SelectedRows(0)
 
         If row.Cells("ItemName").Value IsNot DBNull.Value Then lblItemName.Text = row.Cells("ItemName").Value.ToString()
-        If row.Cells("IssuedBy").Value IsNot DBNull.Value Then lblRequestedBy.Text = row.Cells("IssuedBy").Value.ToString()
+        If row.Cells("ReturnRequestedBy").Value IsNot DBNull.Value Then lblRequestedBy.Text = row.Cells("ReturnRequestedBy").Value.ToString()
         If row.Cells("IssuedTo").Value IsNot DBNull.Value Then lblIssuedTo.Text = row.Cells("IssuedTo").Value.ToString()
         If row.Cells("QuantityIssued").Value IsNot DBNull.Value Then lblQty.Text = row.Cells("QuantityIssued").Value.ToString()
-        If row.Cells("Department").Value IsNot DBNull.Value Then lblPurpose.Text = row.Cells("Department").Value.ToString()
+        If row.Cells("Department").Value IsNot DBNull.Value Then lblDepartment.Text = row.Cells("Department").Value.ToString()
 
         btnApprove.Enabled = True
         btnReject.Enabled = True
@@ -86,23 +87,24 @@
         Dim qty As Integer = Convert.ToInt32(row.Cells("QuantityIssued").Value)
 
         Dim confirm As DialogResult = MessageBox.Show(
-            "Approve issuance of " & qty & "x '" & itemName & "' to " & issuedTo & "?",
-            "Confirm Approval", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            "Approve return of " & qty & "x '" & itemName & "' from " & issuedTo & "?" & vbCrLf &
+            "Stock will be added back to inventory.",
+            "Confirm Return Approval", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If confirm <> DialogResult.Yes Then Return
 
-        If DatabaseHelper.ApproveIssuance(issuanceID, _user.Username) Then
+        If DatabaseHelper.ApproveReturn(issuanceID, _user.Username) Then
             ActivityLogger.Log(_user,
-                               "Approved issuance of " & qty & "x '" & itemName & "' to " & issuedTo,
+                               "Approved return of " & qty & "x '" & itemName & "' from " & issuedTo,
                                "Hardware", 0, False)
             tmrRefresh.Stop()
-            MessageBox.Show("Issuance approved and stock updated!", "Approved",
+            MessageBox.Show("Return approved and stock updated!", "Approved",
                             MessageBoxButtons.OK, MessageBoxIcon.Information)
             Me.DialogResult = DialogResult.OK
             Me.Close()
         Else
-            MessageBox.Show("Failed to approve. The item may no longer have enough stock.",
-                            "Approval Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Failed to approve return.", "Approval Failed",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
@@ -114,25 +116,23 @@
         Dim itemName As String = row.Cells("ItemName").Value.ToString()
         Dim issuedTo As String = row.Cells("IssuedTo").Value.ToString()
 
-        Dim reason As String = InputBox("Enter reason for rejection:", "Reject Issuance Request", "")
-        If reason Is Nothing Then Return
-        If String.IsNullOrWhiteSpace(reason) Then
-            MessageBox.Show("A reason is required for rejection.", "Validation",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
+        Dim confirm As DialogResult = MessageBox.Show(
+            "Reject the return request for '" & itemName & "' from " & issuedTo & "?",
+            "Confirm Rejection", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 
-        If DatabaseHelper.RejectIssuance(issuanceID, _user.Username, reason) Then
+        If confirm <> DialogResult.Yes Then Return
+
+        If DatabaseHelper.RejectReturn(issuanceID, _user.Username) Then
             ActivityLogger.Log(_user,
-                               "Rejected issuance of '" & itemName & "' to " & issuedTo & " - Reason: " & reason,
+                               "Rejected return of '" & itemName & "' from " & issuedTo,
                                "Hardware", 0, False)
             tmrRefresh.Stop()
-            MessageBox.Show("Issuance request rejected.", "Rejected",
+            MessageBox.Show("Return request rejected.", "Rejected",
                             MessageBoxButtons.OK, MessageBoxIcon.Information)
             Me.DialogResult = DialogResult.OK
             Me.Close()
         Else
-            MessageBox.Show("Failed to reject the issuance.", "Error",
+            MessageBox.Show("Failed to reject return.", "Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub

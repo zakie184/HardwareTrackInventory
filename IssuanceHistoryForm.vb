@@ -22,8 +22,8 @@ Public Class IssuanceHistoryForm
         cmbFilter.Items.Add("All")
         cmbFilter.Items.Add("Pending approval")
         cmbFilter.Items.Add("Approved (outstanding)")
-        cmbFilter.Items.Add("Partial return")
-        cmbFilter.Items.Add("Fully returned")
+        cmbFilter.Items.Add("Pending return")
+        cmbFilter.Items.Add("Returned")
         cmbFilter.Items.Add("Rejected")
         cmbFilter.SelectedIndex = 0
 
@@ -60,7 +60,7 @@ Public Class IssuanceHistoryForm
         Select Case cmbFilter.SelectedIndex
             Case 1 : view.RowFilter = "ApprovalStatus = 'Pending'"
             Case 2 : view.RowFilter = "ApprovalStatus = 'Approved' AND Status = 'Issued'"
-            Case 3 : view.RowFilter = "Status = 'Partial'"
+            Case 3 : view.RowFilter = "ReturnApprovalStatus = 'Pending'"
             Case 4 : view.RowFilter = "Status = 'Returned'"
             Case 5 : view.RowFilter = "ApprovalStatus = 'Rejected'"
             Case Else : view.RowFilter = ""
@@ -74,30 +74,19 @@ Public Class IssuanceHistoryForm
     Private Sub FormatGrid()
         If dgvIssuances.Columns.Count = 0 Then Return
 
-        Dim hideCols As String() = {"IssuanceID", "HardwareID", "Notes", "ReturnNotes", "Purpose", "RejectionReason"}
+        Dim hideCols As String() = {"IssuanceID", "HardwareID", "RejectionReason", "ReturnRequestedBy"}
         For Each c As String In hideCols
             If dgvIssuances.Columns.Contains(c) Then dgvIssuances.Columns(c).Visible = False
         Next
 
         SetCol("ItemName", "Item", 150)
         SetCol("QuantityIssued", "Qty", 40)
-        SetCol("QuantityReturned", "Ret.", 40)
-        SetCol("IssuedTo", "Issued To", 110)
-        SetCol("Department", "Dept", 90)
-        SetCol("IssuedBy", "By", 75)
+        SetCol("IssuedTo", "Issued To", 120)
+        SetCol("Department", "Department", 110)
+        SetCol("IssuedBy", "Issued By", 100)
         SetCol("DateIssued", "Date Issued", 115)
-        SetCol("ExpectedReturn", "Expected", 85)
-        SetCol("DateReturned", "Returned", 85)
-        SetCol("Status", "Return", 70)
         SetCol("ApprovalStatus", "Approval", 80)
-        SetCol("ApprovedBy", "Approved By", 90)
-        SetCol("ApprovalDate", "Approved On", 115)
-
-        ' Staff does not see approval details
-        If _user.Role = "Staff" Then
-            If dgvIssuances.Columns.Contains("ApprovedBy") Then dgvIssuances.Columns("ApprovedBy").Visible = False
-            If dgvIssuances.Columns.Contains("ApprovalDate") Then dgvIssuances.Columns("ApprovalDate").Visible = False
-        End If
+        SetCol("ReturnStatus", "Return Status", 100)
 
         For Each row As DataGridViewRow In dgvIssuances.Rows
             If dgvIssuances.Columns.Contains("ApprovalStatus") AndAlso row.Cells("ApprovalStatus").Value IsNot DBNull.Value Then
@@ -108,16 +97,34 @@ Public Class IssuanceHistoryForm
                 End Select
             End If
 
-            If dgvIssuances.Columns.Contains("Status") AndAlso row.Cells("Status").Value IsNot DBNull.Value Then
-                Select Case row.Cells("Status").Value.ToString()
-                    Case "Issued" : row.Cells("Status").Style.ForeColor = Color.OrangeRed
-                    Case "Partial" : row.Cells("Status").Style.ForeColor = Color.Orange
-                    Case "Returned" : row.Cells("Status").Style.ForeColor = Color.Green
-                    Case "Rejected" : row.Cells("Status").Style.ForeColor = Color.Gray
+            Dim retStatus As String = GetReturnStatusDisplay(row)
+            If dgvIssuances.Columns.Contains("ReturnStatus") Then
+                Select Case retStatus
+                    Case "Outstanding" : row.Cells("ReturnStatus").Style.ForeColor = Color.OrangeRed
+                    Case "Pending" : row.Cells("ReturnStatus").Style.ForeColor = Color.FromArgb(241, 196, 15)
+                    Case "Returned" : row.Cells("ReturnStatus").Style.ForeColor = Color.Green
+                    Case Else : row.Cells("ReturnStatus").Style.ForeColor = Color.Gray
                 End Select
             End If
         Next
     End Sub
+
+    Private Function GetReturnStatusDisplay(row As DataGridViewRow) As String
+        Dim status As String = ""
+        Dim retApproval As String = ""
+
+        If dgvIssuances.Columns.Contains("Status") AndAlso row.Cells("Status").Value IsNot DBNull.Value Then
+            status = row.Cells("Status").Value.ToString()
+        End If
+
+        If dgvIssuances.Columns.Contains("ReturnApprovalStatus") AndAlso row.Cells("ReturnApprovalStatus").Value IsNot DBNull.Value Then
+            retApproval = row.Cells("ReturnApprovalStatus").Value.ToString()
+        End If
+
+        If status = "Returned" Then Return "Returned"
+        If retApproval = "Pending" Then Return "Pending"
+        Return "Outstanding"
+    End Function
 
     Private Sub SetCol(name As String, header As String, width As Integer)
         If dgvIssuances.Columns.Contains(name) Then
@@ -142,21 +149,26 @@ Public Class IssuanceHistoryForm
         End If
 
         Dim appr As String = ""
-        Dim ret As String = ""
+        Dim retStatus As String = ""
+        Dim retApproval As String = ""
 
         If dgvIssuances.Columns.Contains("ApprovalStatus") AndAlso dgvIssuances.SelectedRows(0).Cells("ApprovalStatus").Value IsNot DBNull.Value Then
             appr = dgvIssuances.SelectedRows(0).Cells("ApprovalStatus").Value.ToString()
         End If
         If dgvIssuances.Columns.Contains("Status") AndAlso dgvIssuances.SelectedRows(0).Cells("Status").Value IsNot DBNull.Value Then
-            ret = dgvIssuances.SelectedRows(0).Cells("Status").Value.ToString()
+            retStatus = dgvIssuances.SelectedRows(0).Cells("Status").Value.ToString()
+        End If
+        If dgvIssuances.Columns.Contains("ReturnApprovalStatus") AndAlso dgvIssuances.SelectedRows(0).Cells("ReturnApprovalStatus").Value IsNot DBNull.Value Then
+            retApproval = dgvIssuances.SelectedRows(0).Cells("ReturnApprovalStatus").Value.ToString()
         End If
 
-        btnReturn.Enabled = (appr = "Approved") AndAlso (ret <> "Returned")
+        ' Can return only if: approved issuance, not already returned, no pending return
+        btnReturn.Enabled = (appr = "Approved") AndAlso (retStatus <> "Returned") AndAlso (retApproval <> "Pending")
     End Sub
 
     Private Sub btnReturn_Click(sender As Object, e As EventArgs) Handles btnReturn.Click
         If _user Is Nothing OrElse Not _user.CanProcessReturn() Then
-            MessageBox.Show("Only Administrators and Inventory Managers can process returns.",
+            MessageBox.Show("You don't have permission to process returns.",
                             "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
@@ -172,14 +184,15 @@ Public Class IssuanceHistoryForm
         Dim itemName As String = row.Cells("ItemName").Value.ToString()
         Dim issuedTo As String = row.Cells("IssuedTo").Value.ToString()
         Dim qtyIssued As Integer = Convert.ToInt32(row.Cells("QuantityIssued").Value)
-        Dim qtyReturned As Integer = Convert.ToInt32(row.Cells("QuantityReturned").Value)
+        Dim qtyReturned As Integer = 0
+        If row.Cells("QuantityReturned").Value IsNot DBNull.Value Then
+            qtyReturned = Convert.ToInt32(row.Cells("QuantityReturned").Value)
+        End If
         Dim dateIssued As DateTime = Convert.ToDateTime(row.Cells("DateIssued").Value)
 
         Using frm As New ReturnForm(_user, issuanceID, itemName, issuedTo, qtyIssued, qtyReturned, dateIssued)
             If frm.ShowDialog(Me) = DialogResult.OK Then
                 LoadIssuances()
-                MessageBox.Show("Return processed successfully!", "Success",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         End Using
     End Sub

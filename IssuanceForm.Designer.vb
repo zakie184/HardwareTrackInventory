@@ -27,15 +27,9 @@ Partial Class IssuanceForm
         Me.lblQuantity = New System.Windows.Forms.Label()
         Me.numQuantity = New System.Windows.Forms.NumericUpDown()
         Me.lblIssuedTo = New System.Windows.Forms.Label()
-        Me.txtIssuedTo = New System.Windows.Forms.TextBox()
+        Me.cmbIssuedTo = New System.Windows.Forms.ComboBox()
         Me.lblDepartment = New System.Windows.Forms.Label()
-        Me.txtDepartment = New System.Windows.Forms.TextBox()
-        Me.lblPurpose = New System.Windows.Forms.Label()
-        Me.txtPurpose = New System.Windows.Forms.TextBox()
-        Me.chkExpectedReturn = New System.Windows.Forms.CheckBox()
-        Me.dtpExpectedReturn = New System.Windows.Forms.DateTimePicker()
-        Me.lblNotes = New System.Windows.Forms.Label()
-        Me.txtNotes = New System.Windows.Forms.TextBox()
+        Me.cmbDepartment = New System.Windows.Forms.ComboBox()
         Me.pnlBottom = New System.Windows.Forms.Panel()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
@@ -82,7 +76,7 @@ Partial Class IssuanceForm
         Me.lblItemLbl.AutoSize = True
         Me.lblItemLbl.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.lblItemLbl.ForeColor = System.Drawing.Color.Gray
-        Me.lblItemLbl.Location = New System.Drawing.Point(30, 85)
+        Me.lblItemLbl.Location = New System.Drawing.Point(30, 95)
         Me.lblItemLbl.Name = "lblItemLbl"
         Me.lblItemLbl.Size = New System.Drawing.Size(34, 15)
         Me.lblItemLbl.TabIndex = 2
@@ -93,7 +87,7 @@ Partial Class IssuanceForm
         Me.lblItemName.AutoSize = True
         Me.lblItemName.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.lblItemName.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblItemName.Location = New System.Drawing.Point(80, 84)
+        Me.lblItemName.Location = New System.Drawing.Point(80, 94)
         Me.lblItemName.Name = "lblItemName"
         Me.lblItemName.Size = New System.Drawing.Size(80, 19)
         Me.lblItemName.TabIndex = 3
@@ -104,7 +98,7 @@ Partial Class IssuanceForm
         Me.lblStockLbl.AutoSize = True
         Me.lblStockLbl.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.lblStockLbl.ForeColor = System.Drawing.Color.Gray
-        Me.lblStockLbl.Location = New System.Drawing.Point(30, 110)
+        Me.lblStockLbl.Location = New System.Drawing.Point(30, 120)
         Me.lblStockLbl.Name = "lblStockLbl"
         Me.lblStockLbl.Size = New System.Drawing.Size(55, 15)
         Me.lblStockLbl.TabIndex = 4
@@ -115,7 +109,7 @@ Partial Class IssuanceForm
         Me.lblStock.AutoSize = True
         Me.lblStock.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.lblStock.ForeColor = System.Drawing.Color.FromArgb(46, 204, 113)
-        Me.lblStock.Location = New System.Drawing.Point(100, 109)
+        Me.lblStock.Location = New System.Drawing.Point(100, 119)
         Me.lblStock.Name = "lblStock"
         Me.lblStock.Size = New System.Drawing.Size(30, 19)
         Me.lblStock.TabIndex = 5
@@ -126,7 +120,7 @@ Partial Class IssuanceForm
         Me.lblQuantity.AutoSize = True
         Me.lblQuantity.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.lblQuantity.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblQuantity.Location = New System.Drawing.Point(30, 145)
+        Me.lblQuantity.Location = New System.Drawing.Point(30, 160)
         Me.lblQuantity.Name = "lblQuantity"
         Me.lblQuantity.Size = New System.Drawing.Size(105, 15)
         Me.lblQuantity.TabIndex = 6
@@ -135,7 +129,7 @@ Partial Class IssuanceForm
         'numQuantity
         '
         Me.numQuantity.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.numQuantity.Location = New System.Drawing.Point(30, 165)
+        Me.numQuantity.Location = New System.Drawing.Point(30, 180)
         Me.numQuantity.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
         Me.numQuantity.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numQuantity.Name = "numQuantity"
@@ -148,103 +142,42 @@ Partial Class IssuanceForm
         Me.lblIssuedTo.AutoSize = True
         Me.lblIssuedTo.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.lblIssuedTo.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblIssuedTo.Location = New System.Drawing.Point(30, 205)
+        Me.lblIssuedTo.Location = New System.Drawing.Point(30, 225)
         Me.lblIssuedTo.Name = "lblIssuedTo"
         Me.lblIssuedTo.Size = New System.Drawing.Size(68, 15)
         Me.lblIssuedTo.TabIndex = 8
         Me.lblIssuedTo.Text = "Issued To *"
         '
-        'txtIssuedTo
+        'cmbIssuedTo
         '
-        Me.txtIssuedTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtIssuedTo.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.txtIssuedTo.Location = New System.Drawing.Point(30, 225)
-        Me.txtIssuedTo.Name = "txtIssuedTo"
-        Me.txtIssuedTo.Size = New System.Drawing.Size(420, 25)
-        Me.txtIssuedTo.TabIndex = 9
+        Me.cmbIssuedTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbIssuedTo.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.cmbIssuedTo.FormattingEnabled = True
+        Me.cmbIssuedTo.Location = New System.Drawing.Point(30, 245)
+        Me.cmbIssuedTo.Name = "cmbIssuedTo"
+        Me.cmbIssuedTo.Size = New System.Drawing.Size(420, 25)
+        Me.cmbIssuedTo.TabIndex = 9
         '
         'lblDepartment
         '
         Me.lblDepartment.AutoSize = True
         Me.lblDepartment.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.lblDepartment.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblDepartment.Location = New System.Drawing.Point(30, 265)
+        Me.lblDepartment.Location = New System.Drawing.Point(30, 290)
         Me.lblDepartment.Name = "lblDepartment"
-        Me.lblDepartment.Size = New System.Drawing.Size(78, 15)
+        Me.lblDepartment.Size = New System.Drawing.Size(84, 15)
         Me.lblDepartment.TabIndex = 10
-        Me.lblDepartment.Text = "Department"
+        Me.lblDepartment.Text = "Department *"
         '
-        'txtDepartment
+        'cmbDepartment
         '
-        Me.txtDepartment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtDepartment.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.txtDepartment.Location = New System.Drawing.Point(30, 285)
-        Me.txtDepartment.Name = "txtDepartment"
-        Me.txtDepartment.Size = New System.Drawing.Size(420, 25)
-        Me.txtDepartment.TabIndex = 11
-        '
-        'lblPurpose
-        '
-        Me.lblPurpose.AutoSize = True
-        Me.lblPurpose.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.lblPurpose.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblPurpose.Location = New System.Drawing.Point(30, 325)
-        Me.lblPurpose.Name = "lblPurpose"
-        Me.lblPurpose.Size = New System.Drawing.Size(55, 15)
-        Me.lblPurpose.TabIndex = 12
-        Me.lblPurpose.Text = "Purpose"
-        '
-        'txtPurpose
-        '
-        Me.txtPurpose.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtPurpose.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.txtPurpose.Location = New System.Drawing.Point(30, 345)
-        Me.txtPurpose.Name = "txtPurpose"
-        Me.txtPurpose.Size = New System.Drawing.Size(420, 25)
-        Me.txtPurpose.TabIndex = 13
-        '
-        'chkExpectedReturn
-        '
-        Me.chkExpectedReturn.AutoSize = True
-        Me.chkExpectedReturn.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.chkExpectedReturn.Location = New System.Drawing.Point(30, 385)
-        Me.chkExpectedReturn.Name = "chkExpectedReturn"
-        Me.chkExpectedReturn.Size = New System.Drawing.Size(175, 19)
-        Me.chkExpectedReturn.TabIndex = 14
-        Me.chkExpectedReturn.Text = "Set expected return date"
-        Me.chkExpectedReturn.UseVisualStyleBackColor = True
-        '
-        'dtpExpectedReturn
-        '
-        Me.dtpExpectedReturn.Enabled = False
-        Me.dtpExpectedReturn.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.dtpExpectedReturn.Format = System.Windows.Forms.DateTimePickerFormat.Short
-        Me.dtpExpectedReturn.Location = New System.Drawing.Point(30, 410)
-        Me.dtpExpectedReturn.Name = "dtpExpectedReturn"
-        Me.dtpExpectedReturn.Size = New System.Drawing.Size(200, 25)
-        Me.dtpExpectedReturn.TabIndex = 15
-        '
-        'lblNotes
-        '
-        Me.lblNotes.AutoSize = True
-        Me.lblNotes.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.lblNotes.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblNotes.Location = New System.Drawing.Point(30, 450)
-        Me.lblNotes.Name = "lblNotes"
-        Me.lblNotes.Size = New System.Drawing.Size(42, 15)
-        Me.lblNotes.TabIndex = 16
-        Me.lblNotes.Text = "Notes"
-        '
-        'txtNotes
-        '
-        Me.txtNotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtNotes.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtNotes.Location = New System.Drawing.Point(30, 470)
-        Me.txtNotes.Multiline = True
-        Me.txtNotes.Name = "txtNotes"
-        Me.txtNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtNotes.Size = New System.Drawing.Size(420, 70)
-        Me.txtNotes.TabIndex = 17
+        Me.cmbDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbDepartment.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.cmbDepartment.FormattingEnabled = True
+        Me.cmbDepartment.Location = New System.Drawing.Point(30, 310)
+        Me.cmbDepartment.Name = "cmbDepartment"
+        Me.cmbDepartment.Size = New System.Drawing.Size(420, 25)
+        Me.cmbDepartment.TabIndex = 11
         '
         'pnlBottom
         '
@@ -252,10 +185,10 @@ Partial Class IssuanceForm
         Me.pnlBottom.Controls.Add(Me.btnSave)
         Me.pnlBottom.Controls.Add(Me.btnCancel)
         Me.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlBottom.Location = New System.Drawing.Point(0, 560)
+        Me.pnlBottom.Location = New System.Drawing.Point(0, 380)
         Me.pnlBottom.Name = "pnlBottom"
         Me.pnlBottom.Size = New System.Drawing.Size(500, 70)
-        Me.pnlBottom.TabIndex = 18
+        Me.pnlBottom.TabIndex = 12
         '
         'btnSave
         '
@@ -293,16 +226,10 @@ Partial Class IssuanceForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(500, 630)
-        Me.Controls.Add(Me.txtNotes)
-        Me.Controls.Add(Me.lblNotes)
-        Me.Controls.Add(Me.dtpExpectedReturn)
-        Me.Controls.Add(Me.chkExpectedReturn)
-        Me.Controls.Add(Me.txtPurpose)
-        Me.Controls.Add(Me.lblPurpose)
-        Me.Controls.Add(Me.txtDepartment)
+        Me.ClientSize = New System.Drawing.Size(500, 450)
+        Me.Controls.Add(Me.cmbDepartment)
         Me.Controls.Add(Me.lblDepartment)
-        Me.Controls.Add(Me.txtIssuedTo)
+        Me.Controls.Add(Me.cmbIssuedTo)
         Me.Controls.Add(Me.lblIssuedTo)
         Me.Controls.Add(Me.numQuantity)
         Me.Controls.Add(Me.lblQuantity)
@@ -338,15 +265,9 @@ Partial Class IssuanceForm
     Friend WithEvents lblQuantity As System.Windows.Forms.Label
     Friend WithEvents numQuantity As System.Windows.Forms.NumericUpDown
     Friend WithEvents lblIssuedTo As System.Windows.Forms.Label
-    Friend WithEvents txtIssuedTo As System.Windows.Forms.TextBox
+    Friend WithEvents cmbIssuedTo As System.Windows.Forms.ComboBox
     Friend WithEvents lblDepartment As System.Windows.Forms.Label
-    Friend WithEvents txtDepartment As System.Windows.Forms.TextBox
-    Friend WithEvents lblPurpose As System.Windows.Forms.Label
-    Friend WithEvents txtPurpose As System.Windows.Forms.TextBox
-    Friend WithEvents chkExpectedReturn As System.Windows.Forms.CheckBox
-    Friend WithEvents dtpExpectedReturn As System.Windows.Forms.DateTimePicker
-    Friend WithEvents lblNotes As System.Windows.Forms.Label
-    Friend WithEvents txtNotes As System.Windows.Forms.TextBox
+    Friend WithEvents cmbDepartment As System.Windows.Forms.ComboBox
     Friend WithEvents pnlBottom As System.Windows.Forms.Panel
     Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents btnCancel As System.Windows.Forms.Button

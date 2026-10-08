@@ -22,6 +22,7 @@ Partial Class HardwareControl
         Me.pnlToolbar = New System.Windows.Forms.Panel()
         Me.btnRefresh = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
+        Me.btnReturns = New System.Windows.Forms.Button()
         Me.btnApprovals = New System.Windows.Forms.Button()
         Me.btnHistory = New System.Windows.Forms.Button()
         Me.btnIssue = New System.Windows.Forms.Button()
@@ -43,6 +44,8 @@ Partial Class HardwareControl
         Me.pnlDetails.SuspendLayout()
         Me.SuspendLayout()
         '
+        'pnlContainer
+        '
         Me.pnlContainer.AutoScroll = True
         Me.pnlContainer.BackColor = System.Drawing.Color.FromArgb(240, 242, 245)
         Me.pnlContainer.Controls.Add(Me.lblTitle)
@@ -55,6 +58,8 @@ Partial Class HardwareControl
         Me.pnlContainer.Size = New System.Drawing.Size(1100, 700)
         Me.pnlContainer.TabIndex = 0
         '
+        'lblTitle
+        '
         Me.lblTitle.AutoSize = True
         Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
         Me.lblTitle.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
@@ -64,10 +69,13 @@ Partial Class HardwareControl
         Me.lblTitle.TabIndex = 0
         Me.lblTitle.Text = "Hardware"
         '
+        'pnlToolbar
+        '
         Me.pnlToolbar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
         Me.pnlToolbar.Controls.Add(Me.btnRefresh)
         Me.pnlToolbar.Controls.Add(Me.btnDelete)
+        Me.pnlToolbar.Controls.Add(Me.btnReturns)
         Me.pnlToolbar.Controls.Add(Me.btnApprovals)
         Me.pnlToolbar.Controls.Add(Me.btnHistory)
         Me.pnlToolbar.Controls.Add(Me.btnIssue)
@@ -78,6 +86,8 @@ Partial Class HardwareControl
         Me.pnlToolbar.Size = New System.Drawing.Size(1070, 50)
         Me.pnlToolbar.TabIndex = 1
         '
+        'btnAdd
+        '
         Me.btnAdd.BackColor = System.Drawing.Color.FromArgb(52, 152, 219)
         Me.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnAdd.ForeColor = System.Drawing.Color.White
@@ -87,6 +97,8 @@ Partial Class HardwareControl
         Me.btnAdd.TabIndex = 1
         Me.btnAdd.Text = "➕"
         Me.btnAdd.UseVisualStyleBackColor = False
+        '
+        'btnIssue
         '
         Me.btnIssue.BackColor = System.Drawing.Color.FromArgb(155, 89, 182)
         Me.btnIssue.Enabled = False
@@ -100,6 +112,8 @@ Partial Class HardwareControl
         Me.btnIssue.Text = "📤 Issue"
         Me.btnIssue.UseVisualStyleBackColor = False
         '
+        'btnHistory
+        '
         Me.btnHistory.BackColor = System.Drawing.Color.FromArgb(52, 73, 94)
         Me.btnHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnHistory.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
@@ -110,6 +124,8 @@ Partial Class HardwareControl
         Me.btnHistory.TabIndex = 3
         Me.btnHistory.Text = "📜 History"
         Me.btnHistory.UseVisualStyleBackColor = False
+        '
+        'btnApprovals
         '
         Me.btnApprovals.BackColor = System.Drawing.Color.FromArgb(241, 196, 15)
         Me.btnApprovals.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -123,24 +139,44 @@ Partial Class HardwareControl
         Me.btnApprovals.UseVisualStyleBackColor = False
         Me.btnApprovals.Visible = False
         '
+        'btnReturns
+        '
+        Me.btnReturns.BackColor = System.Drawing.Color.FromArgb(155, 89, 182)
+        Me.btnReturns.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnReturns.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnReturns.ForeColor = System.Drawing.Color.White
+        Me.btnReturns.Location = New System.Drawing.Point(430, 10)
+        Me.btnReturns.Name = "btnReturns"
+        Me.btnReturns.Size = New System.Drawing.Size(130, 30)
+        Me.btnReturns.TabIndex = 7
+        Me.btnReturns.Text = "📥 Returns"
+        Me.btnReturns.UseVisualStyleBackColor = False
+        Me.btnReturns.Visible = False
+        '
+        'btnDelete
+        '
         Me.btnDelete.BackColor = System.Drawing.Color.FromArgb(231, 76, 60)
         Me.btnDelete.Enabled = False
         Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDelete.ForeColor = System.Drawing.Color.White
-        Me.btnDelete.Location = New System.Drawing.Point(430, 10)
+        Me.btnDelete.Location = New System.Drawing.Point(570, 10)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(60, 30)
         Me.btnDelete.TabIndex = 5
         Me.btnDelete.Text = "🗑️"
         Me.btnDelete.UseVisualStyleBackColor = False
         '
+        'btnRefresh
+        '
         Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnRefresh.Location = New System.Drawing.Point(500, 10)
+        Me.btnRefresh.Location = New System.Drawing.Point(640, 10)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(90, 30)
         Me.btnRefresh.TabIndex = 6
         Me.btnRefresh.Text = "🔄 Refresh"
         Me.btnRefresh.UseVisualStyleBackColor = True
+        '
+        'lblCount
         '
         Me.lblCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCount.AutoSize = True
@@ -151,6 +187,8 @@ Partial Class HardwareControl
         Me.lblCount.Size = New System.Drawing.Size(87, 19)
         Me.lblCount.TabIndex = 0
         Me.lblCount.Text = "0 records found"
+        '
+        'tlpMain
         '
         Me.tlpMain.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tlpMain.BackColor = System.Drawing.Color.White
@@ -166,6 +204,8 @@ Partial Class HardwareControl
         Me.tlpMain.Size = New System.Drawing.Size(1070, 500)
         Me.tlpMain.TabIndex = 2
         '
+        'dgvHardware
+        '
         Me.dgvHardware.AllowUserToAddRows = False
         Me.dgvHardware.AllowUserToDeleteRows = False
         Me.dgvHardware.BackgroundColor = System.Drawing.Color.White
@@ -177,6 +217,8 @@ Partial Class HardwareControl
         Me.dgvHardware.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvHardware.Size = New System.Drawing.Size(636, 494)
         Me.dgvHardware.TabIndex = 1
+        '
+        'pnlDetails
         '
         Me.pnlDetails.BackColor = System.Drawing.Color.FromArgb(248, 249, 250)
         Me.pnlDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -192,11 +234,15 @@ Partial Class HardwareControl
         Me.pnlDetails.Size = New System.Drawing.Size(422, 494)
         Me.pnlDetails.TabIndex = 0
         '
+        'lblStatus
+        '
         Me.lblStatus.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.lblStatus.Location = New System.Drawing.Point(15, 210)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(390, 25)
         Me.lblStatus.Text = "Status: --"
+        '
+        'lblLocation
         '
         Me.lblLocation.Font = New System.Drawing.Font("Segoe UI", 11.0!)
         Me.lblLocation.ForeColor = System.Drawing.Color.FromArgb(127, 140, 141)
@@ -205,12 +251,16 @@ Partial Class HardwareControl
         Me.lblLocation.Size = New System.Drawing.Size(390, 25)
         Me.lblLocation.Text = "Location: --"
         '
+        'lblQty
+        '
         Me.lblQty.Font = New System.Drawing.Font("Segoe UI", 11.0!)
         Me.lblQty.ForeColor = System.Drawing.Color.FromArgb(127, 140, 141)
         Me.lblQty.Location = New System.Drawing.Point(15, 130)
         Me.lblQty.Name = "lblQty"
         Me.lblQty.Size = New System.Drawing.Size(390, 25)
         Me.lblQty.Text = "Quantity: --"
+        '
+        'lblCategory
         '
         Me.lblCategory.Font = New System.Drawing.Font("Segoe UI", 11.0!)
         Me.lblCategory.ForeColor = System.Drawing.Color.FromArgb(127, 140, 141)
@@ -219,6 +269,8 @@ Partial Class HardwareControl
         Me.lblCategory.Size = New System.Drawing.Size(390, 25)
         Me.lblCategory.Text = "Category: --"
         '
+        'lblName
+        '
         Me.lblName.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
         Me.lblName.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
         Me.lblName.Location = New System.Drawing.Point(15, 50)
@@ -226,11 +278,15 @@ Partial Class HardwareControl
         Me.lblName.Size = New System.Drawing.Size(390, 30)
         Me.lblName.Text = "Select an item"
         '
+        'lblDetailsTitle
+        '
         Me.lblDetailsTitle.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.lblDetailsTitle.Location = New System.Drawing.Point(15, 15)
         Me.lblDetailsTitle.Name = "lblDetailsTitle"
         Me.lblDetailsTitle.Size = New System.Drawing.Size(390, 20)
         Me.lblDetailsTitle.Text = "📄 Item Details"
+        '
+        'HardwareControl
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -255,6 +311,7 @@ Partial Class HardwareControl
     Friend WithEvents pnlToolbar As System.Windows.Forms.Panel
     Friend WithEvents btnRefresh As System.Windows.Forms.Button
     Friend WithEvents btnDelete As System.Windows.Forms.Button
+    Friend WithEvents btnReturns As System.Windows.Forms.Button
     Friend WithEvents btnApprovals As System.Windows.Forms.Button
     Friend WithEvents btnHistory As System.Windows.Forms.Button
     Friend WithEvents btnIssue As System.Windows.Forms.Button

@@ -43,7 +43,7 @@ Partial Class IssuanceHistoryForm
         Me.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlHeader.Location = New System.Drawing.Point(0, 0)
         Me.pnlHeader.Name = "pnlHeader"
-        Me.pnlHeader.Size = New System.Drawing.Size(950, 65)
+        Me.pnlHeader.Size = New System.Drawing.Size(1050, 65)
         Me.pnlHeader.TabIndex = 0
         '
         'lblHeaderTitle
@@ -77,7 +77,7 @@ Partial Class IssuanceHistoryForm
         Me.pnlFilter.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlFilter.Location = New System.Drawing.Point(0, 65)
         Me.pnlFilter.Name = "pnlFilter"
-        Me.pnlFilter.Size = New System.Drawing.Size(950, 50)
+        Me.pnlFilter.Size = New System.Drawing.Size(1050, 50)
         Me.pnlFilter.TabIndex = 1
         '
         'lblShow
@@ -106,7 +106,7 @@ Partial Class IssuanceHistoryForm
         Me.lblCount.AutoSize = True
         Me.lblCount.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic)
         Me.lblCount.ForeColor = System.Drawing.Color.FromArgb(127, 140, 141)
-        Me.lblCount.Location = New System.Drawing.Point(760, 15)
+        Me.lblCount.Location = New System.Drawing.Point(860, 15)
         Me.lblCount.Name = "lblCount"
         Me.lblCount.Size = New System.Drawing.Size(87, 15)
         Me.lblCount.TabIndex = 2
@@ -126,7 +126,7 @@ Partial Class IssuanceHistoryForm
         Me.dgvIssuances.ReadOnly = True
         Me.dgvIssuances.RowHeadersVisible = False
         Me.dgvIssuances.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvIssuances.Size = New System.Drawing.Size(915, 415)
+        Me.dgvIssuances.Size = New System.Drawing.Size(1015, 415)
         Me.dgvIssuances.TabIndex = 2
         '
         'pnlBottom
@@ -138,7 +138,7 @@ Partial Class IssuanceHistoryForm
         Me.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.pnlBottom.Location = New System.Drawing.Point(0, 560)
         Me.pnlBottom.Name = "pnlBottom"
-        Me.pnlBottom.Size = New System.Drawing.Size(950, 60)
+        Me.pnlBottom.Size = New System.Drawing.Size(1050, 60)
         Me.pnlBottom.TabIndex = 3
         '
         'btnReturn
@@ -147,7 +147,7 @@ Partial Class IssuanceHistoryForm
         Me.btnReturn.Enabled = False
         Me.btnReturn.FlatAppearance.BorderSize = 0
         Me.btnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnReturn.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.btnReturn.Font = New System.Drawing.Font("Segoe UI", 10.0!, FontStyle.Bold)
         Me.btnReturn.ForeColor = System.Drawing.Color.White
         Me.btnReturn.Location = New System.Drawing.Point(15, 12)
         Me.btnReturn.Name = "btnReturn"
@@ -174,7 +174,7 @@ Partial Class IssuanceHistoryForm
         Me.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(189, 195, 199)
         Me.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnClose.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.btnClose.Location = New System.Drawing.Point(835, 12)
+        Me.btnClose.Location = New System.Drawing.Point(935, 12)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(100, 36)
         Me.btnClose.TabIndex = 2
@@ -187,7 +187,7 @@ Partial Class IssuanceHistoryForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.CancelButton = Me.btnClose
-        Me.ClientSize = New System.Drawing.Size(950, 620)
+        Me.ClientSize = New System.Drawing.Size(1050, 620)
         Me.Controls.Add(Me.pnlBottom)
         Me.Controls.Add(Me.dgvIssuances)
         Me.Controls.Add(Me.pnlFilter)

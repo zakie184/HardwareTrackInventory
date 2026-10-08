@@ -33,13 +33,16 @@
 
         If IsAdmin Then
             lblHeaderTitle.Text = "Issue Hardware"
-            lblHeaderSub.Text = "Administrator — issuance will be applied immediately"
+            lblHeaderSub.Text = "Administrator - issuance will be applied immediately"
             btnSave.Text = "Issue Now"
         Else
             lblHeaderTitle.Text = "Request Issuance"
             lblHeaderSub.Text = "Your request will be sent to an Administrator for approval"
             btnSave.Text = "Submit Request"
         End If
+
+        LoadIssuedToOptions()
+        LoadDepartmentOptions()
 
         If _currentStock <= 0 Then
             numQuantity.Maximum = 1
@@ -50,40 +53,65 @@
             numQuantity.Maximum = _currentStock
             numQuantity.Value = 1
         End If
-
-        dtpExpectedReturn.MinDate = DateTime.Today
-        dtpExpectedReturn.Value = DateTime.Today.AddDays(7)
-        dtpExpectedReturn.Enabled = False
     End Sub
 
-    Private Sub chkExpectedReturn_CheckedChanged(sender As Object, e As EventArgs) Handles chkExpectedReturn.CheckedChanged
-        dtpExpectedReturn.Enabled = chkExpectedReturn.Checked
+    Private Sub LoadIssuedToOptions()
+        cmbIssuedTo.Items.Clear()
+        Try
+            Dim dt As DataTable = DatabaseHelper.GetUsersForIssuance()
+            For Each row As DataRow In dt.Rows
+                cmbIssuedTo.Items.Add(row("FullName").ToString())
+            Next
+        Catch
+        End Try
+
+        If cmbIssuedTo.Items.Count = 0 Then
+            cmbIssuedTo.Items.Add("(no users available)")
+        End If
+
+        cmbIssuedTo.SelectedIndex = 0
+    End Sub
+
+    Private Sub LoadDepartmentOptions()
+        cmbDepartment.Items.Clear()
+        Try
+            Dim dt As DataTable = DatabaseHelper.GetAllDepartments()
+            For Each row As DataRow In dt.Rows
+                cmbDepartment.Items.Add(row("Name").ToString())
+            Next
+        Catch
+        End Try
+
+        If cmbDepartment.Items.Count = 0 Then
+            cmbDepartment.Items.Add("Other")
+        End If
+
+        cmbDepartment.SelectedIndex = 0
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        If String.IsNullOrWhiteSpace(txtIssuedTo.Text) Then
-            MessageBox.Show("Please enter who this is being issued to.",
+        If cmbIssuedTo.SelectedIndex < 0 Then
+            MessageBox.Show("Please select who this is being issued to.",
                             "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtIssuedTo.Focus()
+            cmbIssuedTo.Focus()
+            Return
+        End If
+
+        If cmbDepartment.SelectedIndex < 0 Then
+            MessageBox.Show("Please select a department.",
+                            "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            cmbDepartment.Focus()
             Return
         End If
 
         Dim qty As Integer = CInt(numQuantity.Value)
-        Dim issuedTo As String = txtIssuedTo.Text.Trim()
-        Dim dept As String = txtDepartment.Text.Trim()
-        Dim purpose As String = txtPurpose.Text.Trim()
-        Dim notes As String = txtNotes.Text.Trim()
-
-        Dim expDate As DateTime? = Nothing
-        If chkExpectedReturn.Checked Then
-            expDate = dtpExpectedReturn.Value
-        End If
+        Dim issuedTo As String = cmbIssuedTo.SelectedItem.ToString()
+        Dim dept As String = cmbDepartment.SelectedItem.ToString()
 
         Dim requiresApproval As Boolean = Not IsAdmin
 
         Dim ok As Boolean = DatabaseHelper.IssueHardware(_hardwareID, _itemName, qty, issuedTo,
-                                                         dept, purpose, expDate, _user.Username,
-                                                         notes, requiresApproval)
+                                                         dept, _user.Username, requiresApproval)
 
         If Not ok Then
             MessageBox.Show("Failed to submit issuance. Please try again.",

@@ -28,6 +28,16 @@
         lblQtyIssued.Text = _qtyIssued.ToString()
         lblQtyReturned.Text = _qtyReturned.ToString()
 
+        If _user IsNot Nothing AndAlso _user.Role <> "Administrator" Then
+            lblHeaderTitle.Text = "Request Return"
+            lblHeaderSub.Text = "Your return request will be sent to an Administrator for approval"
+            btnSave.Text = "Request Return"
+        Else
+            lblHeaderTitle.Text = "Return Hardware"
+            lblHeaderSub.Text = "Administrator - return will be applied immediately"
+            btnSave.Text = "Return"
+        End If
+
         Dim outstanding As Integer = _qtyIssued - _qtyReturned
         If outstanding <= 0 Then
             numQtyToReturn.Maximum = 1
@@ -43,15 +53,38 @@
         Dim qty As Integer = CInt(numQtyToReturn.Value)
         Dim notes As String = txtReturnNotes.Text.Trim()
 
-        If DatabaseHelper.ReturnHardware(_issuanceID, qty, notes) Then
-            ActivityLogger.Log(_user,
-                               "Returned " & qty & "x '" & _itemName & "' from " & _issuedTo,
-                               "Hardware", 0, False)
-            Me.DialogResult = DialogResult.OK
-            Me.Close()
-        Else
+        If _user Is Nothing Then
+            MessageBox.Show("You are not logged in.", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        If _user.Role = "Administrator" Then
+            If DatabaseHelper.RequestReturn(_issuanceID, _user.Username) Then
+                If DatabaseHelper.ApproveReturn(_issuanceID, _user.Username) Then
+                    ActivityLogger.Log(_user,
+                                       "Returned " & qty & "x '" & _itemName & "' from " & _issuedTo,
+                                       "Hardware", 0, False)
+                    Me.DialogResult = DialogResult.OK
+                    Me.Close()
+                    Return
+                End If
+            End If
             MessageBox.Show("Failed to process return. Please try again.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Else
+            If DatabaseHelper.RequestReturn(_issuanceID, _user.Username) Then
+                ActivityLogger.Log(_user,
+                                   "Requested return of " & qty & "x '" & _itemName & "' from " & _issuedTo & " (pending approval)",
+                                   "Hardware", 0, False)
+                MessageBox.Show("Return request submitted! An Administrator must approve it.",
+                                "Pending Approval", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Me.DialogResult = DialogResult.OK
+                Me.Close()
+            Else
+                MessageBox.Show("Failed to submit return request. Please try again.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
         End If
     End Sub
 

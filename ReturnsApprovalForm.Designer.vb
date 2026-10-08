@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class ApprovalsForm
+Partial Class ReturnsApprovalForm
     Inherits System.Windows.Forms.Form
 
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -23,12 +23,12 @@ Partial Class ApprovalsForm
         Me.lblHeaderSub = New System.Windows.Forms.Label()
         Me.dgvPending = New System.Windows.Forms.DataGridView()
         Me.pnlDetails = New System.Windows.Forms.Panel()
-        Me.lblPurpose = New System.Windows.Forms.Label()
+        Me.lblDepartment = New System.Windows.Forms.Label()
         Me.lblQty = New System.Windows.Forms.Label()
         Me.lblIssuedTo = New System.Windows.Forms.Label()
         Me.lblRequestedBy = New System.Windows.Forms.Label()
         Me.lblItemName = New System.Windows.Forms.Label()
-        Me.lblPurposeLbl = New System.Windows.Forms.Label()
+        Me.lblDepartmentLbl = New System.Windows.Forms.Label()
         Me.lblQtyLbl = New System.Windows.Forms.Label()
         Me.lblIssuedToLbl = New System.Windows.Forms.Label()
         Me.lblRequestedByLbl = New System.Windows.Forms.Label()
@@ -48,7 +48,7 @@ Partial Class ApprovalsForm
         '
         'pnlHeader
         '
-        Me.pnlHeader.BackColor = System.Drawing.Color.FromArgb(241, 196, 15)
+        Me.pnlHeader.BackColor = System.Drawing.Color.FromArgb(155, 89, 182)
         Me.pnlHeader.Controls.Add(Me.lblHeaderTitle)
         Me.pnlHeader.Controls.Add(Me.lblHeaderSub)
         Me.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top
@@ -61,23 +61,23 @@ Partial Class ApprovalsForm
         '
         Me.lblHeaderTitle.AutoSize = True
         Me.lblHeaderTitle.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
-        Me.lblHeaderTitle.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
+        Me.lblHeaderTitle.ForeColor = System.Drawing.Color.White
         Me.lblHeaderTitle.Location = New System.Drawing.Point(20, 10)
         Me.lblHeaderTitle.Name = "lblHeaderTitle"
-        Me.lblHeaderTitle.Size = New System.Drawing.Size(200, 25)
+        Me.lblHeaderTitle.Size = New System.Drawing.Size(230, 25)
         Me.lblHeaderTitle.TabIndex = 0
-        Me.lblHeaderTitle.Text = "Pending Approvals"
+        Me.lblHeaderTitle.Text = "Pending Return Requests"
         '
         'lblHeaderSub
         '
         Me.lblHeaderSub.AutoSize = True
         Me.lblHeaderSub.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.lblHeaderSub.ForeColor = System.Drawing.Color.FromArgb(100, 80, 0)
+        Me.lblHeaderSub.ForeColor = System.Drawing.Color.FromArgb(230, 230, 230)
         Me.lblHeaderSub.Location = New System.Drawing.Point(22, 40)
         Me.lblHeaderSub.Name = "lblHeaderSub"
         Me.lblHeaderSub.Size = New System.Drawing.Size(500, 15)
         Me.lblHeaderSub.TabIndex = 1
-        Me.lblHeaderSub.Text = "Review and approve or reject hardware issuance requests. Auto-refreshes every 3 seconds."
+        Me.lblHeaderSub.Text = "Review and approve or reject return requests. Auto-refreshes every 3 seconds."
         '
         'dgvPending
         '
@@ -101,8 +101,8 @@ Partial Class ApprovalsForm
         Me.pnlDetails.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlDetails.BackColor = System.Drawing.Color.FromArgb(248, 249, 250)
         Me.pnlDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlDetails.Controls.Add(Me.lblPurpose)
-        Me.pnlDetails.Controls.Add(Me.lblPurposeLbl)
+        Me.pnlDetails.Controls.Add(Me.lblDepartment)
+        Me.pnlDetails.Controls.Add(Me.lblDepartmentLbl)
         Me.pnlDetails.Controls.Add(Me.lblQty)
         Me.pnlDetails.Controls.Add(Me.lblQtyLbl)
         Me.pnlDetails.Controls.Add(Me.lblIssuedTo)
@@ -124,9 +124,9 @@ Partial Class ApprovalsForm
         Me.lblDetailsTitle.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
         Me.lblDetailsTitle.Location = New System.Drawing.Point(15, 15)
         Me.lblDetailsTitle.Name = "lblDetailsTitle"
-        Me.lblDetailsTitle.Size = New System.Drawing.Size(130, 20)
+        Me.lblDetailsTitle.Size = New System.Drawing.Size(150, 20)
         Me.lblDetailsTitle.TabIndex = 0
-        Me.lblDetailsTitle.Text = "Request Details"
+        Me.lblDetailsTitle.Text = "Return Request Details"
         '
         'lblItemNameLbl
         '
@@ -158,7 +158,7 @@ Partial Class ApprovalsForm
         Me.lblRequestedByLbl.Name = "lblRequestedByLbl"
         Me.lblRequestedByLbl.Size = New System.Drawing.Size(90, 13)
         Me.lblRequestedByLbl.TabIndex = 3
-        Me.lblRequestedByLbl.Text = "REQUESTED BY"
+        Me.lblRequestedByLbl.Text = "RETURN REQUESTED BY"
         '
         'lblRequestedBy
         '
@@ -212,26 +212,26 @@ Partial Class ApprovalsForm
         Me.lblQty.TabIndex = 8
         Me.lblQty.Text = "--"
         '
-        'lblPurposeLbl
+        'lblDepartmentLbl
         '
-        Me.lblPurposeLbl.AutoSize = True
-        Me.lblPurposeLbl.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.lblPurposeLbl.ForeColor = System.Drawing.Color.Gray
-        Me.lblPurposeLbl.Location = New System.Drawing.Point(15, 295)
-        Me.lblPurposeLbl.Name = "lblPurposeLbl"
-        Me.lblPurposeLbl.Size = New System.Drawing.Size(75, 13)
-        Me.lblPurposeLbl.TabIndex = 9
-        Me.lblPurposeLbl.Text = "DEPARTMENT"
+        Me.lblDepartmentLbl.AutoSize = True
+        Me.lblDepartmentLbl.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.lblDepartmentLbl.ForeColor = System.Drawing.Color.Gray
+        Me.lblDepartmentLbl.Location = New System.Drawing.Point(15, 295)
+        Me.lblDepartmentLbl.Name = "lblDepartmentLbl"
+        Me.lblDepartmentLbl.Size = New System.Drawing.Size(75, 13)
+        Me.lblDepartmentLbl.TabIndex = 9
+        Me.lblDepartmentLbl.Text = "DEPARTMENT"
         '
-        'lblPurpose
+        'lblDepartment
         '
-        Me.lblPurpose.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.lblPurpose.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblPurpose.Location = New System.Drawing.Point(15, 313)
-        Me.lblPurpose.Name = "lblPurpose"
-        Me.lblPurpose.Size = New System.Drawing.Size(260, 110)
-        Me.lblPurpose.TabIndex = 10
-        Me.lblPurpose.Text = "--"
+        Me.lblDepartment.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblDepartment.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
+        Me.lblDepartment.Location = New System.Drawing.Point(15, 313)
+        Me.lblDepartment.Name = "lblDepartment"
+        Me.lblDepartment.Size = New System.Drawing.Size(260, 110)
+        Me.lblDepartment.TabIndex = 10
+        Me.lblDepartment.Text = "--"
         '
         'pnlBottom
         '
@@ -256,9 +256,9 @@ Partial Class ApprovalsForm
         Me.btnApprove.ForeColor = System.Drawing.Color.White
         Me.btnApprove.Location = New System.Drawing.Point(15, 12)
         Me.btnApprove.Name = "btnApprove"
-        Me.btnApprove.Size = New System.Drawing.Size(140, 36)
+        Me.btnApprove.Size = New System.Drawing.Size(160, 36)
         Me.btnApprove.TabIndex = 0
-        Me.btnApprove.Text = "Approve"
+        Me.btnApprove.Text = "Approve Return"
         Me.btnApprove.UseVisualStyleBackColor = False
         '
         'btnReject
@@ -269,18 +269,18 @@ Partial Class ApprovalsForm
         Me.btnReject.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnReject.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btnReject.ForeColor = System.Drawing.Color.White
-        Me.btnReject.Location = New System.Drawing.Point(165, 12)
+        Me.btnReject.Location = New System.Drawing.Point(185, 12)
         Me.btnReject.Name = "btnReject"
-        Me.btnReject.Size = New System.Drawing.Size(140, 36)
+        Me.btnReject.Size = New System.Drawing.Size(150, 36)
         Me.btnReject.TabIndex = 1
-        Me.btnReject.Text = "Reject"
+        Me.btnReject.Text = "Reject Return"
         Me.btnReject.UseVisualStyleBackColor = False
         '
         'btnRefresh
         '
         Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.btnRefresh.Location = New System.Drawing.Point(315, 12)
+        Me.btnRefresh.Location = New System.Drawing.Point(345, 12)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(100, 36)
         Me.btnRefresh.TabIndex = 2
@@ -305,7 +305,7 @@ Partial Class ApprovalsForm
         '
         Me.tmrRefresh.Interval = 3000
         '
-        'ApprovalsForm
+        'ReturnsApprovalForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -318,9 +318,9 @@ Partial Class ApprovalsForm
         Me.Controls.Add(Me.pnlHeader)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.MinimizeBox = False
-        Me.Name = "ApprovalsForm"
+        Me.Name = "ReturnsApprovalForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Pending Approvals"
+        Me.Text = "Pending Return Requests"
         Me.pnlHeader.ResumeLayout(False)
         Me.pnlHeader.PerformLayout()
         CType(Me.dgvPending, System.ComponentModel.ISupportInitialize).EndInit()
@@ -345,8 +345,8 @@ Partial Class ApprovalsForm
     Friend WithEvents lblIssuedTo As System.Windows.Forms.Label
     Friend WithEvents lblQtyLbl As System.Windows.Forms.Label
     Friend WithEvents lblQty As System.Windows.Forms.Label
-    Friend WithEvents lblPurposeLbl As System.Windows.Forms.Label
-    Friend WithEvents lblPurpose As System.Windows.Forms.Label
+    Friend WithEvents lblDepartmentLbl As System.Windows.Forms.Label
+    Friend WithEvents lblDepartment As System.Windows.Forms.Label
     Friend WithEvents pnlBottom As System.Windows.Forms.Panel
     Friend WithEvents btnApprove As System.Windows.Forms.Button
     Friend WithEvents btnReject As System.Windows.Forms.Button

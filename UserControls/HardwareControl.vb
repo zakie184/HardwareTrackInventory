@@ -22,7 +22,7 @@ Public Class HardwareControl
 
     Public Sub RefreshData()
         LoadHardware()
-        RefreshApprovalBadge()
+        RefreshBadges()
     End Sub
 
     Private Sub ApplyPermissions()
@@ -32,31 +32,47 @@ Public Class HardwareControl
         btnIssue.Enabled = False
         btnDelete.Enabled = False
 
-        ' History button hidden for Viewer
         btnHistory.Visible = currentUser.CanViewIssuanceHistory()
+        btnApprovals.Visible = currentUser.CanApproveIssuance()
+        btnReturns.Visible = currentUser.CanApproveReturn()
 
-        ' Approvals button visible for Admin only
-        btnApprovals.Visible = currentUser.Role = "Administrator"
-
-        RefreshApprovalBadge()
+        RefreshBadges()
     End Sub
 
-    Private Sub RefreshApprovalBadge()
-        If currentUser Is Nothing OrElse currentUser.Role <> "Administrator" Then Return
+    Private Sub RefreshBadges()
+        If currentUser Is Nothing Then Return
 
-        Try
-            Dim count As Integer = DatabaseHelper.GetPendingApprovalCount()
-            If count > 0 Then
-                btnApprovals.Text = "🔐 Approvals (" & count & ")"
-                btnApprovals.BackColor = Color.FromArgb(231, 76, 60)
-                btnApprovals.ForeColor = Color.White
-            Else
-                btnApprovals.Text = "🔐 Approvals"
-                btnApprovals.BackColor = Color.FromArgb(241, 196, 15)
-                btnApprovals.ForeColor = Color.FromArgb(44, 62, 80)
-            End If
-        Catch
-        End Try
+        If currentUser.CanApproveIssuance() Then
+            Try
+                Dim count As Integer = DatabaseHelper.GetPendingApprovalCount()
+                If count > 0 Then
+                    btnApprovals.Text = "🔐 Approvals (" & count & ")"
+                    btnApprovals.BackColor = Color.FromArgb(231, 76, 60)
+                    btnApprovals.ForeColor = Color.White
+                Else
+                    btnApprovals.Text = "🔐 Approvals"
+                    btnApprovals.BackColor = Color.FromArgb(241, 196, 15)
+                    btnApprovals.ForeColor = Color.FromArgb(44, 62, 80)
+                End If
+            Catch
+            End Try
+        End If
+
+        If currentUser.CanApproveReturn() Then
+            Try
+                Dim retCount As Integer = DatabaseHelper.GetPendingReturnCount()
+                If retCount > 0 Then
+                    btnReturns.Text = "📥 Returns (" & retCount & ")"
+                    btnReturns.BackColor = Color.FromArgb(231, 76, 60)
+                    btnReturns.ForeColor = Color.White
+                Else
+                    btnReturns.Text = "📥 Returns"
+                    btnReturns.BackColor = Color.FromArgb(155, 89, 182)
+                    btnReturns.ForeColor = Color.White
+                End If
+            Catch
+            End Try
+        End If
     End Sub
 
     Private Sub LoadHardware()
@@ -165,7 +181,7 @@ Public Class HardwareControl
         Using frm As New IssuanceForm(currentUser, selectedID, selectedName, selectedStock)
             If frm.ShowDialog(Me) = DialogResult.OK Then
                 LoadHardware()
-                RefreshApprovalBadge()
+                RefreshBadges()
                 If currentUser.Role = "Administrator" Then
                     MessageBox.Show("Item issued successfully!", "Success",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -189,7 +205,22 @@ Public Class HardwareControl
         End Using
 
         LoadHardware()
-        RefreshApprovalBadge()
+        RefreshBadges()
+    End Sub
+
+    Private Sub btnReturns_Click(sender As Object, e As EventArgs) Handles btnReturns.Click
+        If currentUser Is Nothing OrElse Not currentUser.CanApproveReturn() Then
+            MessageBox.Show("Only Administrators can access return approvals.",
+                            "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Using frm As New ReturnsApprovalForm(currentUser)
+            frm.ShowDialog(Me)
+        End Using
+
+        LoadHardware()
+        RefreshBadges()
     End Sub
 
     Private Sub btnHistory_Click(sender As Object, e As EventArgs) Handles btnHistory.Click
@@ -205,7 +236,7 @@ Public Class HardwareControl
             frm.ShowDialog(Me)
         End Using
         LoadHardware()
-        RefreshApprovalBadge()
+        RefreshBadges()
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
@@ -248,7 +279,7 @@ Public Class HardwareControl
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         LoadHardware()
-        RefreshApprovalBadge()
+        RefreshBadges()
     End Sub
 
 End Class
