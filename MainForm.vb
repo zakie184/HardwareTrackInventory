@@ -5,7 +5,6 @@ Public Class MainForm
 
     Private currentUser As User = Nothing
 
-    ' UserControls (5 Pages)
     Private dashboardPage As DashboardControl = Nothing
     Private hardwarePage As HardwareControl = Nothing
     Private categoriesPage As CategoriesControl = Nothing
@@ -67,10 +66,43 @@ Public Class MainForm
                 lblHeaderSub.Text = "Welcome, " & user.FullName
             End If
 
+            ' Notification popup for admin
+            If user.Role = "Administrator" Then
+                ShowAdminNotifications()
+            End If
+
         Catch ex As Exception
             MessageBox.Show("Error in SetUser: " & ex.Message, "Error",
                           MessageBoxButtons.OK, MessageBoxIcon.Error)
             Application.Exit()
+        End Try
+    End Sub
+
+    Private Sub ShowAdminNotifications()
+        Try
+            Dim pendingApprovals As Integer = DatabaseHelper.GetPendingApprovalCount()
+            Dim pendingReturns As Integer = DatabaseHelper.GetPendingReturnCount()
+
+            If pendingApprovals = 0 AndAlso pendingReturns = 0 Then Return
+
+            Dim msg As String = "Welcome, Administrator!" & vbCrLf & vbCrLf
+            Dim hasIssuance As Boolean = pendingApprovals > 0
+            Dim hasReturn As Boolean = pendingReturns > 0
+
+            If hasIssuance Then
+                msg &= "📋 You have " & pendingApprovals & " pending issuance request" &
+                       If(pendingApprovals = 1, "", "s") & "." & vbCrLf
+            End If
+            If hasReturn Then
+                msg &= "📥 You have " & pendingReturns & " pending return request" &
+                       If(pendingReturns = 1, "", "s") & "." & vbCrLf
+            End If
+
+            msg &= vbCrLf & "Open the Hardware page to review and approve."
+
+            MessageBox.Show(msg, "Pending Requests for Approval",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Catch
         End Try
     End Sub
 
@@ -166,21 +198,12 @@ Public Class MainForm
         End If
     End Sub
 
-    ' ============================================================
-    ' ✅ LOGOUT - HIDE MAINFORM, SHOW LOGINFORM
-    ' ============================================================
     Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnLogout.Click
         If MessageBox.Show("Are you sure you want to logout?", "Confirm Logout",
                           MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            ' Hide MainForm
             Me.Hide()
-
-            ' Create new LoginForm and show it
             Dim login As New LoginForm()
             login.Show()
-
-            ' Close this MainForm (it's hidden, but we need to clean up)
-            ' We'll let the user close it, but we don't want to exit the app
         End If
     End Sub
 
@@ -188,14 +211,10 @@ Public Class MainForm
         btnLogout.PerformClick()
     End Sub
 
-    ' ============================================================
-    ' ✅ WHEN MAINFORM CLOSES, EXIT THE APPLICATION
-    ' ============================================================
     Private Sub MainForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         Application.Exit()
     End Sub
 
-    ' ===== HOVER EFFECTS =====
     Private Sub btnDashboard_MouseEnter(sender As Object, e As EventArgs) Handles btnDashboard.MouseEnter
         If btnDashboard.Visible AndAlso btnDashboard.BackColor <> Color.FromArgb(52, 152, 219) Then
             btnDashboard.BackColor = Color.FromArgb(44, 62, 80)

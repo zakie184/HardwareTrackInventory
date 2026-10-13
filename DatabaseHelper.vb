@@ -231,6 +231,19 @@ Public Class DatabaseHelper
         End Try
     End Function
 
+    Public Shared Function GetPeripheralCount() As Integer
+        Try
+            Using conn As MySqlConnection = KeyData.GetConnection()
+                conn.Open()
+                Using cmd As New MySqlCommand("SELECT COUNT(*) FROM Hardware WHERE Category = 'Peripheral'", conn)
+                    Return Convert.ToInt32(cmd.ExecuteScalar())
+                End Using
+            End Using
+        Catch ex As Exception
+            Return 0
+        End Try
+    End Function
+
     Public Shared Function GetLowStockItems() As DataTable
         Dim dt As New DataTable()
         Try
@@ -249,7 +262,7 @@ Public Class DatabaseHelper
     ' ========================================
 
     Public Shared Function IssueHardware(hardwareID As Integer, itemName As String, quantity As Integer,
-                                         issuedTo As String, department As String,
+                                         issuedTo As String, department As String, purpose As String,
                                          issuedBy As String, requiresApproval As Boolean) As Boolean
         Try
             Using conn As MySqlConnection = KeyData.GetConnection()
@@ -277,8 +290,8 @@ Public Class DatabaseHelper
 
                         Dim insQuery As String =
                             "INSERT INTO Issuances (HardwareID, ItemName, QuantityIssued, IssuedTo, Department, " &
-                            "IssuedBy, Status, ApprovalStatus, ApprovedBy, ApprovalDate, ReturnApprovalStatus) " &
-                            "VALUES (@hid, @name, @qty, @to, @dept, @by, @st, @appr, @apprby, @apprdate, 'N/A')"
+                            "Purpose, IssuedBy, Status, ApprovalStatus, ApprovedBy, ApprovalDate, ReturnApprovalStatus) " &
+                            "VALUES (@hid, @name, @qty, @to, @dept, @purp, @by, @st, @appr, @apprby, @apprdate, 'N/A')"
 
                         Using cmd As New MySqlCommand(insQuery, conn, trans)
                             cmd.Parameters.AddWithValue("@hid", hardwareID)
@@ -286,6 +299,7 @@ Public Class DatabaseHelper
                             cmd.Parameters.AddWithValue("@qty", quantity)
                             cmd.Parameters.AddWithValue("@to", issuedTo)
                             cmd.Parameters.AddWithValue("@dept", If(String.IsNullOrEmpty(department), CObj(DBNull.Value), department))
+                            cmd.Parameters.AddWithValue("@purp", If(String.IsNullOrEmpty(purpose), CObj(DBNull.Value), purpose))
                             cmd.Parameters.AddWithValue("@by", issuedBy)
                             cmd.Parameters.AddWithValue("@st", initialStatus)
                             cmd.Parameters.AddWithValue("@appr", approvalStatus)
@@ -435,7 +449,7 @@ Public Class DatabaseHelper
                 conn.Open()
                 Dim q As String =
                     "SELECT IssuanceID, HardwareID, ItemName, QuantityIssued, IssuedTo, Department, " &
-                    "IssuedBy, DateIssued " &
+                    "Purpose, IssuedBy, DateIssued " &
                     "FROM Issuances WHERE ApprovalStatus='Pending' ORDER BY DateIssued ASC"
                 Dim adapter As New MySqlDataAdapter(q, conn)
                 adapter.Fill(dt)
@@ -590,7 +604,7 @@ Public Class DatabaseHelper
                 conn.Open()
                 Dim q As String =
                     "SELECT IssuanceID, HardwareID, ItemName, QuantityIssued, QuantityReturned, " &
-                    "IssuedTo, Department, IssuedBy, DateIssued, DateReturned, Status, " &
+                    "IssuedTo, Department, Purpose, IssuedBy, DateIssued, DateReturned, Status, " &
                     "ApprovalStatus, ApprovedBy, ApprovalDate, RejectionReason, " &
                     "ReturnApprovalStatus, ReturnRequestedBy, ReturnRequestDate " &
                     "FROM Issuances ORDER BY DateIssued DESC"

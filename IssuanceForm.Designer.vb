@@ -30,6 +30,8 @@ Partial Class IssuanceForm
         Me.cmbIssuedTo = New System.Windows.Forms.ComboBox()
         Me.lblDepartment = New System.Windows.Forms.Label()
         Me.cmbDepartment = New System.Windows.Forms.ComboBox()
+        Me.lblPurpose = New System.Windows.Forms.Label()
+        Me.txtPurpose = New System.Windows.Forms.TextBox()
         Me.pnlBottom = New System.Windows.Forms.Panel()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
@@ -179,16 +181,38 @@ Partial Class IssuanceForm
         Me.cmbDepartment.Size = New System.Drawing.Size(420, 25)
         Me.cmbDepartment.TabIndex = 11
         '
+        'lblPurpose
+        '
+        Me.lblPurpose.AutoSize = True
+        Me.lblPurpose.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.lblPurpose.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
+        Me.lblPurpose.Location = New System.Drawing.Point(30, 355)
+        Me.lblPurpose.Name = "lblPurpose"
+        Me.lblPurpose.Size = New System.Drawing.Size(55, 15)
+        Me.lblPurpose.TabIndex = 12
+        Me.lblPurpose.Text = "Purpose"
+        '
+        'txtPurpose
+        '
+        Me.txtPurpose.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtPurpose.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.txtPurpose.Location = New System.Drawing.Point(30, 375)
+        Me.txtPurpose.Multiline = True
+        Me.txtPurpose.Name = "txtPurpose"
+        Me.txtPurpose.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtPurpose.Size = New System.Drawing.Size(420, 70)
+        Me.txtPurpose.TabIndex = 13
+        '
         'pnlBottom
         '
         Me.pnlBottom.BackColor = System.Drawing.Color.FromArgb(248, 249, 250)
         Me.pnlBottom.Controls.Add(Me.btnSave)
         Me.pnlBottom.Controls.Add(Me.btnCancel)
         Me.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlBottom.Location = New System.Drawing.Point(0, 380)
+        Me.pnlBottom.Location = New System.Drawing.Point(0, 475)
         Me.pnlBottom.Name = "pnlBottom"
         Me.pnlBottom.Size = New System.Drawing.Size(500, 70)
-        Me.pnlBottom.TabIndex = 12
+        Me.pnlBottom.TabIndex = 14
         '
         'btnSave
         '
@@ -226,7 +250,9 @@ Partial Class IssuanceForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(500, 450)
+        Me.ClientSize = New System.Drawing.Size(500, 545)
+        Me.Controls.Add(Me.txtPurpose)
+        Me.Controls.Add(Me.lblPurpose)
         Me.Controls.Add(Me.cmbDepartment)
         Me.Controls.Add(Me.lblDepartment)
         Me.Controls.Add(Me.cmbIssuedTo)
@@ -268,6 +294,8 @@ Partial Class IssuanceForm
     Friend WithEvents cmbIssuedTo As System.Windows.Forms.ComboBox
     Friend WithEvents lblDepartment As System.Windows.Forms.Label
     Friend WithEvents cmbDepartment As System.Windows.Forms.ComboBox
+    Friend WithEvents lblPurpose As System.Windows.Forms.Label
+    Friend WithEvents txtPurpose As System.Windows.Forms.TextBox
     Friend WithEvents pnlBottom As System.Windows.Forms.Panel
     Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents btnCancel As System.Windows.Forms.Button

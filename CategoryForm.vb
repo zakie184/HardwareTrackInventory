@@ -9,47 +9,65 @@
     Private _mode As FormMode = FormMode.AddNew
     Private _editID As Integer = -1
 
+    Private ReadOnly SuggestedNames As String() = {
+        "Laptop", "Desktop", "Monitor", "Printer", "Network",
+        "Peripheral", "Storage", "Server", "Tablet", "Phone",
+        "Camera", "Cable", "Adapter", "Other"
+    }
+
     Public Sub New(user As User, mode As FormMode)
         InitializeComponent()
         _user = user
         _mode = mode
     End Sub
 
-    Public Sub New(user As User, mode As FormMode, categoryID As Integer,
-                   currentName As String, currentDescription As String)
-        InitializeComponent()
-        _user = user
-        _mode = mode
-        _editID = categoryID
-
-        If mode = FormMode.RenameExisting Then
-            Me.Text = "Rename Category"
-            lblHeaderTitle.Text = "Rename Category"
-            btnSave.Text = "Save Changes"
-            txtName.Text = currentName
-            txtDesc.Text = currentDescription
-        End If
+    Public Sub PrefillForRename(currentName As String, currentDescription As String)
+        cmbName.Text = currentName
+        txtDesc.Text = currentDescription
     End Sub
 
     Private Sub CategoryForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LoadExistingNames()
+
         If _mode = FormMode.AddNew Then
             Me.Text = "Add Category"
             lblHeaderTitle.Text = "Add Category"
             btnSave.Text = "Add Category"
+        Else
+            Me.Text = "Rename Category"
+            lblHeaderTitle.Text = "Rename Category"
+            btnSave.Text = "Save Changes"
         End If
+
+        cmbName.Focus()
+    End Sub
+
+    Private Sub LoadExistingNames()
+        cmbName.Items.Clear()
+
+        Try
+            Dim dt As DataTable = DatabaseHelper.GetAllCategories()
+            For Each row As DataRow In dt.Rows
+                cmbName.Items.Add(row("Name").ToString())
+            Next
+        Catch
+        End Try
+
+        For Each s As String In SuggestedNames
+            If Not cmbName.Items.Contains(s) Then cmbName.Items.Add(s)
+        Next
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        If String.IsNullOrWhiteSpace(txtName.Text) Then
-            MessageBox.Show("Please enter a category name.", "Validation",
+        Dim name As String = cmbName.Text.Trim()
+        If String.IsNullOrWhiteSpace(name) Then
+            MessageBox.Show("Please enter or select a category name.", "Validation",
                             MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtName.Focus()
+            cmbName.Focus()
             Return
         End If
 
-        Dim name As String = txtName.Text.Trim()
         Dim desc As String = txtDesc.Text.Trim()
-
         Dim success As Boolean = False
 
         If _mode = FormMode.AddNew Then
@@ -68,7 +86,7 @@
             Me.DialogResult = DialogResult.OK
             Me.Close()
         Else
-            MessageBox.Show("Failed to save category. The name may already exist.",
+            MessageBox.Show("Failed to save. The name may already exist.",
                             "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub

@@ -107,11 +107,12 @@
         Dim qty As Integer = CInt(numQuantity.Value)
         Dim issuedTo As String = cmbIssuedTo.SelectedItem.ToString()
         Dim dept As String = cmbDepartment.SelectedItem.ToString()
+        Dim purpose As String = txtPurpose.Text.Trim()
 
         Dim requiresApproval As Boolean = Not IsAdmin
 
         Dim ok As Boolean = DatabaseHelper.IssueHardware(_hardwareID, _itemName, qty, issuedTo,
-                                                         dept, _user.Username, requiresApproval)
+                                                         dept, purpose, _user.Username, requiresApproval)
 
         If Not ok Then
             MessageBox.Show("Failed to submit issuance. Please try again.",

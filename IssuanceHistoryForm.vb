@@ -74,21 +74,22 @@ Public Class IssuanceHistoryForm
     Private Sub FormatGrid()
         If dgvIssuances.Columns.Count = 0 Then Return
 
-        Dim hideCols As String() = {"IssuanceID", "HardwareID", "RejectionReason", "ReturnRequestedBy"}
+        Dim hideCols As String() = {"IssuanceID", "HardwareID", "RejectionReason", "ReturnRequestedBy", "QuantityReturned"}
         For Each c As String In hideCols
             If dgvIssuances.Columns.Contains(c) Then dgvIssuances.Columns(c).Visible = False
         Next
 
         SetCol("ItemName", "Item", 150)
-        SetCol("QuantityIssued", "Qty", 40)
-        SetCol("IssuedTo", "Issued To", 120)
+        SetCol("QuantityIssued", "Qty", 45)
+        SetCol("IssuedTo", "Issued To", 130)
         SetCol("Department", "Department", 110)
         SetCol("IssuedBy", "Issued By", 100)
         SetCol("DateIssued", "Date Issued", 115)
-        SetCol("ApprovalStatus", "Approval", 80)
-        SetCol("ReturnStatus", "Return Status", 100)
+        SetCol("ApprovalStatus", "Approval Status", 110)
+        SetCol("Status", "Return Status", 100)
 
         For Each row As DataGridViewRow In dgvIssuances.Rows
+            ' Approval status color
             If dgvIssuances.Columns.Contains("ApprovalStatus") AndAlso row.Cells("ApprovalStatus").Value IsNot DBNull.Value Then
                 Select Case row.Cells("ApprovalStatus").Value.ToString()
                     Case "Pending" : row.Cells("ApprovalStatus").Style.ForeColor = Color.FromArgb(241, 196, 15)
@@ -97,33 +98,35 @@ Public Class IssuanceHistoryForm
                 End Select
             End If
 
-            Dim retStatus As String = GetReturnStatusDisplay(row)
-            If dgvIssuances.Columns.Contains("ReturnStatus") Then
-                Select Case retStatus
-                    Case "Outstanding" : row.Cells("ReturnStatus").Style.ForeColor = Color.OrangeRed
-                    Case "Pending" : row.Cells("ReturnStatus").Style.ForeColor = Color.FromArgb(241, 196, 15)
-                    Case "Returned" : row.Cells("ReturnStatus").Style.ForeColor = Color.Green
-                    Case Else : row.Cells("ReturnStatus").Style.ForeColor = Color.Gray
+            ' Return status — computed
+            Dim retDisplay As String = GetReturnDisplay(row)
+            If dgvIssuances.Columns.Contains("Status") Then
+                row.Cells("Status").Value = retDisplay
+                Select Case retDisplay
+                    Case "Outstanding" : row.Cells("Status").Style.ForeColor = Color.OrangeRed
+                    Case "Pending" : row.Cells("Status").Style.ForeColor = Color.FromArgb(241, 196, 15)
+                    Case "Returned" : row.Cells("Status").Style.ForeColor = Color.Green
+                    Case "Rejected" : row.Cells("Status").Style.ForeColor = Color.Gray
+                    Case Else : row.Cells("Status").Style.ForeColor = Color.Gray
                 End Select
             End If
         Next
     End Sub
 
-    Private Function GetReturnStatusDisplay(row As DataGridViewRow) As String
-        Dim status As String = ""
+    Private Function GetReturnDisplay(row As DataGridViewRow) As String
+        If Not dgvIssuances.Columns.Contains("ReturnApprovalStatus") Then Return "Outstanding"
+
         Dim retApproval As String = ""
-
-        If dgvIssuances.Columns.Contains("Status") AndAlso row.Cells("Status").Value IsNot DBNull.Value Then
-            status = row.Cells("Status").Value.ToString()
-        End If
-
-        If dgvIssuances.Columns.Contains("ReturnApprovalStatus") AndAlso row.Cells("ReturnApprovalStatus").Value IsNot DBNull.Value Then
+        If row.Cells("ReturnApprovalStatus").Value IsNot DBNull.Value Then
             retApproval = row.Cells("ReturnApprovalStatus").Value.ToString()
         End If
 
-        If status = "Returned" Then Return "Returned"
-        If retApproval = "Pending" Then Return "Pending"
-        Return "Outstanding"
+        Select Case retApproval
+            Case "Pending" : Return "Pending"
+            Case "Approved" : Return "Returned"
+            Case "Rejected" : Return "Rejected"
+            Case Else : Return "Outstanding"
+        End Select
     End Function
 
     Private Sub SetCol(name As String, header As String, width As Integer)
@@ -149,21 +152,16 @@ Public Class IssuanceHistoryForm
         End If
 
         Dim appr As String = ""
-        Dim retStatus As String = ""
         Dim retApproval As String = ""
 
         If dgvIssuances.Columns.Contains("ApprovalStatus") AndAlso dgvIssuances.SelectedRows(0).Cells("ApprovalStatus").Value IsNot DBNull.Value Then
             appr = dgvIssuances.SelectedRows(0).Cells("ApprovalStatus").Value.ToString()
         End If
-        If dgvIssuances.Columns.Contains("Status") AndAlso dgvIssuances.SelectedRows(0).Cells("Status").Value IsNot DBNull.Value Then
-            retStatus = dgvIssuances.SelectedRows(0).Cells("Status").Value.ToString()
-        End If
         If dgvIssuances.Columns.Contains("ReturnApprovalStatus") AndAlso dgvIssuances.SelectedRows(0).Cells("ReturnApprovalStatus").Value IsNot DBNull.Value Then
             retApproval = dgvIssuances.SelectedRows(0).Cells("ReturnApprovalStatus").Value.ToString()
         End If
 
-        ' Can return only if: approved issuance, not already returned, no pending return
-        btnReturn.Enabled = (appr = "Approved") AndAlso (retStatus <> "Returned") AndAlso (retApproval <> "Pending")
+        btnReturn.Enabled = (appr = "Approved") AndAlso (retApproval = "N/A" OrElse retApproval = "Rejected")
     End Sub
 
     Private Sub btnReturn_Click(sender As Object, e As EventArgs) Handles btnReturn.Click

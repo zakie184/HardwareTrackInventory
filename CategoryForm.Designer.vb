@@ -21,7 +21,7 @@ Partial Class CategoryForm
         Me.lblHeaderTitle = New System.Windows.Forms.Label()
         Me.lblHeaderSub = New System.Windows.Forms.Label()
         Me.lblName = New System.Windows.Forms.Label()
-        Me.txtName = New System.Windows.Forms.TextBox()
+        Me.cmbName = New System.Windows.Forms.ComboBox()
         Me.lblDesc = New System.Windows.Forms.Label()
         Me.txtDesc = New System.Windows.Forms.TextBox()
         Me.pnlBottom = New System.Windows.Forms.Panel()
@@ -60,9 +60,9 @@ Partial Class CategoryForm
         Me.lblHeaderSub.ForeColor = System.Drawing.Color.FromArgb(189, 195, 199)
         Me.lblHeaderSub.Location = New System.Drawing.Point(27, 42)
         Me.lblHeaderSub.Name = "lblHeaderSub"
-        Me.lblHeaderSub.Size = New System.Drawing.Size(280, 15)
+        Me.lblHeaderSub.Size = New System.Drawing.Size(350, 15)
         Me.lblHeaderSub.TabIndex = 1
-        Me.lblHeaderSub.Text = "Fill in the required fields marked with *"
+        Me.lblHeaderSub.Text = "Choose a name from the list or type a new one"
         '
         'lblName
         '
@@ -75,14 +75,15 @@ Partial Class CategoryForm
         Me.lblName.TabIndex = 1
         Me.lblName.Text = "Category Name *"
         '
-        'txtName
+        'cmbName
         '
-        Me.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtName.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.txtName.Location = New System.Drawing.Point(30, 120)
-        Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(420, 25)
-        Me.txtName.TabIndex = 2
+        Me.cmbName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown
+        Me.cmbName.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.cmbName.FormattingEnabled = True
+        Me.cmbName.Location = New System.Drawing.Point(30, 120)
+        Me.cmbName.Name = "cmbName"
+        Me.cmbName.Size = New System.Drawing.Size(420, 25)
+        Me.cmbName.TabIndex = 2
         '
         'lblDesc
         '
@@ -156,7 +157,7 @@ Partial Class CategoryForm
         Me.ClientSize = New System.Drawing.Size(480, 380)
         Me.Controls.Add(Me.txtDesc)
         Me.Controls.Add(Me.lblDesc)
-        Me.Controls.Add(Me.txtName)
+        Me.Controls.Add(Me.cmbName)
         Me.Controls.Add(Me.lblName)
         Me.Controls.Add(Me.pnlBottom)
         Me.Controls.Add(Me.pnlHeader)
@@ -178,7 +179,7 @@ Partial Class CategoryForm
     Friend WithEvents lblHeaderTitle As System.Windows.Forms.Label
     Friend WithEvents lblHeaderSub As System.Windows.Forms.Label
     Friend WithEvents lblName As System.Windows.Forms.Label
-    Friend WithEvents txtName As System.Windows.Forms.TextBox
+    Friend WithEvents cmbName As System.Windows.Forms.ComboBox
     Friend WithEvents lblDesc As System.Windows.Forms.Label
     Friend WithEvents txtDesc As System.Windows.Forms.TextBox
     Friend WithEvents pnlBottom As System.Windows.Forms.Panel
