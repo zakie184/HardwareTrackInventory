@@ -109,8 +109,8 @@ Public Class CategoriesControl
             Return
         End If
 
-        Using frm As New CategoryForm(currentUser, CategoryForm.FormMode.RenameExisting,
-                                      selectedID, selectedName, selectedDesc)
+        Using frm As New CategoryForm(currentUser, CategoryForm.FormMode.RenameExisting)
+            frm.PrefillForRename(selectedName, selectedDesc)
             If frm.ShowDialog(Me) = DialogResult.OK Then
                 LoadCategories()
                 MessageBox.Show("Category renamed successfully!", "Success",

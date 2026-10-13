@@ -109,8 +109,8 @@ Public Class LocationsControl
             Return
         End If
 
-        Using frm As New LocationForm(currentUser, LocationForm.FormMode.RenameExisting,
-                                      selectedID, selectedName, selectedDesc)
+        Using frm As New LocationForm(currentUser, LocationForm.FormMode.RenameExisting)
+            frm.PrefillForRename(selectedName, selectedDesc)
             If frm.ShowDialog(Me) = DialogResult.OK Then
                 LoadLocations()
                 MessageBox.Show("Location renamed successfully!", "Success",

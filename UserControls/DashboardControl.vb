@@ -40,17 +40,19 @@ Public Class DashboardControl
         Dim total As Integer = DatabaseHelper.GetTotalCount()
         Dim available As Integer = DatabaseHelper.GetAvailableCount()
         Dim assigned As Integer = DatabaseHelper.GetAssignedCount()
+        Dim peripheral As Integer = DatabaseHelper.GetPeripheralCount()
 
         lblTotalCount.Text = total.ToString()
         lblAvailableCount.Text = available.ToString()
         lblAssignedCount.Text = assigned.ToString()
+        lblPeripheralCount.Text = peripheral.ToString()
 
         Dim dtLow As DataTable = DatabaseHelper.GetLowStockItems()
         lblLowStockCount.Text = dtLow.Rows.Count.ToString()
 
         LoadActivity()
         LoadLowStockGrid()
-        DrawPieChart(total, available, assigned)
+        DrawPieChart(total, available, assigned, peripheral)
         DrawBarChart()
     End Sub
 
@@ -59,15 +61,21 @@ Public Class DashboardControl
 
         If IsAdmin Then
             Dim pendingCount As Integer = DatabaseHelper.GetPendingApprovalCount()
-            If pendingCount > 0 Then
+            Dim returnCount As Integer = DatabaseHelper.GetPendingReturnCount()
+
+            If pendingCount > 0 OrElse returnCount > 0 Then
                 showBanner = True
                 pnlApprovalNotification.Visible = True
 
-                If pendingCount = 1 Then
-                    lblApprovalText.Text = "You have 1 pending approval request."
-                Else
-                    lblApprovalText.Text = "You have " & pendingCount & " pending approval requests."
+                Dim parts As New List(Of String)
+                If pendingCount > 0 Then
+                    parts.Add(pendingCount & " pending issuance" & If(pendingCount = 1, "", "s"))
                 End If
+                If returnCount > 0 Then
+                    parts.Add(returnCount & " pending return" & If(returnCount = 1, "", "s"))
+                End If
+
+                lblApprovalText.Text = "You have " & String.Join(" and ", parts) & " awaiting your review."
             End If
         End If
 
@@ -84,7 +92,6 @@ Public Class DashboardControl
         tlpStats.Location = New Point(15, 60 + shift)
         tlpCharts.Location = New Point(15, 170 + shift)
 
-        ' Bottom section fills remaining vertical space
         Dim bottomY As Integer = 370 + shift
         Dim availableHeight As Integer = pnlContainer.ClientSize.Height - bottomY - 75
         If availableHeight < 250 Then availableHeight = 250
@@ -160,11 +167,7 @@ Public Class DashboardControl
         End If
     End Sub
 
-    ''' <summary>
-    ''' Draws a full circular donut chart. The bitmap is 320x190 so the donut has plenty of room.
-    ''' PictureBox uses Zoom mode, so the entire chart is ALWAYS visible — never cut off.
-    ''' </summary>
-    Private Sub DrawPieChart(total As Integer, available As Integer, assigned As Integer)
+    Private Sub DrawPieChart(total As Integer, available As Integer, assigned As Integer, peripheral As Integer)
         Dim bmp As New Bitmap(320, 190)
         Using g As Graphics = Graphics.FromImage(bmp)
             g.Clear(Color.White)
@@ -177,24 +180,23 @@ Public Class DashboardControl
                 Return
             End If
 
-            Dim others As Integer = total - available - assigned
+            Dim others As Integer = total - available - assigned - peripheral
             If others < 0 Then others = 0
 
-            Dim values As Integer() = {available, assigned, others}
+            Dim values As Integer() = {available, assigned, peripheral, others}
             Dim colors As Color() = {
                 Color.FromArgb(46, 204, 113),
                 Color.FromArgb(241, 196, 15),
+                Color.FromArgb(155, 89, 182),
                 Color.FromArgb(52, 152, 219)
             }
-            Dim labels As String() = {"Available", "Assigned", "Other"}
+            Dim labels As String() = {"Available", "Assigned", "Peripheral", "Other"}
 
-            ' Donut geometry — centered in left portion of 320x190 bitmap
             Dim pieSize As Integer = 160
-            Dim pieX As Integer = 90 - pieSize \ 2   ' center X = 90
-            Dim pieY As Integer = 95 - pieSize \ 2   ' center Y = 95
+            Dim pieX As Integer = 90 - pieSize \ 2
+            Dim pieY As Integer = 95 - pieSize \ 2
             Dim rect As New Rectangle(pieX, pieY, pieSize, pieSize)
 
-            ' Draw slices
             Dim startAngle As Single = -90.0F
             For i As Integer = 0 To values.Length - 1
                 Dim sweep As Single = CSng(values(i) / total * 360.0)
@@ -213,13 +215,12 @@ Public Class DashboardControl
                     Dim lx As Single = cx + radius * CSng(Math.Cos(midRad)) - 12.0F
                     Dim ly As Single = cy + radius * CSng(Math.Sin(midRad)) - 8.0F
                     Dim pct As String = CInt(Math.Round(values(i) / total * 100)) & "%"
-                    g.DrawString(pct, New Font("Segoe UI", 9, FontStyle.Bold), Brushes.White, lx, ly)
+                    g.DrawString(pct, New Font("Segoe UI", 8, FontStyle.Bold), Brushes.White, lx, ly)
                 End If
 
                 startAngle += sweep
             Next
 
-            ' Donut hole — 46% of pie diameter, perfectly centered
             Dim holeSize As Integer = CInt(pieSize * 0.46)
             Dim holeX As Integer = rect.X + (pieSize - holeSize) \ 2
             Dim holeY As Integer = rect.Y + (pieSize - holeSize) \ 2
@@ -228,26 +229,23 @@ Public Class DashboardControl
                 g.FillEllipse(holeBrush, holeX, holeY, holeSize, holeSize)
             End Using
 
-            ' Center total text
             Dim totalStr As String = total.ToString()
-            Dim fontBig As New Font("Segoe UI", 14, FontStyle.Bold)
+            Dim fontBig As New Font("Segoe UI", 12, FontStyle.Bold)
             Dim sizeBig As SizeF = g.MeasureString(totalStr, fontBig)
             g.DrawString(totalStr, fontBig, New SolidBrush(Color.FromArgb(44, 62, 80)),
                          CSng(rect.X + rect.Width / 2.0F - sizeBig.Width / 2.0F),
                          CSng(holeY + holeSize / 2.0F - sizeBig.Height / 2.0F - 4))
 
-            Dim fontSmall As New Font("Segoe UI", 8)
+            Dim fontSmall As New Font("Segoe UI", 7)
             Dim sizeSmall As SizeF = g.MeasureString("Total", fontSmall)
             g.DrawString("Total", fontSmall, Brushes.Gray,
                          CSng(rect.X + rect.Width / 2.0F - sizeSmall.Width / 2.0F),
-                         CSng(holeY + holeSize / 2.0F + 10))
+                         CSng(holeY + holeSize / 2.0F + 8))
 
-            ' Thin outline
             g.DrawEllipse(New Pen(Color.FromArgb(220, 220, 220), 1), rect)
 
-            ' Legend on right side
             Dim legendX As Integer = 190
-            Dim legendY As Integer = 25
+            Dim legendY As Integer = 15
             For i As Integer = 0 To values.Length - 1
                 g.FillRectangle(New SolidBrush(colors(i)), legendX, legendY + 4, 14, 14)
                 g.DrawRectangle(Pens.LightGray, legendX, legendY + 4, 14, 14)
@@ -271,7 +269,6 @@ Public Class DashboardControl
         Using g As Graphics = Graphics.FromImage(bmp)
             g.Clear(Color.White)
             g.SmoothingMode = SmoothingMode.AntiAlias
-            g.TextRenderingHint = Drawing.Text.TextRenderingHint.ClearTypeGridFit
 
             Try
                 Using conn As MySqlConnection = KeyData.GetConnection()
