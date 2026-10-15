@@ -20,7 +20,6 @@ Public Class LoginForm
     End Sub
 
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
-        ' Validate inputs
         If String.IsNullOrWhiteSpace(txtUsername.Text) Then
             MessageBox.Show("Please enter your username.", "Login Required",
                           MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -40,7 +39,6 @@ Public Class LoginForm
         Cursor = Cursors.WaitCursor
 
         Try
-            ' Get user from database
             Dim dt As DataTable = DatabaseHelper.GetUser(txtUsername.Text.Trim())
 
             If dt Is Nothing OrElse dt.Rows.Count = 0 Then
@@ -53,7 +51,6 @@ Public Class LoginForm
 
             Dim row As DataRow = dt.Rows(0)
 
-            ' Check password
             If row("PasswordHash").ToString() <> txtPassword.Text Then
                 MessageBox.Show("Invalid password.", "Login Failed",
                               MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -62,7 +59,6 @@ Public Class LoginForm
                 Return
             End If
 
-            ' Check if active
             If row("Status").ToString() <> "Active" Then
                 MessageBox.Show("Your account is inactive. Please contact the administrator.",
                               "Account Inactive", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -72,7 +68,6 @@ Public Class LoginForm
                 Return
             End If
 
-            ' Create user object
             CurrentUser = New User()
             CurrentUser.ID = Convert.ToInt32(row("UserID"))
             CurrentUser.Username = row("Username").ToString()
@@ -86,15 +81,14 @@ Public Class LoginForm
                 CurrentUser.LastLogin = DateTime.MinValue
             End If
 
-            ' Update last login
             DatabaseHelper.UpdateLastLogin(CurrentUser.Username)
 
-            ' ✅ OPEN MAINFORM DIRECTLY
+            ActivityLogger.Log(CurrentUser, "Logged in", "User", CurrentUser.ID, True)
+
             Dim mainForm As New MainForm()
             mainForm.SetUser(CurrentUser)
             mainForm.Show()
 
-            ' ✅ HIDE LOGINFORM (don't close it)
             Me.Hide()
 
         Catch ex As Exception

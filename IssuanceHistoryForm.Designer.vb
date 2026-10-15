@@ -147,13 +147,13 @@ Partial Class IssuanceHistoryForm
         Me.btnReturn.Enabled = False
         Me.btnReturn.FlatAppearance.BorderSize = 0
         Me.btnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnReturn.Font = New System.Drawing.Font("Segoe UI", 10.0!, FontStyle.Bold)
+        Me.btnReturn.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btnReturn.ForeColor = System.Drawing.Color.White
         Me.btnReturn.Location = New System.Drawing.Point(15, 12)
         Me.btnReturn.Name = "btnReturn"
         Me.btnReturn.Size = New System.Drawing.Size(170, 36)
         Me.btnReturn.TabIndex = 0
-        Me.btnReturn.Text = "Process Return"
+        Me.btnReturn.Text = "📥 Process Return"
         Me.btnReturn.UseVisualStyleBackColor = False
         '
         'btnRefresh
@@ -164,7 +164,7 @@ Partial Class IssuanceHistoryForm
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(100, 36)
         Me.btnRefresh.TabIndex = 1
-        Me.btnRefresh.Text = "Refresh"
+        Me.btnRefresh.Text = "🔄 Refresh"
         Me.btnRefresh.UseVisualStyleBackColor = True
         '
         'btnClose

@@ -8,6 +8,8 @@ Public Class HardwareItem
             Case "Available" : Return Color.Green
             Case "Assigned" : Return Color.FromArgb(52, 152, 219)
             Case "In Use" : Return Color.FromArgb(241, 196, 15)
+            Case "Maintenance" : Return Color.OrangeRed
+            Case "Retired" : Return Color.Gray
             Case Else : Return Color.Gray
         End Select
     End Function
@@ -17,6 +19,8 @@ Public Class HardwareItem
             Case "Available" : Return "✅"
             Case "Assigned" : Return "📋"
             Case "In Use" : Return "🔄"
+            Case "Maintenance" : Return "⚠️"
+            Case "Retired" : Return "⚪"
             Case Else : Return "⚪"
         End Select
     End Function

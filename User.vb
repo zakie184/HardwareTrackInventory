@@ -53,6 +53,14 @@
         Return Role = "Administrator"
     End Function
 
+    Public Function CanRestock() As Boolean
+        Return Role = "Administrator" OrElse Role = "Inventory Manager"
+    End Function
+
+    Public Function CanApproveReceiving() As Boolean
+        Return Role = "Administrator"
+    End Function
+
     Public Function CanViewIssuanceHistory() As Boolean
         Return Role = "Administrator" OrElse Role = "Inventory Manager" OrElse Role = "Staff"
     End Function

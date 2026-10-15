@@ -66,7 +66,6 @@ Public Class MainForm
                 lblHeaderSub.Text = "Welcome, " & user.FullName
             End If
 
-            ' Notification popup for admin
             If user.Role = "Administrator" Then
                 ShowAdminNotifications()
             End If
@@ -82,23 +81,31 @@ Public Class MainForm
         Try
             Dim pendingApprovals As Integer = DatabaseHelper.GetPendingApprovalCount()
             Dim pendingReturns As Integer = DatabaseHelper.GetPendingReturnCount()
+            Dim pendingReceivings As Integer = DatabaseHelper.GetPendingReceivingCount()
 
-            If pendingApprovals = 0 AndAlso pendingReturns = 0 Then Return
+            If pendingApprovals = 0 AndAlso pendingReturns = 0 AndAlso pendingReceivings = 0 Then Return
 
             Dim msg As String = "Welcome, Administrator!" & vbCrLf & vbCrLf
-            Dim hasIssuance As Boolean = pendingApprovals > 0
-            Dim hasReturn As Boolean = pendingReturns > 0
+            Dim parts As New List(Of String)
 
-            If hasIssuance Then
-                msg &= "📋 You have " & pendingApprovals & " pending issuance request" &
-                       If(pendingApprovals = 1, "", "s") & "." & vbCrLf
+            If pendingReceivings > 0 Then
+                parts.Add("📦 " & pendingReceivings & " pending receiving request" &
+                          If(pendingReceivings = 1, "", "s"))
             End If
-            If hasReturn Then
-                msg &= "📥 You have " & pendingReturns & " pending return request" &
-                       If(pendingReturns = 1, "", "s") & "." & vbCrLf
+            If pendingApprovals > 0 Then
+                parts.Add("📋 " & pendingApprovals & " pending issuance request" &
+                          If(pendingApprovals = 1, "", "s"))
+            End If
+            If pendingReturns > 0 Then
+                parts.Add("📥 " & pendingReturns & " pending return request" &
+                          If(pendingReturns = 1, "", "s"))
             End If
 
-            msg &= vbCrLf & "Open the Hardware page to review and approve."
+            For Each p As String In parts
+                msg &= p & vbCrLf
+            Next
+
+            msg &= vbCrLf & "Open the Hardware page to review."
 
             MessageBox.Show(msg, "Pending Requests for Approval",
                             MessageBoxButtons.OK, MessageBoxIcon.Information)

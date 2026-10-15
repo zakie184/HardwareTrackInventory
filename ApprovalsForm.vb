@@ -28,6 +28,7 @@
                 If dgvPending.Columns.Contains("IssuanceID") Then dgvPending.Columns("IssuanceID").Visible = False
                 If dgvPending.Columns.Contains("HardwareID") Then dgvPending.Columns("HardwareID").Visible = False
                 If dgvPending.Columns.Contains("Department") Then dgvPending.Columns("Department").Visible = False
+                If dgvPending.Columns.Contains("Purpose") Then dgvPending.Columns("Purpose").Visible = False
 
                 SetCol("ItemName", "Item", 180)
                 SetCol("QuantityIssued", "Qty", 50)
@@ -53,6 +54,7 @@
         lblRequestedBy.Text = "--"
         lblIssuedTo.Text = "--"
         lblQty.Text = "--"
+        lblFrom.Text = "--"
         lblPurpose.Text = "--"
         btnApprove.Enabled = False
         btnReject.Enabled = False
@@ -70,7 +72,18 @@
         If row.Cells("IssuedBy").Value IsNot DBNull.Value Then lblRequestedBy.Text = row.Cells("IssuedBy").Value.ToString()
         If row.Cells("IssuedTo").Value IsNot DBNull.Value Then lblIssuedTo.Text = row.Cells("IssuedTo").Value.ToString()
         If row.Cells("QuantityIssued").Value IsNot DBNull.Value Then lblQty.Text = row.Cells("QuantityIssued").Value.ToString()
-        If row.Cells("Department").Value IsNot DBNull.Value Then lblPurpose.Text = row.Cells("Department").Value.ToString()
+
+        If row.Cells("Department").Value Is DBNull.Value Then
+            lblFrom.Text = "(not specified)"
+        Else
+            lblFrom.Text = row.Cells("Department").Value.ToString()
+        End If
+
+        If row.Cells("Purpose").Value Is DBNull.Value Then
+            lblPurpose.Text = "(no purpose stated)"
+        Else
+            lblPurpose.Text = row.Cells("Purpose").Value.ToString()
+        End If
 
         btnApprove.Enabled = True
         btnReject.Enabled = True
@@ -114,10 +127,10 @@
         Dim itemName As String = row.Cells("ItemName").Value.ToString()
         Dim issuedTo As String = row.Cells("IssuedTo").Value.ToString()
 
-        Dim reason As String = InputBox("Enter reason for rejection:", "Reject Issuance Request", "")
+        Dim reason As String = InputBox("Enter reason for rejection:", "Reject Issuance", "")
         If reason Is Nothing Then Return
         If String.IsNullOrWhiteSpace(reason) Then
-            MessageBox.Show("A reason is required for rejection.", "Validation",
+            MessageBox.Show("A reason is required.", "Validation",
                             MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
@@ -132,7 +145,7 @@
             Me.DialogResult = DialogResult.OK
             Me.Close()
         Else
-            MessageBox.Show("Failed to reject the issuance.", "Error",
+            MessageBox.Show("Failed to reject.", "Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub

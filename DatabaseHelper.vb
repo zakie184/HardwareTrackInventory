@@ -64,6 +64,22 @@ Public Class DatabaseHelper
         Return dt
     End Function
 
+    ''' <summary>
+    ''' Returns Suppliers list (stored in Departments table).
+    ''' </summary>
+    Public Shared Function GetAllSuppliers() As DataTable
+        Dim dt As New DataTable()
+        Try
+            Using conn As MySqlConnection = KeyData.GetConnection()
+                conn.Open()
+                Dim adapter As New MySqlDataAdapter("SELECT * FROM Departments ORDER BY Name", conn)
+                adapter.Fill(dt)
+            End Using
+        Catch ex As Exception
+        End Try
+        Return dt
+    End Function
+
     Public Shared Function AddUser(username As String, password As String, fullName As String, role As String, status As String) As Boolean
         Try
             Using conn As MySqlConnection = KeyData.GetConnection()
@@ -156,28 +172,6 @@ Public Class DatabaseHelper
         Return dt
     End Function
 
-    Public Shared Function AddHardware(name As String, category As String, quantity As Integer,
-                                       location As String, status As String, notes As String) As Boolean
-        Try
-            Using conn As MySqlConnection = KeyData.GetConnection()
-                conn.Open()
-                Dim q As String = "INSERT INTO Hardware (Name, Category, Quantity, Location, Status, Notes) " &
-                                  "VALUES (@n, @c, @q, @l, @s, @notes)"
-                Using cmd As New MySqlCommand(q, conn)
-                    cmd.Parameters.AddWithValue("@n", name)
-                    cmd.Parameters.AddWithValue("@c", category)
-                    cmd.Parameters.AddWithValue("@q", quantity)
-                    cmd.Parameters.AddWithValue("@l", location)
-                    cmd.Parameters.AddWithValue("@s", status)
-                    cmd.Parameters.AddWithValue("@notes", If(String.IsNullOrEmpty(notes), CObj(DBNull.Value), notes))
-                    Return cmd.ExecuteNonQuery() > 0
-                End Using
-            End Using
-        Catch ex As Exception
-            Return False
-        End Try
-    End Function
-
     Public Shared Function DeleteHardware(id As Integer) As Boolean
         Try
             Using conn As MySqlConnection = KeyData.GetConnection()
@@ -249,12 +243,279 @@ Public Class DatabaseHelper
         Try
             Using conn As MySqlConnection = KeyData.GetConnection()
                 conn.Open()
-                Dim adapter As New MySqlDataAdapter("SELECT Name, Quantity, Location FROM Hardware WHERE Quantity <= 5 ORDER BY Quantity ASC", conn)
+                Dim adapter As New MySqlDataAdapter(
+                    "SELECT HardwareID, Name, Category, Quantity, Location " &
+                    "FROM Hardware WHERE Quantity <= 5 ORDER BY Quantity ASC, Name ASC", conn)
                 adapter.Fill(dt)
             End Using
         Catch ex As Exception
         End Try
         Return dt
+    End Function
+
+    Public Shared Function GetItemNames() As DataTable
+        Dim dt As New DataTable()
+        Try
+            Using conn As MySqlConnection = KeyData.GetConnection()
+                conn.Open()
+                Dim adapter As New MySqlDataAdapter("SELECT DISTINCT Name FROM Hardware ORDER BY Name", conn)
+                adapter.Fill(dt)
+            End Using
+        Catch ex As Exception
+        End Try
+        Return dt
+    End Function
+
+    ' ========================================
+    ' RECEIVINGS
+    ' ========================================
+
+    Public Shared Function HasPendingReceiving() As Boolean
+        Try
+            Using conn As MySqlConnection = KeyData.GetConnection()
+                conn.Open()
+                Using cmd As New MySqlCommand("SELECT COUNT(*) FROM Receivings WHERE Status='Pending'", conn)
+                    Return Convert.ToInt32(cmd.ExecuteScalar()) > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+
+    Public Shared Function CreateReceivingRequest(supplier As String, notes As String,
+                                                  receivedBy As String, requiresApproval As Boolean,
+                                                  items As List(Of ReceivingLine)) As Boolean
+        Try
+            Using conn As MySqlConnection = KeyData.GetConnection()
+                conn.Open()
+                Using trans As MySqlTransaction = conn.BeginTransaction()
+                    Try
+                        Dim status As String = If(requiresApproval, "Pending", "Approved")
+
+                        Dim headerID As Integer = 0
+                        Dim headerQ As String =
+                            "INSERT INTO Receivings (Supplier, Notes, ReceivedBy, Status, ApprovedBy, ApprovalDate) " &
+                            "VALUES (@sup, @notes, @by, @st, @apprby, @apprdate); SELECT LAST_INSERT_ID();"
+                        Using cmd As New MySqlCommand(headerQ, conn, trans)
+                            cmd.Parameters.AddWithValue("@sup", If(String.IsNullOrEmpty(supplier), CObj(DBNull.Value), supplier))
+                            cmd.Parameters.AddWithValue("@notes", If(String.IsNullOrEmpty(notes), CObj(DBNull.Value), notes))
+                            cmd.Parameters.AddWithValue("@by", receivedBy)
+                            cmd.Parameters.AddWithValue("@st", status)
+
+                            If requiresApproval Then
+                                cmd.Parameters.AddWithValue("@apprby", DBNull.Value)
+                                cmd.Parameters.AddWithValue("@apprdate", DBNull.Value)
+                            Else
+                                cmd.Parameters.AddWithValue("@apprby", receivedBy)
+                                cmd.Parameters.AddWithValue("@apprdate", DateTime.Now)
+                            End If
+
+                            headerID = Convert.ToInt32(cmd.ExecuteScalar())
+                        End Using
+
+                        For Each line As ReceivingLine In items
+                            Dim existingID As Integer = 0
+                            Using cmd As New MySqlCommand(
+                                "SELECT HardwareID FROM Hardware WHERE Name = @n AND Category = @c LIMIT 1", conn, trans)
+                                cmd.Parameters.AddWithValue("@n", line.ItemName)
+                                cmd.Parameters.AddWithValue("@c", line.Category)
+                                Dim r As Object = cmd.ExecuteScalar()
+                                If r IsNot Nothing AndAlso r IsNot DBNull.Value Then
+                                    existingID = Convert.ToInt32(r)
+                                End If
+                            End Using
+
+                            Dim isNew As Integer = If(existingID = 0, 1, 0)
+
+                            Dim itemQ As String =
+                                "INSERT INTO ReceivingItems (ReceivingID, HardwareID, ItemName, Category, Location, Quantity, IsNewItem) " &
+                                "VALUES (@rid, @hid, @n, @c, @l, @q, @new)"
+                            Using cmd As New MySqlCommand(itemQ, conn, trans)
+                                cmd.Parameters.AddWithValue("@rid", headerID)
+                                cmd.Parameters.AddWithValue("@hid", If(existingID = 0, CObj(DBNull.Value), existingID))
+                                cmd.Parameters.AddWithValue("@n", line.ItemName)
+                                cmd.Parameters.AddWithValue("@c", line.Category)
+                                cmd.Parameters.AddWithValue("@l", line.Location)
+                                cmd.Parameters.AddWithValue("@q", line.Quantity)
+                                cmd.Parameters.AddWithValue("@new", isNew)
+                                cmd.ExecuteNonQuery()
+                            End Using
+
+                            If Not requiresApproval Then
+                                ApplyStockToInventory(conn, trans, line, existingID)
+                            End If
+                        Next
+
+                        trans.Commit()
+                        Return True
+                    Catch
+                        Try
+                            trans.Rollback()
+                        Catch
+                        End Try
+                        Return False
+                    End Try
+                End Using
+            End Using
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+
+    Private Shared Sub ApplyStockToInventory(conn As MySqlConnection, trans As MySqlTransaction,
+                                             line As ReceivingLine, existingID As Integer)
+        If existingID > 0 Then
+            Using cmd As New MySqlCommand("UPDATE Hardware SET Quantity = Quantity + @q WHERE HardwareID = @id", conn, trans)
+                cmd.Parameters.AddWithValue("@q", line.Quantity)
+                cmd.Parameters.AddWithValue("@id", existingID)
+                cmd.ExecuteNonQuery()
+            End Using
+        Else
+            Using cmd As New MySqlCommand(
+                "INSERT INTO Hardware (Name, Category, Quantity, Location, Status) VALUES (@n, @c, @q, @l, 'Available')", conn, trans)
+                cmd.Parameters.AddWithValue("@n", line.ItemName)
+                cmd.Parameters.AddWithValue("@c", line.Category)
+                cmd.Parameters.AddWithValue("@q", line.Quantity)
+                cmd.Parameters.AddWithValue("@l", line.Location)
+                cmd.ExecuteNonQuery()
+            End Using
+        End If
+    End Sub
+
+    Public Shared Function GetPendingReceivings() As DataTable
+        Dim dt As New DataTable()
+        Try
+            Using conn As MySqlConnection = KeyData.GetConnection()
+                conn.Open()
+                Dim q As String =
+                    "SELECT ReceivingID, Supplier, Notes, ReceivedBy, DateReceived " &
+                    "FROM Receivings WHERE Status='Pending' ORDER BY DateReceived ASC"
+                Dim adapter As New MySqlDataAdapter(q, conn)
+                adapter.Fill(dt)
+            End Using
+        Catch ex As Exception
+        End Try
+        Return dt
+    End Function
+
+    Public Shared Function GetReceivingItems(receivingID As Integer) As DataTable
+        Dim dt As New DataTable()
+        Try
+            Using conn As MySqlConnection = KeyData.GetConnection()
+                conn.Open()
+                Dim q As String =
+                    "SELECT ItemName, Category, Location, Quantity, IsNewItem " &
+                    "FROM ReceivingItems WHERE ReceivingID = @id ORDER BY ItemName"
+                Using cmd As New MySqlCommand(q, conn)
+                    cmd.Parameters.AddWithValue("@id", receivingID)
+                    Dim adapter As New MySqlDataAdapter(cmd)
+                    adapter.Fill(dt)
+                End Using
+            End Using
+        Catch ex As Exception
+        End Try
+        Return dt
+    End Function
+
+    Public Shared Function GetPendingReceivingCount() As Integer
+        Try
+            Using conn As MySqlConnection = KeyData.GetConnection()
+                conn.Open()
+                Using cmd As New MySqlCommand("SELECT COUNT(*) FROM Receivings WHERE Status='Pending'", conn)
+                    Return Convert.ToInt32(cmd.ExecuteScalar())
+                End Using
+            End Using
+        Catch ex As Exception
+            Return 0
+        End Try
+    End Function
+
+    Public Shared Function ApproveReceiving(receivingID As Integer, approvedBy As String) As Boolean
+        Try
+            Using conn As MySqlConnection = KeyData.GetConnection()
+                conn.Open()
+                Using trans As MySqlTransaction = conn.BeginTransaction()
+                    Try
+                        Dim status As String = ""
+                        Using cmd As New MySqlCommand("SELECT Status FROM Receivings WHERE ReceivingID = @id", conn, trans)
+                            cmd.Parameters.AddWithValue("@id", receivingID)
+                            Dim r As Object = cmd.ExecuteScalar()
+                            If r Is Nothing OrElse r Is DBNull.Value Then
+                                trans.Rollback()
+                                Return False
+                            End If
+                            status = r.ToString()
+                        End Using
+
+                        If status <> "Pending" Then
+                            trans.Rollback()
+                            Return False
+                        End If
+
+                        Dim itemsDt As New DataTable()
+                        Using cmd As New MySqlCommand(
+                            "SELECT HardwareID, ItemName, Category, Location, Quantity FROM ReceivingItems WHERE ReceivingID = @id", conn, trans)
+                            cmd.Parameters.AddWithValue("@id", receivingID)
+                            Dim adapter As New MySqlDataAdapter(cmd)
+                            adapter.Fill(itemsDt)
+                        End Using
+
+                        For Each row As DataRow In itemsDt.Rows
+                            Dim hid As Integer = 0
+                            If row("HardwareID") IsNot DBNull.Value Then
+                                hid = Convert.ToInt32(row("HardwareID"))
+                            End If
+
+                            Dim line As New ReceivingLine()
+                            line.ItemName = row("ItemName").ToString()
+                            line.Category = row("Category").ToString()
+                            line.Location = row("Location").ToString()
+                            line.Quantity = Convert.ToInt32(row("Quantity"))
+
+                            ApplyStockToInventory(conn, trans, line, hid)
+                        Next
+
+                        Using cmd As New MySqlCommand(
+                            "UPDATE Receivings SET Status='Approved', ApprovedBy=@by, ApprovalDate=NOW() WHERE ReceivingID=@id", conn, trans)
+                            cmd.Parameters.AddWithValue("@by", approvedBy)
+                            cmd.Parameters.AddWithValue("@id", receivingID)
+                            cmd.ExecuteNonQuery()
+                        End Using
+
+                        trans.Commit()
+                        Return True
+                    Catch
+                        Try
+                            trans.Rollback()
+                        Catch
+                        End Try
+                        Return False
+                    End Try
+                End Using
+            End Using
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+
+    Public Shared Function RejectReceiving(receivingID As Integer, rejectedBy As String, reason As String) As Boolean
+        Try
+            Using conn As MySqlConnection = KeyData.GetConnection()
+                conn.Open()
+                Dim q As String =
+                    "UPDATE Receivings SET Status='Rejected', ApprovedBy=@by, ApprovalDate=NOW(), RejectionReason=@reason " &
+                    "WHERE ReceivingID=@id AND Status='Pending'"
+                Using cmd As New MySqlCommand(q, conn)
+                    cmd.Parameters.AddWithValue("@by", rejectedBy)
+                    cmd.Parameters.AddWithValue("@reason", If(String.IsNullOrEmpty(reason), CObj(DBNull.Value), reason))
+                    cmd.Parameters.AddWithValue("@id", receivingID)
+                    Return cmd.ExecuteNonQuery() > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            Return False
+        End Try
     End Function
 
     ' ========================================
@@ -460,7 +721,7 @@ Public Class DatabaseHelper
     End Function
 
     ' ========================================
-    ' RETURN WORKFLOW
+    ' RETURNS
     ' ========================================
 
     Public Shared Function RequestReturn(issuanceID As Integer, requestedBy As String) As Boolean
@@ -494,7 +755,8 @@ Public Class DatabaseHelper
                         Dim qtyReturned As Integer = 0
                         Dim retStatus As String = ""
 
-                        Using cmd As New MySqlCommand("SELECT HardwareID, QuantityIssued, QuantityReturned, ReturnApprovalStatus FROM Issuances WHERE IssuanceID = @id", conn, trans)
+                        Using cmd As New MySqlCommand(
+                            "SELECT HardwareID, QuantityIssued, QuantityReturned, ReturnApprovalStatus FROM Issuances WHERE IssuanceID = @id", conn, trans)
                             cmd.Parameters.AddWithValue("@id", issuanceID)
                             Using r As MySqlDataReader = cmd.ExecuteReader()
                                 If Not r.Read() Then
@@ -766,4 +1028,11 @@ Public Class DatabaseHelper
         End Try
     End Function
 
+End Class
+
+Public Class ReceivingLine
+    Public Property ItemName As String
+    Public Property Category As String
+    Public Property Location As String
+    Public Property Quantity As Integer
 End Class

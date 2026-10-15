@@ -10,10 +10,9 @@
     Private _editID As Integer = -1
 
     Private ReadOnly SuggestedNames As String() = {
-        "Main Office", "Storage Room", "IT Department", "Warehouse",
-        "Server Room", "Conference Room", "Reception", "Faculty Room",
-        "Computer Lab", "Library", "Finance Office", "Registrar Office",
-        "HR Office", "Maintenance Area", "Other"
+        "Storage Room", "Warehouse", "Server Room", "Backup Storage",
+        "Main Stock Area", "Cold Storage", "Quarantine Area", "Returns Area",
+        "Loading Bay", "Front Counter", "Display Area", "Other"
     }
 
     Public Sub New(user As User, mode As FormMode)

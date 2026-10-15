@@ -28,8 +28,8 @@ Partial Class IssuanceForm
         Me.numQuantity = New System.Windows.Forms.NumericUpDown()
         Me.lblIssuedTo = New System.Windows.Forms.Label()
         Me.cmbIssuedTo = New System.Windows.Forms.ComboBox()
-        Me.lblDepartment = New System.Windows.Forms.Label()
-        Me.cmbDepartment = New System.Windows.Forms.ComboBox()
+        Me.lblIssuedFrom = New System.Windows.Forms.Label()
+        Me.cmbIssuedFrom = New System.Windows.Forms.ComboBox()
         Me.lblPurpose = New System.Windows.Forms.Label()
         Me.txtPurpose = New System.Windows.Forms.TextBox()
         Me.pnlBottom = New System.Windows.Forms.Panel()
@@ -160,26 +160,26 @@ Partial Class IssuanceForm
         Me.cmbIssuedTo.Size = New System.Drawing.Size(420, 25)
         Me.cmbIssuedTo.TabIndex = 9
         '
-        'lblDepartment
+        'lblIssuedFrom
         '
-        Me.lblDepartment.AutoSize = True
-        Me.lblDepartment.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.lblDepartment.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblDepartment.Location = New System.Drawing.Point(30, 290)
-        Me.lblDepartment.Name = "lblDepartment"
-        Me.lblDepartment.Size = New System.Drawing.Size(84, 15)
-        Me.lblDepartment.TabIndex = 10
-        Me.lblDepartment.Text = "Department *"
+        Me.lblIssuedFrom.AutoSize = True
+        Me.lblIssuedFrom.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.lblIssuedFrom.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
+        Me.lblIssuedFrom.Location = New System.Drawing.Point(30, 290)
+        Me.lblIssuedFrom.Name = "lblIssuedFrom"
+        Me.lblIssuedFrom.Size = New System.Drawing.Size(110, 15)
+        Me.lblIssuedFrom.TabIndex = 10
+        Me.lblIssuedFrom.Text = "Issued From *"
         '
-        'cmbDepartment
+        'cmbIssuedFrom
         '
-        Me.cmbDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbDepartment.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.cmbDepartment.FormattingEnabled = True
-        Me.cmbDepartment.Location = New System.Drawing.Point(30, 310)
-        Me.cmbDepartment.Name = "cmbDepartment"
-        Me.cmbDepartment.Size = New System.Drawing.Size(420, 25)
-        Me.cmbDepartment.TabIndex = 11
+        Me.cmbIssuedFrom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbIssuedFrom.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.cmbIssuedFrom.FormattingEnabled = True
+        Me.cmbIssuedFrom.Location = New System.Drawing.Point(30, 310)
+        Me.cmbIssuedFrom.Name = "cmbIssuedFrom"
+        Me.cmbIssuedFrom.Size = New System.Drawing.Size(420, 25)
+        Me.cmbIssuedFrom.TabIndex = 11
         '
         'lblPurpose
         '
@@ -209,7 +209,7 @@ Partial Class IssuanceForm
         Me.pnlBottom.Controls.Add(Me.btnSave)
         Me.pnlBottom.Controls.Add(Me.btnCancel)
         Me.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlBottom.Location = New System.Drawing.Point(0, 475)
+        Me.pnlBottom.Location = New System.Drawing.Point(0, 470)
         Me.pnlBottom.Name = "pnlBottom"
         Me.pnlBottom.Size = New System.Drawing.Size(500, 70)
         Me.pnlBottom.TabIndex = 14
@@ -250,11 +250,11 @@ Partial Class IssuanceForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(500, 545)
+        Me.ClientSize = New System.Drawing.Size(500, 540)
         Me.Controls.Add(Me.txtPurpose)
         Me.Controls.Add(Me.lblPurpose)
-        Me.Controls.Add(Me.cmbDepartment)
-        Me.Controls.Add(Me.lblDepartment)
+        Me.Controls.Add(Me.cmbIssuedFrom)
+        Me.Controls.Add(Me.lblIssuedFrom)
         Me.Controls.Add(Me.cmbIssuedTo)
         Me.Controls.Add(Me.lblIssuedTo)
         Me.Controls.Add(Me.numQuantity)
@@ -292,8 +292,8 @@ Partial Class IssuanceForm
     Friend WithEvents numQuantity As System.Windows.Forms.NumericUpDown
     Friend WithEvents lblIssuedTo As System.Windows.Forms.Label
     Friend WithEvents cmbIssuedTo As System.Windows.Forms.ComboBox
-    Friend WithEvents lblDepartment As System.Windows.Forms.Label
-    Friend WithEvents cmbDepartment As System.Windows.Forms.ComboBox
+    Friend WithEvents lblIssuedFrom As System.Windows.Forms.Label
+    Friend WithEvents cmbIssuedFrom As System.Windows.Forms.ComboBox
     Friend WithEvents lblPurpose As System.Windows.Forms.Label
     Friend WithEvents txtPurpose As System.Windows.Forms.TextBox
     Friend WithEvents pnlBottom As System.Windows.Forms.Panel

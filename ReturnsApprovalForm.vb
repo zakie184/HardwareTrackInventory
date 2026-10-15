@@ -71,7 +71,11 @@
         If row.Cells("ReturnRequestedBy").Value IsNot DBNull.Value Then lblRequestedBy.Text = row.Cells("ReturnRequestedBy").Value.ToString()
         If row.Cells("IssuedTo").Value IsNot DBNull.Value Then lblIssuedTo.Text = row.Cells("IssuedTo").Value.ToString()
         If row.Cells("QuantityIssued").Value IsNot DBNull.Value Then lblQty.Text = row.Cells("QuantityIssued").Value.ToString()
-        If row.Cells("Department").Value IsNot DBNull.Value Then lblDepartment.Text = row.Cells("Department").Value.ToString()
+        If row.Cells("Department").Value Is DBNull.Value Then
+            lblDepartment.Text = "(not specified)"
+        Else
+            lblDepartment.Text = row.Cells("Department").Value.ToString()
+        End If
 
         btnApprove.Enabled = True
         btnReject.Enabled = True
@@ -98,7 +102,7 @@
                                "Approved return of " & qty & "x '" & itemName & "' from " & issuedTo,
                                "Hardware", 0, False)
             tmrRefresh.Stop()
-            MessageBox.Show("Return approved and stock updated!", "Approved",
+            MessageBox.Show("Return approved and stock restored!", "Approved",
                             MessageBoxButtons.OK, MessageBoxIcon.Information)
             Me.DialogResult = DialogResult.OK
             Me.Close()

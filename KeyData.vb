@@ -2,7 +2,6 @@
 
 Public Class KeyData
 
-    ' ⚠️ CHANGE THESE TO YOUR DATABASE SETTINGS
     Private Const SERVER As String = "localhost"
     Private Const DATABASE As String = "HardwareTrackInventory"
     Private Const USER As String = "root"

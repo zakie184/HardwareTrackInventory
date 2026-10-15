@@ -74,7 +74,7 @@ Public Class IssuanceHistoryForm
     Private Sub FormatGrid()
         If dgvIssuances.Columns.Count = 0 Then Return
 
-        Dim hideCols As String() = {"IssuanceID", "HardwareID", "RejectionReason", "ReturnRequestedBy", "QuantityReturned"}
+        Dim hideCols As String() = {"IssuanceID", "HardwareID", "RejectionReason", "ReturnRequestedBy", "QuantityReturned", "Purpose"}
         For Each c As String In hideCols
             If dgvIssuances.Columns.Contains(c) Then dgvIssuances.Columns(c).Visible = False
         Next
@@ -82,14 +82,13 @@ Public Class IssuanceHistoryForm
         SetCol("ItemName", "Item", 150)
         SetCol("QuantityIssued", "Qty", 45)
         SetCol("IssuedTo", "Issued To", 130)
-        SetCol("Department", "Department", 110)
+        SetCol("Department", "Issued From", 130)
         SetCol("IssuedBy", "Issued By", 100)
         SetCol("DateIssued", "Date Issued", 115)
         SetCol("ApprovalStatus", "Approval Status", 110)
         SetCol("Status", "Return Status", 100)
 
         For Each row As DataGridViewRow In dgvIssuances.Rows
-            ' Approval status color
             If dgvIssuances.Columns.Contains("ApprovalStatus") AndAlso row.Cells("ApprovalStatus").Value IsNot DBNull.Value Then
                 Select Case row.Cells("ApprovalStatus").Value.ToString()
                     Case "Pending" : row.Cells("ApprovalStatus").Style.ForeColor = Color.FromArgb(241, 196, 15)
@@ -98,7 +97,6 @@ Public Class IssuanceHistoryForm
                 End Select
             End If
 
-            ' Return status — computed
             Dim retDisplay As String = GetReturnDisplay(row)
             If dgvIssuances.Columns.Contains("Status") Then
                 row.Cells("Status").Value = retDisplay

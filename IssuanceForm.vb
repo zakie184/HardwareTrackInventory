@@ -33,7 +33,7 @@
 
         If IsAdmin Then
             lblHeaderTitle.Text = "Issue Hardware"
-            lblHeaderSub.Text = "Administrator - issuance will be applied immediately"
+            lblHeaderSub.Text = "Administrator — issuance will be applied immediately"
             btnSave.Text = "Issue Now"
         Else
             lblHeaderTitle.Text = "Request Issuance"
@@ -42,7 +42,7 @@
         End If
 
         LoadIssuedToOptions()
-        LoadDepartmentOptions()
+        LoadIssuedFromOptions()
 
         If _currentStock <= 0 Then
             numQuantity.Maximum = 1
@@ -68,25 +68,23 @@
         If cmbIssuedTo.Items.Count = 0 Then
             cmbIssuedTo.Items.Add("(no users available)")
         End If
-
         cmbIssuedTo.SelectedIndex = 0
     End Sub
 
-    Private Sub LoadDepartmentOptions()
-        cmbDepartment.Items.Clear()
+    Private Sub LoadIssuedFromOptions()
+        cmbIssuedFrom.Items.Clear()
         Try
-            Dim dt As DataTable = DatabaseHelper.GetAllDepartments()
+            Dim dt As DataTable = DatabaseHelper.GetAllLocations()
             For Each row As DataRow In dt.Rows
-                cmbDepartment.Items.Add(row("Name").ToString())
+                cmbIssuedFrom.Items.Add(row("Name").ToString())
             Next
         Catch
         End Try
 
-        If cmbDepartment.Items.Count = 0 Then
-            cmbDepartment.Items.Add("Other")
+        If cmbIssuedFrom.Items.Count = 0 Then
+            cmbIssuedFrom.Items.Add("(no locations available)")
         End If
-
-        cmbDepartment.SelectedIndex = 0
+        cmbIssuedFrom.SelectedIndex = 0
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
@@ -97,22 +95,22 @@
             Return
         End If
 
-        If cmbDepartment.SelectedIndex < 0 Then
-            MessageBox.Show("Please select a department.",
+        If cmbIssuedFrom.SelectedIndex < 0 Then
+            MessageBox.Show("Please select where this is being issued from.",
                             "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            cmbDepartment.Focus()
+            cmbIssuedFrom.Focus()
             Return
         End If
 
         Dim qty As Integer = CInt(numQuantity.Value)
         Dim issuedTo As String = cmbIssuedTo.SelectedItem.ToString()
-        Dim dept As String = cmbDepartment.SelectedItem.ToString()
+        Dim issuedFrom As String = cmbIssuedFrom.SelectedItem.ToString()
         Dim purpose As String = txtPurpose.Text.Trim()
 
         Dim requiresApproval As Boolean = Not IsAdmin
 
         Dim ok As Boolean = DatabaseHelper.IssueHardware(_hardwareID, _itemName, qty, issuedTo,
-                                                         dept, purpose, _user.Username, requiresApproval)
+                                                         issuedFrom, purpose, _user.Username, requiresApproval)
 
         If Not ok Then
             MessageBox.Show("Failed to submit issuance. Please try again.",
@@ -122,13 +120,14 @@
 
         If requiresApproval Then
             ActivityLogger.Log(_user,
-                               "Requested issuance of " & qty & "x '" & _itemName & "' to " & issuedTo & " (pending approval)",
+                               "Requested issuance of " & qty & "x '" & _itemName & "' to " & issuedTo &
+                               " (from " & issuedFrom & ") — pending approval",
                                "Hardware", _hardwareID, False)
             MessageBox.Show("Request submitted! An Administrator must approve it before stock is issued.",
                             "Pending Approval", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Else
             ActivityLogger.Log(_user,
-                               "Issued " & qty & "x '" & _itemName & "' to " & issuedTo,
+                               "Issued " & qty & "x '" & _itemName & "' to " & issuedTo & " from " & issuedFrom,
                                "Hardware", _hardwareID, False)
         End If
 

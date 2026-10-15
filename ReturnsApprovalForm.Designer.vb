@@ -24,14 +24,14 @@ Partial Class ReturnsApprovalForm
         Me.dgvPending = New System.Windows.Forms.DataGridView()
         Me.pnlDetails = New System.Windows.Forms.Panel()
         Me.lblDepartment = New System.Windows.Forms.Label()
-        Me.lblQty = New System.Windows.Forms.Label()
-        Me.lblIssuedTo = New System.Windows.Forms.Label()
-        Me.lblRequestedBy = New System.Windows.Forms.Label()
-        Me.lblItemName = New System.Windows.Forms.Label()
         Me.lblDepartmentLbl = New System.Windows.Forms.Label()
+        Me.lblQty = New System.Windows.Forms.Label()
         Me.lblQtyLbl = New System.Windows.Forms.Label()
+        Me.lblIssuedTo = New System.Windows.Forms.Label()
         Me.lblIssuedToLbl = New System.Windows.Forms.Label()
+        Me.lblRequestedBy = New System.Windows.Forms.Label()
         Me.lblRequestedByLbl = New System.Windows.Forms.Label()
+        Me.lblItemName = New System.Windows.Forms.Label()
         Me.lblItemNameLbl = New System.Windows.Forms.Label()
         Me.lblDetailsTitle = New System.Windows.Forms.Label()
         Me.pnlBottom = New System.Windows.Forms.Panel()
@@ -219,9 +219,9 @@ Partial Class ReturnsApprovalForm
         Me.lblDepartmentLbl.ForeColor = System.Drawing.Color.Gray
         Me.lblDepartmentLbl.Location = New System.Drawing.Point(15, 295)
         Me.lblDepartmentLbl.Name = "lblDepartmentLbl"
-        Me.lblDepartmentLbl.Size = New System.Drawing.Size(75, 13)
+        Me.lblDepartmentLbl.Size = New System.Drawing.Size(80, 13)
         Me.lblDepartmentLbl.TabIndex = 9
-        Me.lblDepartmentLbl.Text = "DEPARTMENT"
+        Me.lblDepartmentLbl.Text = "ISSUED FROM"
         '
         'lblDepartment
         '
@@ -229,7 +229,7 @@ Partial Class ReturnsApprovalForm
         Me.lblDepartment.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
         Me.lblDepartment.Location = New System.Drawing.Point(15, 313)
         Me.lblDepartment.Name = "lblDepartment"
-        Me.lblDepartment.Size = New System.Drawing.Size(260, 110)
+        Me.lblDepartment.Size = New System.Drawing.Size(260, 100)
         Me.lblDepartment.TabIndex = 10
         Me.lblDepartment.Text = "--"
         '
@@ -256,7 +256,7 @@ Partial Class ReturnsApprovalForm
         Me.btnApprove.ForeColor = System.Drawing.Color.White
         Me.btnApprove.Location = New System.Drawing.Point(15, 12)
         Me.btnApprove.Name = "btnApprove"
-        Me.btnApprove.Size = New System.Drawing.Size(160, 36)
+        Me.btnApprove.Size = New System.Drawing.Size(170, 36)
         Me.btnApprove.TabIndex = 0
         Me.btnApprove.Text = "Approve Return"
         Me.btnApprove.UseVisualStyleBackColor = False
@@ -269,7 +269,7 @@ Partial Class ReturnsApprovalForm
         Me.btnReject.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnReject.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btnReject.ForeColor = System.Drawing.Color.White
-        Me.btnReject.Location = New System.Drawing.Point(185, 12)
+        Me.btnReject.Location = New System.Drawing.Point(195, 12)
         Me.btnReject.Name = "btnReject"
         Me.btnReject.Size = New System.Drawing.Size(150, 36)
         Me.btnReject.TabIndex = 1
@@ -280,7 +280,7 @@ Partial Class ReturnsApprovalForm
         '
         Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.btnRefresh.Location = New System.Drawing.Point(345, 12)
+        Me.btnRefresh.Location = New System.Drawing.Point(355, 12)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(100, 36)
         Me.btnRefresh.TabIndex = 2

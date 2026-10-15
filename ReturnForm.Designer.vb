@@ -71,16 +71,16 @@ Partial Class ReturnForm
         Me.lblHeaderSub.ForeColor = System.Drawing.Color.FromArgb(230, 230, 230)
         Me.lblHeaderSub.Location = New System.Drawing.Point(27, 42)
         Me.lblHeaderSub.Name = "lblHeaderSub"
-        Me.lblHeaderSub.Size = New System.Drawing.Size(280, 15)
+        Me.lblHeaderSub.Size = New System.Drawing.Size(400, 15)
         Me.lblHeaderSub.TabIndex = 1
-        Me.lblHeaderSub.Text = "Record items returned from the borrower"
+        Me.lblHeaderSub.Text = "Record returned items"
         '
         'lblItemLbl
         '
         Me.lblItemLbl.AutoSize = True
         Me.lblItemLbl.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.lblItemLbl.ForeColor = System.Drawing.Color.Gray
-        Me.lblItemLbl.Location = New System.Drawing.Point(30, 85)
+        Me.lblItemLbl.Location = New System.Drawing.Point(30, 95)
         Me.lblItemLbl.Name = "lblItemLbl"
         Me.lblItemLbl.Size = New System.Drawing.Size(34, 15)
         Me.lblItemLbl.TabIndex = 2
@@ -91,7 +91,7 @@ Partial Class ReturnForm
         Me.lblItemName.AutoSize = True
         Me.lblItemName.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.lblItemName.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblItemName.Location = New System.Drawing.Point(30, 105)
+        Me.lblItemName.Location = New System.Drawing.Point(30, 115)
         Me.lblItemName.Name = "lblItemName"
         Me.lblItemName.Size = New System.Drawing.Size(80, 19)
         Me.lblItemName.TabIndex = 3
@@ -102,7 +102,7 @@ Partial Class ReturnForm
         Me.lblIssuedToLbl.AutoSize = True
         Me.lblIssuedToLbl.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.lblIssuedToLbl.ForeColor = System.Drawing.Color.Gray
-        Me.lblIssuedToLbl.Location = New System.Drawing.Point(30, 135)
+        Me.lblIssuedToLbl.Location = New System.Drawing.Point(30, 145)
         Me.lblIssuedToLbl.Name = "lblIssuedToLbl"
         Me.lblIssuedToLbl.Size = New System.Drawing.Size(58, 15)
         Me.lblIssuedToLbl.TabIndex = 4
@@ -113,7 +113,7 @@ Partial Class ReturnForm
         Me.lblIssuedTo.AutoSize = True
         Me.lblIssuedTo.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.lblIssuedTo.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblIssuedTo.Location = New System.Drawing.Point(30, 155)
+        Me.lblIssuedTo.Location = New System.Drawing.Point(30, 165)
         Me.lblIssuedTo.Name = "lblIssuedTo"
         Me.lblIssuedTo.Size = New System.Drawing.Size(80, 19)
         Me.lblIssuedTo.TabIndex = 5
@@ -124,7 +124,7 @@ Partial Class ReturnForm
         Me.lblDateIssuedLbl.AutoSize = True
         Me.lblDateIssuedLbl.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.lblDateIssuedLbl.ForeColor = System.Drawing.Color.Gray
-        Me.lblDateIssuedLbl.Location = New System.Drawing.Point(30, 185)
+        Me.lblDateIssuedLbl.Location = New System.Drawing.Point(30, 195)
         Me.lblDateIssuedLbl.Name = "lblDateIssuedLbl"
         Me.lblDateIssuedLbl.Size = New System.Drawing.Size(72, 15)
         Me.lblDateIssuedLbl.TabIndex = 6
@@ -135,7 +135,7 @@ Partial Class ReturnForm
         Me.lblDateIssued.AutoSize = True
         Me.lblDateIssued.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.lblDateIssued.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblDateIssued.Location = New System.Drawing.Point(30, 205)
+        Me.lblDateIssued.Location = New System.Drawing.Point(30, 215)
         Me.lblDateIssued.Name = "lblDateIssued"
         Me.lblDateIssued.Size = New System.Drawing.Size(80, 19)
         Me.lblDateIssued.TabIndex = 7
@@ -146,7 +146,7 @@ Partial Class ReturnForm
         Me.lblQtyIssuedLbl.AutoSize = True
         Me.lblQtyIssuedLbl.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.lblQtyIssuedLbl.ForeColor = System.Drawing.Color.Gray
-        Me.lblQtyIssuedLbl.Location = New System.Drawing.Point(280, 185)
+        Me.lblQtyIssuedLbl.Location = New System.Drawing.Point(280, 195)
         Me.lblQtyIssuedLbl.Name = "lblQtyIssuedLbl"
         Me.lblQtyIssuedLbl.Size = New System.Drawing.Size(72, 15)
         Me.lblQtyIssuedLbl.TabIndex = 8
@@ -157,7 +157,7 @@ Partial Class ReturnForm
         Me.lblQtyIssued.AutoSize = True
         Me.lblQtyIssued.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.lblQtyIssued.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblQtyIssued.Location = New System.Drawing.Point(280, 205)
+        Me.lblQtyIssued.Location = New System.Drawing.Point(280, 215)
         Me.lblQtyIssued.Name = "lblQtyIssued"
         Me.lblQtyIssued.Size = New System.Drawing.Size(30, 19)
         Me.lblQtyIssued.TabIndex = 9
@@ -168,7 +168,7 @@ Partial Class ReturnForm
         Me.lblQtyReturnedLbl.AutoSize = True
         Me.lblQtyReturnedLbl.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.lblQtyReturnedLbl.ForeColor = System.Drawing.Color.Gray
-        Me.lblQtyReturnedLbl.Location = New System.Drawing.Point(30, 240)
+        Me.lblQtyReturnedLbl.Location = New System.Drawing.Point(30, 250)
         Me.lblQtyReturnedLbl.Name = "lblQtyReturnedLbl"
         Me.lblQtyReturnedLbl.Size = New System.Drawing.Size(90, 15)
         Me.lblQtyReturnedLbl.TabIndex = 10
@@ -179,7 +179,7 @@ Partial Class ReturnForm
         Me.lblQtyReturned.AutoSize = True
         Me.lblQtyReturned.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.lblQtyReturned.ForeColor = System.Drawing.Color.FromArgb(155, 89, 182)
-        Me.lblQtyReturned.Location = New System.Drawing.Point(150, 239)
+        Me.lblQtyReturned.Location = New System.Drawing.Point(150, 249)
         Me.lblQtyReturned.Name = "lblQtyReturned"
         Me.lblQtyReturned.Size = New System.Drawing.Size(30, 19)
         Me.lblQtyReturned.TabIndex = 11
@@ -190,7 +190,7 @@ Partial Class ReturnForm
         Me.lblQtyToReturn.AutoSize = True
         Me.lblQtyToReturn.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.lblQtyToReturn.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblQtyToReturn.Location = New System.Drawing.Point(30, 280)
+        Me.lblQtyToReturn.Location = New System.Drawing.Point(30, 290)
         Me.lblQtyToReturn.Name = "lblQtyToReturn"
         Me.lblQtyToReturn.Size = New System.Drawing.Size(115, 15)
         Me.lblQtyToReturn.TabIndex = 12
@@ -199,7 +199,7 @@ Partial Class ReturnForm
         'numQtyToReturn
         '
         Me.numQtyToReturn.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.numQtyToReturn.Location = New System.Drawing.Point(30, 300)
+        Me.numQtyToReturn.Location = New System.Drawing.Point(30, 310)
         Me.numQtyToReturn.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
         Me.numQtyToReturn.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numQtyToReturn.Name = "numQtyToReturn"
@@ -212,7 +212,7 @@ Partial Class ReturnForm
         Me.lblReturnNotes.AutoSize = True
         Me.lblReturnNotes.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.lblReturnNotes.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.lblReturnNotes.Location = New System.Drawing.Point(30, 340)
+        Me.lblReturnNotes.Location = New System.Drawing.Point(30, 350)
         Me.lblReturnNotes.Name = "lblReturnNotes"
         Me.lblReturnNotes.Size = New System.Drawing.Size(42, 15)
         Me.lblReturnNotes.TabIndex = 14
@@ -222,7 +222,7 @@ Partial Class ReturnForm
         '
         Me.txtReturnNotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtReturnNotes.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtReturnNotes.Location = New System.Drawing.Point(30, 360)
+        Me.txtReturnNotes.Location = New System.Drawing.Point(30, 370)
         Me.txtReturnNotes.Multiline = True
         Me.txtReturnNotes.Name = "txtReturnNotes"
         Me.txtReturnNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -247,9 +247,9 @@ Partial Class ReturnForm
         Me.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSave.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btnSave.ForeColor = System.Drawing.Color.White
-        Me.btnSave.Location = New System.Drawing.Point(220, 15)
+        Me.btnSave.Location = New System.Drawing.Point(180, 15)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(130, 40)
+        Me.btnSave.Size = New System.Drawing.Size(170, 40)
         Me.btnSave.TabIndex = 0
         Me.btnSave.Text = "Return"
         Me.btnSave.UseVisualStyleBackColor = False
