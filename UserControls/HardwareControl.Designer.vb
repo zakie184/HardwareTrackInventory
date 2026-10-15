@@ -22,11 +22,12 @@ Partial Class HardwareControl
         Me.pnlToolbar = New System.Windows.Forms.Panel()
         Me.btnRefresh = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
+        Me.btnReceivings = New System.Windows.Forms.Button()
         Me.btnReturns = New System.Windows.Forms.Button()
         Me.btnApprovals = New System.Windows.Forms.Button()
         Me.btnHistory = New System.Windows.Forms.Button()
         Me.btnIssue = New System.Windows.Forms.Button()
-        Me.btnAdd = New System.Windows.Forms.Button()
+        Me.btnReceive = New System.Windows.Forms.Button()
         Me.lblCount = New System.Windows.Forms.Label()
         Me.tlpMain = New System.Windows.Forms.TableLayoutPanel()
         Me.dgvHardware = New System.Windows.Forms.DataGridView()
@@ -75,28 +76,30 @@ Partial Class HardwareControl
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
         Me.pnlToolbar.Controls.Add(Me.btnRefresh)
         Me.pnlToolbar.Controls.Add(Me.btnDelete)
+        Me.pnlToolbar.Controls.Add(Me.btnReceivings)
         Me.pnlToolbar.Controls.Add(Me.btnReturns)
         Me.pnlToolbar.Controls.Add(Me.btnApprovals)
         Me.pnlToolbar.Controls.Add(Me.btnHistory)
         Me.pnlToolbar.Controls.Add(Me.btnIssue)
-        Me.pnlToolbar.Controls.Add(Me.btnAdd)
+        Me.pnlToolbar.Controls.Add(Me.btnReceive)
         Me.pnlToolbar.Controls.Add(Me.lblCount)
         Me.pnlToolbar.Location = New System.Drawing.Point(15, 60)
         Me.pnlToolbar.Name = "pnlToolbar"
         Me.pnlToolbar.Size = New System.Drawing.Size(1070, 50)
         Me.pnlToolbar.TabIndex = 1
         '
-        'btnAdd
+        'btnReceive
         '
-        Me.btnAdd.BackColor = System.Drawing.Color.FromArgb(52, 152, 219)
-        Me.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnAdd.ForeColor = System.Drawing.Color.White
-        Me.btnAdd.Location = New System.Drawing.Point(10, 10)
-        Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(60, 30)
-        Me.btnAdd.TabIndex = 1
-        Me.btnAdd.Text = "➕"
-        Me.btnAdd.UseVisualStyleBackColor = False
+        Me.btnReceive.BackColor = System.Drawing.Color.FromArgb(39, 174, 96)
+        Me.btnReceive.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnReceive.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnReceive.ForeColor = System.Drawing.Color.White
+        Me.btnReceive.Location = New System.Drawing.Point(10, 10)
+        Me.btnReceive.Name = "btnReceive"
+        Me.btnReceive.Size = New System.Drawing.Size(120, 30)
+        Me.btnReceive.TabIndex = 1
+        Me.btnReceive.Text = "🔄 Restock"
+        Me.btnReceive.UseVisualStyleBackColor = False
         '
         'btnIssue
         '
@@ -105,7 +108,7 @@ Partial Class HardwareControl
         Me.btnIssue.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnIssue.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnIssue.ForeColor = System.Drawing.Color.White
-        Me.btnIssue.Location = New System.Drawing.Point(80, 10)
+        Me.btnIssue.Location = New System.Drawing.Point(140, 10)
         Me.btnIssue.Name = "btnIssue"
         Me.btnIssue.Size = New System.Drawing.Size(90, 30)
         Me.btnIssue.TabIndex = 2
@@ -118,7 +121,7 @@ Partial Class HardwareControl
         Me.btnHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnHistory.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnHistory.ForeColor = System.Drawing.Color.White
-        Me.btnHistory.Location = New System.Drawing.Point(180, 10)
+        Me.btnHistory.Location = New System.Drawing.Point(240, 10)
         Me.btnHistory.Name = "btnHistory"
         Me.btnHistory.Size = New System.Drawing.Size(100, 30)
         Me.btnHistory.TabIndex = 3
@@ -131,7 +134,7 @@ Partial Class HardwareControl
         Me.btnApprovals.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnApprovals.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnApprovals.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80)
-        Me.btnApprovals.Location = New System.Drawing.Point(290, 10)
+        Me.btnApprovals.Location = New System.Drawing.Point(350, 10)
         Me.btnApprovals.Name = "btnApprovals"
         Me.btnApprovals.Size = New System.Drawing.Size(130, 30)
         Me.btnApprovals.TabIndex = 4
@@ -145,13 +148,27 @@ Partial Class HardwareControl
         Me.btnReturns.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnReturns.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnReturns.ForeColor = System.Drawing.Color.White
-        Me.btnReturns.Location = New System.Drawing.Point(430, 10)
+        Me.btnReturns.Location = New System.Drawing.Point(490, 10)
         Me.btnReturns.Name = "btnReturns"
         Me.btnReturns.Size = New System.Drawing.Size(130, 30)
-        Me.btnReturns.TabIndex = 7
+        Me.btnReturns.TabIndex = 5
         Me.btnReturns.Text = "📥 Returns"
         Me.btnReturns.UseVisualStyleBackColor = False
         Me.btnReturns.Visible = False
+        '
+        'btnReceivings
+        '
+        Me.btnReceivings.BackColor = System.Drawing.Color.FromArgb(39, 174, 96)
+        Me.btnReceivings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnReceivings.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnReceivings.ForeColor = System.Drawing.Color.White
+        Me.btnReceivings.Location = New System.Drawing.Point(630, 10)
+        Me.btnReceivings.Name = "btnReceivings"
+        Me.btnReceivings.Size = New System.Drawing.Size(150, 30)
+        Me.btnReceivings.TabIndex = 6
+        Me.btnReceivings.Text = "📦 Receivings"
+        Me.btnReceivings.UseVisualStyleBackColor = False
+        Me.btnReceivings.Visible = False
         '
         'btnDelete
         '
@@ -159,20 +176,20 @@ Partial Class HardwareControl
         Me.btnDelete.Enabled = False
         Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDelete.ForeColor = System.Drawing.Color.White
-        Me.btnDelete.Location = New System.Drawing.Point(570, 10)
+        Me.btnDelete.Location = New System.Drawing.Point(790, 10)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(60, 30)
-        Me.btnDelete.TabIndex = 5
+        Me.btnDelete.TabIndex = 7
         Me.btnDelete.Text = "🗑️"
         Me.btnDelete.UseVisualStyleBackColor = False
         '
         'btnRefresh
         '
         Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnRefresh.Location = New System.Drawing.Point(640, 10)
+        Me.btnRefresh.Location = New System.Drawing.Point(860, 10)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(90, 30)
-        Me.btnRefresh.TabIndex = 6
+        Me.btnRefresh.TabIndex = 8
         Me.btnRefresh.Text = "🔄 Refresh"
         Me.btnRefresh.UseVisualStyleBackColor = True
         '
@@ -311,11 +328,12 @@ Partial Class HardwareControl
     Friend WithEvents pnlToolbar As System.Windows.Forms.Panel
     Friend WithEvents btnRefresh As System.Windows.Forms.Button
     Friend WithEvents btnDelete As System.Windows.Forms.Button
+    Friend WithEvents btnReceivings As System.Windows.Forms.Button
     Friend WithEvents btnReturns As System.Windows.Forms.Button
     Friend WithEvents btnApprovals As System.Windows.Forms.Button
     Friend WithEvents btnHistory As System.Windows.Forms.Button
     Friend WithEvents btnIssue As System.Windows.Forms.Button
-    Friend WithEvents btnAdd As System.Windows.Forms.Button
+    Friend WithEvents btnReceive As System.Windows.Forms.Button
     Friend WithEvents lblCount As System.Windows.Forms.Label
     Friend WithEvents tlpMain As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents pnlDetails As System.Windows.Forms.Panel

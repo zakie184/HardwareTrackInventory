@@ -28,13 +28,14 @@ Public Class HardwareControl
     Private Sub ApplyPermissions()
         If currentUser Is Nothing Then Return
 
-        btnAdd.Enabled = currentUser.CanEdit()
+        btnReceive.Enabled = currentUser.CanRestock()
         btnIssue.Enabled = False
         btnDelete.Enabled = False
 
         btnHistory.Visible = currentUser.CanViewIssuanceHistory()
         btnApprovals.Visible = currentUser.CanApproveIssuance()
         btnReturns.Visible = currentUser.CanApproveReturn()
+        btnReceivings.Visible = currentUser.CanApproveReceiving()
 
         RefreshBadges()
     End Sub
@@ -64,11 +65,23 @@ Public Class HardwareControl
                 If retCount > 0 Then
                     btnReturns.Text = "📥 Returns (" & retCount & ")"
                     btnReturns.BackColor = Color.FromArgb(231, 76, 60)
-                    btnReturns.ForeColor = Color.White
                 Else
                     btnReturns.Text = "📥 Returns"
                     btnReturns.BackColor = Color.FromArgb(155, 89, 182)
-                    btnReturns.ForeColor = Color.White
+                End If
+            Catch
+            End Try
+        End If
+
+        If currentUser.CanApproveReceiving() Then
+            Try
+                Dim recvCount As Integer = DatabaseHelper.GetPendingReceivingCount()
+                If recvCount > 0 Then
+                    btnReceivings.Text = "📦 Receivings (" & recvCount & ")"
+                    btnReceivings.BackColor = Color.FromArgb(231, 76, 60)
+                Else
+                    btnReceivings.Text = "📦 Receivings"
+                    btnReceivings.BackColor = Color.FromArgb(39, 174, 96)
                 End If
             Catch
             End Try
@@ -144,17 +157,17 @@ Public Class HardwareControl
         End If
     End Sub
 
-    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        If currentUser Is Nothing OrElse Not currentUser.CanEdit() Then
-            MessageBox.Show("Permission denied.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    Private Sub btnReceive_Click(sender As Object, e As EventArgs) Handles btnReceive.Click
+        If currentUser Is Nothing OrElse Not currentUser.CanRestock() Then
+            MessageBox.Show("Permission denied. Only Admins and Managers can receive stock.",
+                            "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        Using frm As New HardwareForm(currentUser)
+        Using frm As New ReceivingForm(currentUser)
             If frm.ShowDialog(Me) = DialogResult.OK Then
                 LoadHardware()
-                MessageBox.Show("Hardware added successfully!", "Success",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information)
+                RefreshBadges()
             End If
         End Using
     End Sub
@@ -216,6 +229,21 @@ Public Class HardwareControl
         End If
 
         Using frm As New ReturnsApprovalForm(currentUser)
+            frm.ShowDialog(Me)
+        End Using
+
+        LoadHardware()
+        RefreshBadges()
+    End Sub
+
+    Private Sub btnReceivings_Click(sender As Object, e As EventArgs) Handles btnReceivings.Click
+        If currentUser Is Nothing OrElse Not currentUser.CanApproveReceiving() Then
+            MessageBox.Show("Only Administrators can access receiving approvals.",
+                            "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Using frm As New ReceivingsApprovalForm(currentUser)
             frm.ShowDialog(Me)
         End Using
 

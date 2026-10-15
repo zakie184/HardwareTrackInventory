@@ -50,10 +50,33 @@ Public Class DashboardControl
         Dim dtLow As DataTable = DatabaseHelper.GetLowStockItems()
         lblLowStockCount.Text = dtLow.Rows.Count.ToString()
 
+        UpdateRestockBar(dtLow.Rows.Count)
+
         LoadActivity()
         LoadLowStockGrid()
         DrawPieChart(total, available, assigned, peripheral)
         DrawBarChart()
+    End Sub
+
+    Private Sub UpdateRestockBar(lowStockCount As Integer)
+        If currentUser Is Nothing Then
+            pnlRestockBar.Visible = False
+            Return
+        End If
+
+        Dim canRestock As Boolean = currentUser.CanRestock()
+        pnlRestockBar.Visible = canRestock
+
+        If lowStockCount = 0 Then
+            lblRestockHint.Text = "✅ All items are above reorder point. No restock needed."
+            btnRestock.Enabled = False
+            btnRestock.BackColor = Color.Gray
+        Else
+            lblRestockHint.Text = "⚠️ " & lowStockCount & " item" & If(lowStockCount = 1, "", "s") &
+                                  " below reorder point. Click Restock to add stock."
+            btnRestock.Enabled = True
+            btnRestock.BackColor = Color.FromArgb(39, 174, 96)
+        End If
     End Sub
 
     Private Sub UpdateApprovalBanner()
@@ -62,20 +85,24 @@ Public Class DashboardControl
         If IsAdmin Then
             Dim pendingCount As Integer = DatabaseHelper.GetPendingApprovalCount()
             Dim returnCount As Integer = DatabaseHelper.GetPendingReturnCount()
+            Dim recvCount As Integer = DatabaseHelper.GetPendingReceivingCount()
 
-            If pendingCount > 0 OrElse returnCount > 0 Then
+            If pendingCount > 0 OrElse returnCount > 0 OrElse recvCount > 0 Then
                 showBanner = True
                 pnlApprovalNotification.Visible = True
 
                 Dim parts As New List(Of String)
+                If recvCount > 0 Then
+                    parts.Add(recvCount & " receiving" & If(recvCount = 1, "", "s"))
+                End If
                 If pendingCount > 0 Then
-                    parts.Add(pendingCount & " pending issuance" & If(pendingCount = 1, "", "s"))
+                    parts.Add(pendingCount & " issuance" & If(pendingCount = 1, "", "s"))
                 End If
                 If returnCount > 0 Then
-                    parts.Add(returnCount & " pending return" & If(returnCount = 1, "", "s"))
+                    parts.Add(returnCount & " return" & If(returnCount = 1, "", "s"))
                 End If
 
-                lblApprovalText.Text = "You have " & String.Join(" and ", parts) & " awaiting your review."
+                lblApprovalText.Text = "You have pending: " & String.Join(", ", parts) & "."
             End If
         End If
 
@@ -93,13 +120,17 @@ Public Class DashboardControl
         tlpCharts.Location = New Point(15, 170 + shift)
 
         Dim bottomY As Integer = 370 + shift
-        Dim availableHeight As Integer = pnlContainer.ClientSize.Height - bottomY - 75
+        Dim availableHeight As Integer = pnlContainer.ClientSize.Height - bottomY - 130
         If availableHeight < 250 Then availableHeight = 250
 
         tlpBottom.Location = New Point(15, bottomY)
         tlpBottom.Size = New Size(pnlContainer.ClientSize.Width - 30, availableHeight)
 
-        Dim actionsY As Integer = bottomY + availableHeight + 10
+        Dim restockY As Integer = bottomY + availableHeight + 10
+        pnlRestockBar.Location = New Point(15, restockY)
+        pnlRestockBar.Size = New Size(pnlContainer.ClientSize.Width - 30, 55)
+
+        Dim actionsY As Integer = restockY + 65
         pnlActions.Location = New Point(15, actionsY)
         pnlActions.Size = New Size(pnlContainer.ClientSize.Width - 30, 50)
     End Sub
@@ -110,10 +141,24 @@ Public Class DashboardControl
         End If
     End Sub
 
+    Private Sub btnRestock_Click(sender As Object, e As EventArgs) Handles btnRestock.Click
+        If currentUser Is Nothing OrElse Not currentUser.CanRestock() Then
+            MessageBox.Show("You don't have permission to restock.",
+                            "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Using frm As New ReceivingForm(currentUser)
+            If frm.ShowDialog(Me) = DialogResult.OK Then
+                LoadDashboard()
+            End If
+        End Using
+    End Sub
+
     Private Sub btnViewApprovals_Click(sender As Object, e As EventArgs) Handles btnViewApprovals.Click
         If Not IsAdmin Then Return
 
-        Using frm As New ApprovalsForm(currentUser)
+        Using frm As New ReceivingsApprovalForm(currentUser)
             frm.ShowDialog(Me)
         End Using
 
@@ -156,12 +201,17 @@ Public Class DashboardControl
     Private Sub LoadLowStockGrid()
         dgvLowStock.DataSource = DatabaseHelper.GetLowStockItems()
         If dgvLowStock.Columns.Count > 0 Then
-            dgvLowStock.Columns(0).HeaderText = "Item"
-            dgvLowStock.Columns(1).HeaderText = "Qty"
-            dgvLowStock.Columns(2).HeaderText = "Location"
+            If dgvLowStock.Columns.Contains("HardwareID") Then dgvLowStock.Columns("HardwareID").Visible = False
+            If dgvLowStock.Columns.Contains("Category") Then dgvLowStock.Columns("Category").Visible = False
+            If dgvLowStock.Columns.Contains("Name") Then dgvLowStock.Columns("Name").HeaderText = "Item"
+            If dgvLowStock.Columns.Contains("Quantity") Then dgvLowStock.Columns("Quantity").HeaderText = "Qty"
+            If dgvLowStock.Columns.Contains("Location") Then dgvLowStock.Columns("Location").HeaderText = "Location"
+
             For Each row As DataGridViewRow In dgvLowStock.Rows
-                If Convert.ToInt32(row.Cells(1).Value) <= 2 Then
-                    row.DefaultCellStyle.BackColor = Color.FromArgb(255, 200, 200)
+                If row.Cells("Quantity").Value IsNot Nothing Then
+                    If Convert.ToInt32(row.Cells("Quantity").Value) <= 2 Then
+                        row.DefaultCellStyle.BackColor = Color.FromArgb(255, 200, 200)
+                    End If
                 End If
             Next
         End If
@@ -331,7 +381,7 @@ Public Class DashboardControl
     End Sub
 
     Private Sub btnAddHardware_Click(sender As Object, e As EventArgs) Handles btnAddHardware.Click
-        If currentUser IsNot Nothing AndAlso currentUser.CanEdit() Then
+        If currentUser IsNot Nothing Then
             Dim mainForm As MainForm = TryCast(Me.ParentForm, MainForm)
             If mainForm IsNot Nothing Then
                 mainForm.LoadHardwarePage()

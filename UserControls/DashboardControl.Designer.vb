@@ -62,6 +62,9 @@ Partial Class DashboardControl
         Me.pnlLowStockGrid = New System.Windows.Forms.Panel()
         Me.lblLowStockGridTitle = New System.Windows.Forms.Label()
         Me.dgvLowStock = New System.Windows.Forms.DataGridView()
+        Me.pnlRestockBar = New System.Windows.Forms.Panel()
+        Me.btnRestock = New System.Windows.Forms.Button()
+        Me.lblRestockHint = New System.Windows.Forms.Label()
         Me.pnlActions = New System.Windows.Forms.Panel()
         Me.btnAddHardware = New System.Windows.Forms.Button()
         Me.btnRefresh = New System.Windows.Forms.Button()
@@ -82,6 +85,7 @@ Partial Class DashboardControl
         Me.pnlActivity.SuspendLayout()
         Me.pnlLowStockGrid.SuspendLayout()
         CType(Me.dgvLowStock, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlRestockBar.SuspendLayout()
         Me.pnlActions.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -95,12 +99,13 @@ Partial Class DashboardControl
         Me.pnlContainer.Controls.Add(Me.tlpStats)
         Me.pnlContainer.Controls.Add(Me.tlpCharts)
         Me.pnlContainer.Controls.Add(Me.tlpBottom)
+        Me.pnlContainer.Controls.Add(Me.pnlRestockBar)
         Me.pnlContainer.Controls.Add(Me.pnlActions)
         Me.pnlContainer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlContainer.Location = New System.Drawing.Point(0, 0)
         Me.pnlContainer.Name = "pnlContainer"
         Me.pnlContainer.Padding = New System.Windows.Forms.Padding(15)
-        Me.pnlContainer.Size = New System.Drawing.Size(1100, 780)
+        Me.pnlContainer.Size = New System.Drawing.Size(1100, 840)
         Me.pnlContainer.TabIndex = 0
         '
         'lblWelcome
@@ -565,15 +570,53 @@ Partial Class DashboardControl
         Me.dgvLowStock.Size = New System.Drawing.Size(503, 264)
         Me.dgvLowStock.TabIndex = 1
         '
+        'pnlRestockBar
+        '
+        Me.pnlRestockBar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlRestockBar.BackColor = System.Drawing.Color.FromArgb(255, 243, 205)
+        Me.pnlRestockBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlRestockBar.Controls.Add(Me.btnRestock)
+        Me.pnlRestockBar.Controls.Add(Me.lblRestockHint)
+        Me.pnlRestockBar.Location = New System.Drawing.Point(15, 690)
+        Me.pnlRestockBar.Name = "pnlRestockBar"
+        Me.pnlRestockBar.Size = New System.Drawing.Size(1060, 55)
+        Me.pnlRestockBar.TabIndex = 5
+        '
+        'lblRestockHint
+        '
+        Me.lblRestockHint.AutoSize = True
+        Me.lblRestockHint.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Italic)
+        Me.lblRestockHint.ForeColor = System.Drawing.Color.FromArgb(150, 90, 0)
+        Me.lblRestockHint.Location = New System.Drawing.Point(15, 18)
+        Me.lblRestockHint.Name = "lblRestockHint"
+        Me.lblRestockHint.Size = New System.Drawing.Size(340, 19)
+        Me.lblRestockHint.TabIndex = 0
+        Me.lblRestockHint.Text = "⚠️ Some items are low on stock. Restock to add inventory."
+        '
+        'btnRestock
+        '
+        Me.btnRestock.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnRestock.BackColor = System.Drawing.Color.FromArgb(39, 174, 96)
+        Me.btnRestock.FlatAppearance.BorderSize = 0
+        Me.btnRestock.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnRestock.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.btnRestock.ForeColor = System.Drawing.Color.White
+        Me.btnRestock.Location = New System.Drawing.Point(860, 10)
+        Me.btnRestock.Name = "btnRestock"
+        Me.btnRestock.Size = New System.Drawing.Size(185, 34)
+        Me.btnRestock.TabIndex = 1
+        Me.btnRestock.Text = "🔄 Restock Low Stock"
+        Me.btnRestock.UseVisualStyleBackColor = False
+        '
         'pnlActions
         '
         Me.pnlActions.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlActions.Controls.Add(Me.btnAddHardware)
         Me.pnlActions.Controls.Add(Me.btnRefresh)
-        Me.pnlActions.Location = New System.Drawing.Point(15, 690)
+        Me.pnlActions.Location = New System.Drawing.Point(15, 755)
         Me.pnlActions.Name = "pnlActions"
         Me.pnlActions.Size = New System.Drawing.Size(1060, 50)
-        Me.pnlActions.TabIndex = 5
+        Me.pnlActions.TabIndex = 6
         '
         'btnAddHardware
         '
@@ -583,15 +626,15 @@ Partial Class DashboardControl
         Me.btnAddHardware.ForeColor = System.Drawing.Color.White
         Me.btnAddHardware.Location = New System.Drawing.Point(0, 8)
         Me.btnAddHardware.Name = "btnAddHardware"
-        Me.btnAddHardware.Size = New System.Drawing.Size(120, 35)
+        Me.btnAddHardware.Size = New System.Drawing.Size(130, 35)
         Me.btnAddHardware.TabIndex = 0
-        Me.btnAddHardware.Text = "➕ Add Item"
+        Me.btnAddHardware.Text = "📦 Go to Hardware"
         Me.btnAddHardware.UseVisualStyleBackColor = False
         '
         'btnRefresh
         '
         Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnRefresh.Location = New System.Drawing.Point(130, 8)
+        Me.btnRefresh.Location = New System.Drawing.Point(140, 8)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(100, 35)
         Me.btnRefresh.TabIndex = 1
@@ -606,7 +649,7 @@ Partial Class DashboardControl
         Me.Controls.Add(Me.pnlContainer)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Name = "DashboardControl"
-        Me.Size = New System.Drawing.Size(1100, 780)
+        Me.Size = New System.Drawing.Size(1100, 840)
         Me.pnlContainer.ResumeLayout(False)
         Me.pnlContainer.PerformLayout()
         Me.pnlApprovalNotification.ResumeLayout(False)
@@ -626,6 +669,8 @@ Partial Class DashboardControl
         Me.pnlActivity.ResumeLayout(False)
         Me.pnlLowStockGrid.ResumeLayout(False)
         CType(Me.dgvLowStock, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlRestockBar.ResumeLayout(False)
+        Me.pnlRestockBar.PerformLayout()
         Me.pnlActions.ResumeLayout(False)
         Me.ResumeLayout(False)
 
@@ -676,6 +721,9 @@ Partial Class DashboardControl
     Friend WithEvents pnlLowStockGrid As System.Windows.Forms.Panel
     Friend WithEvents lblLowStockGridTitle As System.Windows.Forms.Label
     Friend WithEvents dgvLowStock As System.Windows.Forms.DataGridView
+    Friend WithEvents pnlRestockBar As System.Windows.Forms.Panel
+    Friend WithEvents lblRestockHint As System.Windows.Forms.Label
+    Friend WithEvents btnRestock As System.Windows.Forms.Button
     Friend WithEvents pnlActions As System.Windows.Forms.Panel
     Friend WithEvents btnAddHardware As System.Windows.Forms.Button
     Friend WithEvents btnRefresh As System.Windows.Forms.Button
